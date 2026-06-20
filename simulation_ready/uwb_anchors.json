@@ -1,0 +1,109 @@
+[
+  {
+    "anchor_id": "ANCHOR_01",
+    "node_id": "3",
+    "placement_reason": "exit_node"
+  },
+  {
+    "anchor_id": "ANCHOR_02",
+    "node_id": "7",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_03",
+    "node_id": "12",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_04",
+    "node_id": "14",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_05",
+    "node_id": "15",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_06",
+    "node_id": "18",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_07",
+    "node_id": "21",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_08",
+    "node_id": "22",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_09",
+    "node_id": "25",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_10",
+    "node_id": "30",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_11",
+    "node_id": "31",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_12",
+    "node_id": "32",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_13",
+    "node_id": "34",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_14",
+    "node_id": "35",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_15",
+    "node_id": "36",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_16",
+    "node_id": "37",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_17",
+    "node_id": "40",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_18",
+    "node_id": "41",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_19",
+    "node_id": "43",
+    "placement_reason": "junction"
+  },
+  {
+    "anchor_id": "ANCHOR_20",
+    "node_id": "4",
+    "segment_id": "SEG_004",
+    "placement_reason": "chokepoint_segment"
+  },
+  {
+    "anchor_id": "ANCHOR_21",
+    "node_id": "36",
+    "segment_id": "SEG_047",
+    "placement_reason": "chokepoint_segment"
+  }
+]

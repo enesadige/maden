@@ -1,0 +1,31 @@
+{
+  "signature": "LASF",
+  "version": "1.2",
+  "header_size": 227,
+  "offset_to_points": 384,
+  "point_format": 3,
+  "record_length": 34,
+  "point_count": 316515628,
+  "scales": [
+    0.01,
+    0.01,
+    0.01
+  ],
+  "offsets": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mins": [
+    -77.31042007030919,
+    -122.64047902310267,
+    -6.064999999999941
+  ],
+  "maxs": [
+    389.66019306657836,
+    329.9989756112918,
+    5.595000000000027
+  ],
+  "path": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+  "size": "10.0 GB"
+}

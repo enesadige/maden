@@ -1,0 +1,31 @@
+.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+backend/.env
+db.sqlite3
+backend/db.sqlite3
+.pytest_cache/
+
+# Raw / heavy source data must stay outside git.
+*.las
+*.laz
+*.pcd
+*.e57
+*.bag
+*.zip
+*.7z
+*.tar
+*.tar.gz
+data_raw/
+backend/data_processed/raw/
+backend/data_processed/live/
+backend/data_processed/cache/
+runs/
+latest/
+logs/
+
+# Keep generated point samples local unless explicitly needed.
+processed/lidar_samples/*.npz

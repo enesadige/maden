@@ -1,0 +1,219 @@
+[
+  {
+    "sensor_id": "GAS_SENSOR_01",
+    "source_batch": "batch1.dat",
+    "sensor_reliability_score": 71.603,
+    "drift_warning": false,
+    "sensor_anomaly_score": 28.397,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch1.dat",
+      "rows_scanned": 445,
+      "class_counts": {
+        "1": 90,
+        "2": 98,
+        "3": 83,
+        "4": 30,
+        "5": 70,
+        "6": 74
+      },
+      "concentration_mean": 198.04494382022472,
+      "concentration_stdev": 224.18997886647907
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_02",
+    "source_batch": "batch10.dat",
+    "sensor_reliability_score": 65.0,
+    "drift_warning": true,
+    "sensor_anomaly_score": 35.0,
+    "interpretation": "drift/anomaly warning should reduce confidence",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch10.dat",
+      "rows_scanned": 3600,
+      "class_counts": {
+        "4": 600,
+        "3": 600,
+        "6": 600,
+        "2": 600,
+        "1": 600,
+        "5": 600
+      },
+      "concentration_mean": 241.05555555555554,
+      "concentration_stdev": 276.31739509309375
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_03",
+    "source_batch": "batch2.dat",
+    "sensor_reliability_score": 86.318,
+    "drift_warning": false,
+    "sensor_anomaly_score": 13.682,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch2.dat",
+      "rows_scanned": 1244,
+      "class_counts": {
+        "1": 164,
+        "2": 334,
+        "5": 532,
+        "4": 109,
+        "6": 5,
+        "3": 100
+      },
+      "concentration_mean": 181.282154340836,
+      "concentration_stdev": 108.01621538762866
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_01",
+    "source_batch": "batch3.dat",
+    "sensor_reliability_score": 90.346,
+    "drift_warning": false,
+    "sensor_anomaly_score": 9.654,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch3.dat",
+      "rows_scanned": 1586,
+      "class_counts": {
+        "1": 365,
+        "2": 490,
+        "4": 240,
+        "3": 216,
+        "5": 275
+      },
+      "concentration_mean": 151.89155107187895,
+      "concentration_stdev": 76.21704582100377
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_02",
+    "source_batch": "batch4.dat",
+    "sensor_reliability_score": 90.547,
+    "drift_warning": false,
+    "sensor_anomaly_score": 9.453,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch4.dat",
+      "rows_scanned": 161,
+      "class_counts": {
+        "1": 64,
+        "2": 43,
+        "4": 30,
+        "3": 12,
+        "5": 12
+      },
+      "concentration_mean": 165.527950310559,
+      "concentration_stdev": 74.63160038748667
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_03",
+    "source_batch": "batch5.dat",
+    "sensor_reliability_score": 90.968,
+    "drift_warning": false,
+    "sensor_anomaly_score": 9.032,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch5.dat",
+      "rows_scanned": 197,
+      "class_counts": {
+        "1": 28,
+        "2": 40,
+        "3": 20,
+        "4": 46,
+        "5": 63
+      },
+      "concentration_mean": 195.1776649746193,
+      "concentration_stdev": 71.30950010148658
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_01",
+    "source_batch": "batch6.dat",
+    "sensor_reliability_score": 91.054,
+    "drift_warning": false,
+    "sensor_anomaly_score": 8.946,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch6.dat",
+      "rows_scanned": 2300,
+      "class_counts": {
+        "2": 574,
+        "1": 514,
+        "3": 110,
+        "4": 29,
+        "5": 606,
+        "6": 467
+      },
+      "concentration_mean": 88.75217391304348,
+      "concentration_stdev": 70.62779667350406
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_02",
+    "source_batch": "batch7.dat",
+    "sensor_reliability_score": 89.708,
+    "drift_warning": false,
+    "sensor_anomaly_score": 10.292,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch7.dat",
+      "rows_scanned": 3613,
+      "class_counts": {
+        "1": 649,
+        "2": 662,
+        "4": 744,
+        "5": 630,
+        "6": 568,
+        "3": 360
+      },
+      "concentration_mean": 123.01037918627179,
+      "concentration_stdev": 81.24926588096623
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_03",
+    "source_batch": "batch8.dat",
+    "sensor_reliability_score": 92.72,
+    "drift_warning": false,
+    "sensor_anomaly_score": 7.28,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch8.dat",
+      "rows_scanned": 294,
+      "class_counts": {
+        "4": 33,
+        "5": 143,
+        "3": 40,
+        "6": 18,
+        "1": 30,
+        "2": 30
+      },
+      "concentration_mean": 67.15986394557824,
+      "concentration_stdev": 57.472459241905575
+    }
+  },
+  {
+    "sensor_id": "GAS_SENSOR_01",
+    "source_batch": "batch9.dat",
+    "sensor_reliability_score": 93.755,
+    "drift_warning": false,
+    "sensor_anomaly_score": 6.245,
+    "interpretation": "gas reading is considered reliable",
+    "batch_summary": {
+      "file": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch9.dat",
+      "rows_scanned": 470,
+      "class_counts": {
+        "5": 78,
+        "4": 75,
+        "6": 101,
+        "1": 61,
+        "2": 55,
+        "3": 100
+      },
+      "concentration_mean": 62.61702127659574,
+      "concentration_stdev": 49.303919405258576
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "dashboard": "/Users/enesdasci/Desktop/madenguard/dashboards/madenguard_dashboard.html",
+  "embedded_points": 80000,
+  "risk_records": 4410,
+  "emergency_status": "WORKER_INSIDE_HIGHEST_RISK_SEGMENT_STRESS_TEST",
+  "raw_las_policy": "raw LAS was not embedded or copied"
+}

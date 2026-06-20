@@ -1,0 +1,1007 @@
+{
+  "source_roots": [
+    "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+    "/Volumes/enes/MadenGuardAI",
+    "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001",
+    "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003",
+    "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001"
+  ],
+  "expected_status": {
+    "mediumres_las": {
+      "label": "DARPA MediumRes LAS",
+      "path": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+      "exists": true,
+      "size": "10.0 GB"
+    },
+    "graph_ex_edgelist": {
+      "label": "DARPA EX graph",
+      "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/ex_edgelist.csv",
+      "exists": true,
+      "size": "612 B"
+    },
+    "graph_sr_edgelist": {
+      "label": "DARPA SR graph",
+      "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/sr_edgelist.csv",
+      "exists": true,
+      "size": "1.0 KB"
+    },
+    "methane_csv": {
+      "label": "Methane CSV",
+      "path": "/Volumes/enes/MadenGuardAI/Mendeley_Methane_CoalMine-20260619T175740Z-3-001/Mendeley_Methane_CoalMine/openml_mirror/methane_openml_42701.csv",
+      "exists": true,
+      "size": "1.2 GB"
+    },
+    "uci_gas_drift_dir": {
+      "label": "UCI Gas Drift directory",
+      "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset",
+      "exists": true,
+      "size": null
+    },
+    "uwb_csv": {
+      "label": "UTIL UWB selected CSV",
+      "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const1/const1-trial5-tdoa2.csv",
+      "exists": true,
+      "size": "26.3 MB"
+    },
+    "tunnel_map_png": {
+      "label": "DARPA tunnel map image",
+      "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/img/tunnel_map.png",
+      "exists": true,
+      "size": "1.1 MB"
+    }
+  },
+  "files_by_extension": {
+    ".las": [
+      {
+        "path": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+        "size_bytes": 10761531736,
+        "size": "10.0 GB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/preview_every_50.las",
+        "size_bytes": 215231026,
+        "size": "205.3 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_001.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_002.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_003.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_004.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_005.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_006.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_007.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_008.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_009.las",
+        "size_bytes": 340000384,
+        "size": "324.2 MB"
+      }
+    ],
+    ".csv": [
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Mendeley_Methane_CoalMine-20260619T175740Z-3-001/Mendeley_Methane_CoalMine/openml_mirror/methane_openml_42701.csv",
+        "size_bytes": 1297076733,
+        "size": "1.2 GB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const1/const1-trial5-tdoa2.csv",
+        "size_bytes": 27527632,
+        "size": "26.3 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const2/const2-trial1-tdoa2.csv",
+        "size_bytes": 27222786,
+        "size": "26.0 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const2/const2-trial3-tdoa2.csv",
+        "size_bytes": 28366092,
+        "size": "27.1 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const2/const2-trial4-tdoa3.csv",
+        "size_bytes": 26664344,
+        "size": "25.4 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const2/const2-trial6-tdoa2.csv",
+        "size_bytes": 27898777,
+        "size": "26.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const3/const3-trial7-tdoa3-manual4.csv",
+        "size_bytes": 34514515,
+        "size": "32.9 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial1-tdoa2-traj2.csv",
+        "size_bytes": 28901661,
+        "size": "27.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial1-tdoa3-traj3.csv",
+        "size_bytes": 27508636,
+        "size": "26.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial3-tdoa2-traj1.csv",
+        "size_bytes": 27805278,
+        "size": "26.5 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial3-tdoa2-traj2.csv",
+        "size_bytes": 27785577,
+        "size": "26.5 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial3-tdoa2-traj3.csv",
+        "size_bytes": 28159443,
+        "size": "26.9 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial3-tdoa3-traj3.csv",
+        "size_bytes": 27331760,
+        "size": "26.1 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial4-tdoa2-traj1.csv",
+        "size_bytes": 27562278,
+        "size": "26.3 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial5-tdoa2-traj1.csv",
+        "size_bytes": 27784351,
+        "size": "26.5 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const4/const4-trial7-tdoa2-manual2.csv",
+        "size_bytes": 25588797,
+        "size": "24.4 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/angleTest/angleT3/angleT3_data.csv",
+        "size_bytes": 506128,
+        "size": "494.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/angleTest/angleT4/angleT4_data.csv",
+        "size_bytes": 505067,
+        "size": "493.2 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/angleTest/angleT7/angleT7_data.csv",
+        "size_bytes": 506923,
+        "size": "495.0 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/angleTest/angleT9/angleT9_data.csv",
+        "size_bytes": 511498,
+        "size": "499.5 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/distTest/distT10/distT10_data.csv",
+        "size_bytes": 488765,
+        "size": "477.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/distTest/distT11/distT11_data.csv",
+        "size_bytes": 502209,
+        "size": "490.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/distTest/distT12/distT12_data.csv",
+        "size_bytes": 501671,
+        "size": "489.9 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/distTest/distT3/distT3_data.csv",
+        "size_bytes": 485566,
+        "size": "474.2 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/los/distTest/distT6/distT6_data.csv",
+        "size_bytes": 486382,
+        "size": "475.0 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/cardboard/data2/cardboard-anAn-data2_data.csv",
+        "size_bytes": 502358,
+        "size": "490.6 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/cardboard/data3/cardboard-anAn-data3_data.csv",
+        "size_bytes": 504198,
+        "size": "492.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/foam/data1/foam-anAn-data1_data.csv",
+        "size_bytes": 501152,
+        "size": "489.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/foam/data2/foam-anAn-data2_data.csv",
+        "size_bytes": 502070,
+        "size": "490.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/foam/data4/foam-anAn-data4_data.csv",
+        "size_bytes": 492162,
+        "size": "480.6 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/foam/data5/foam-anAn-data5_data.csv",
+        "size_bytes": 503098,
+        "size": "491.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/foam/data6/foam-anAn-data6_data.csv",
+        "size_bytes": 505134,
+        "size": "493.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/metal/data2/metal-anAn-data2_data.csv",
+        "size_bytes": 506113,
+        "size": "494.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/metal/data3/metal-anAn-data3_data.csv",
+        "size_bytes": 493732,
+        "size": "482.2 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/metal/data4/metal-anAn-data4_data.csv",
+        "size_bytes": 503536,
+        "size": "491.7 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/plastic/data2/plastic-anAn-data2_data.csv",
+        "size_bytes": 513592,
+        "size": "501.6 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/plastic/data3/plastic-anAn-data3_data.csv",
+        "size_bytes": 514072,
+        "size": "502.0 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/plastic/data4/plastic-anAn-data4_data.csv",
+        "size_bytes": 511379,
+        "size": "499.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-cabinet/data1/wooden-cabinet-anAn-data1_data.csv",
+        "size_bytes": 508323,
+        "size": "496.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-cabinet/data3/wooden-cabinet-anAn-data3_data.csv",
+        "size_bytes": 505224,
+        "size": "493.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-cabinet/data4/wooden-cabinet-anAn-data4_data.csv",
+        "size_bytes": 506509,
+        "size": "494.6 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-cabinet/data5/wooden-cabinet-anAn-data5_data.csv",
+        "size_bytes": 504979,
+        "size": "493.1 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-shelf/data2/wooden-shelf-anAn-data2_data.csv",
+        "size_bytes": 498681,
+        "size": "487.0 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-shelf/data4/wooden-shelf-anAn-data4_data.csv",
+        "size_bytes": 500071,
+        "size": "488.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-shelf/data5/wooden-shelf-anAn-data5_data.csv",
+        "size_bytes": 504417,
+        "size": "492.6 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anAn/wooden-shelf/data6/wooden-shelf-anAn-data6_data.csv",
+        "size_bytes": 502126,
+        "size": "490.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/cardboard/data3/cardboard-anTag-data3_data.csv",
+        "size_bytes": 505246,
+        "size": "493.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/cardboard/data6/cardboard-anTag-data6_data.csv",
+        "size_bytes": 500745,
+        "size": "489.0 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/foam/data1/foam-anTag-data1_data.csv",
+        "size_bytes": 502630,
+        "size": "490.8 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/wooden-cabinet/data2/wooden-cabinet-anTag-data2_data.csv",
+        "size_bytes": 498962,
+        "size": "487.3 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/wooden-cabinet/data5/wooden-cabinet-anTag-data5_data.csv",
+        "size_bytes": 503700,
+        "size": "491.9 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/wooden-shelf/data1/wooden-shelf-anTag-data1_data.csv",
+        "size_bytes": 503279,
+        "size": "491.5 KB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/identification-dataset/nlos/anTag/wooden-shelf/data6/wooden-shelf-anTag-data6_data.csv",
+        "size_bytes": 497841,
+        "size": "486.2 KB"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/sr_edgelist.csv",
+        "size_bytes": 1075,
+        "size": "1.0 KB"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/sr_edgelist_nodata.csv",
+        "size_bytes": 518,
+        "size": "518 B"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/ex_edgelist.csv",
+        "size_bytes": 612,
+        "size": "612 B"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/ex_edgelist_nodata.csv",
+        "size_bytes": 275,
+        "size": "275 B"
+      }
+    ],
+    ".json": [
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Mendeley_Methane_CoalMine-20260619T175740Z-3-001/Mendeley_Methane_CoalMine/openml_mirror/methane_openml_42701_metadata.json",
+        "size_bytes": 623,
+        "size": "623 B"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/las_summary.json",
+        "size_bytes": 863,
+        "size": "863 B"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/manifest.json",
+        "size_bytes": 15899,
+        "size": "15.5 KB"
+      },
+      {
+        "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/validation_summary.json",
+        "size_bytes": 1446,
+        "size": "1.4 KB"
+      }
+    ],
+    ".dat": [
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch1.dat",
+        "size_bytes": 757889,
+        "size": "740.1 KB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch10.dat",
+        "size_bytes": 6086679,
+        "size": "5.8 MB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch2.dat",
+        "size_bytes": 2134300,
+        "size": "2.0 MB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch3.dat",
+        "size_bytes": 2725224,
+        "size": "2.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch4.dat",
+        "size_bytes": 278400,
+        "size": "271.9 KB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch5.dat",
+        "size_bytes": 341379,
+        "size": "333.4 KB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch6.dat",
+        "size_bytes": 3928247,
+        "size": "3.7 MB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch7.dat",
+        "size_bytes": 6159116,
+        "size": "5.9 MB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch8.dat",
+        "size_bytes": 495298,
+        "size": "483.7 KB"
+      },
+      {
+        "path": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset/batch9.dat",
+        "size_bytes": 791293,
+        "size": "772.7 KB"
+      }
+    ],
+    ".bag": [
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const1/const1-trial1-tdoa3.bag",
+        "size_bytes": 84509573,
+        "size": "80.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const1/const1-trial4-tdoa2.bag",
+        "size_bytes": 85161152,
+        "size": "81.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const1/const1-trial4-tdoa3.bag",
+        "size_bytes": 83241466,
+        "size": "79.4 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const1/const1-trial6-tdoa2.bag",
+        "size_bytes": 84862062,
+        "size": "80.9 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const1/const1-trial6-tdoa3.bag",
+        "size_bytes": 83916458,
+        "size": "80.0 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const2/const2-trial1-tdoa3.bag",
+        "size_bytes": 86876818,
+        "size": "82.9 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const2/const2-trial4-tdoa3.bag",
+        "size_bytes": 85141542,
+        "size": "81.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const2/const2-trial5-tdoa2.bag",
+        "size_bytes": 87805778,
+        "size": "83.7 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const2/const2-trial5-tdoa3.bag",
+        "size_bytes": 84229606,
+        "size": "80.3 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial1-tdoa3.bag",
+        "size_bytes": 83525476,
+        "size": "79.7 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial2-tdoa3.bag",
+        "size_bytes": 70776722,
+        "size": "67.5 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial3-tdoa3.bag",
+        "size_bytes": 68880080,
+        "size": "65.7 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial4-tdoa2.bag",
+        "size_bytes": 88679888,
+        "size": "84.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial4-tdoa3.bag",
+        "size_bytes": 83652268,
+        "size": "79.8 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial5-tdoa3.bag",
+        "size_bytes": 84088363,
+        "size": "80.2 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const3/const3-trial6-tdoa2.bag",
+        "size_bytes": 87660868,
+        "size": "83.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const4/const4-trial2-tdoa3-traj3.bag",
+        "size_bytes": 86137122,
+        "size": "82.1 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const4/const4-trial4-tdoa3-traj1.bag",
+        "size_bytes": 85326588,
+        "size": "81.4 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const4/const4-trial5-tdoa2-traj2.bag",
+        "size_bytes": 87627935,
+        "size": "83.6 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const4/const4-trial5-tdoa3-traj2.bag",
+        "size_bytes": 85958494,
+        "size": "82.0 MB"
+      },
+      {
+        "path": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/rosbag-data/const4/const4-trial6-tdoa3-traj3.bag",
+        "size_bytes": 86175686,
+        "size": "82.2 MB"
+      }
+    ],
+    ".png": [
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/img/sr_network.png",
+        "size_bytes": 147793,
+        "size": "144.3 KB"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/img/tunnel_map.png",
+        "size_bytes": 1166407,
+        "size": "1.1 MB"
+      },
+      {
+        "path": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/img/ex_network.png",
+        "size_bytes": 135755,
+        "size": "132.6 KB"
+      }
+    ]
+  },
+  "large_files": [
+    {
+      "path": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+      "size_bytes": 10761531736,
+      "size": "10.0 GB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Mendeley_Methane_CoalMine-20260619T175740Z-3-001/Mendeley_Methane_CoalMine/openml_mirror/methane_openml_42701.csv",
+      "size_bytes": 1297076733,
+      "size": "1.2 GB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_001.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_002.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_003.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_004.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_005.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_006.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_007.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_008.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_009.las",
+      "size_bytes": 340000384,
+      "size": "324.2 MB"
+    },
+    {
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/preview_every_50.las",
+      "size_bytes": 215231026,
+      "size": "205.3 MB"
+    }
+  ],
+  "las_headers": [
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 316515628,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -77.31042007030919,
+        -122.64047902310267,
+        -6.064999999999941
+      ],
+      "maxs": [
+        389.66019306657836,
+        329.9989756112918,
+        5.595000000000027
+      ],
+      "path": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+      "size": "10.0 GB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 6330313,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -76.25,
+        -113.31,
+        -6.01
+      ],
+      "maxs": [
+        389.62,
+        328.05,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/preview_every_50.las",
+      "size": "205.3 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -32.22,
+        -21.48,
+        -2.25
+      ],
+      "maxs": [
+        378.7,
+        59.74,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_001.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -31.5,
+        -11.77,
+        -0.53
+      ],
+      "maxs": [
+        379.53000000000003,
+        9.55,
+        5.23
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_002.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -30.85,
+        -17.31,
+        -0.51
+      ],
+      "maxs": [
+        379.75,
+        239.31,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_003.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -30.37,
+        -10.18,
+        -0.41000000000000003
+      ],
+      "maxs": [
+        347.92,
+        18.31,
+        5.41
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_004.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        18.2,
+        -18.12,
+        1.07
+      ],
+      "maxs": [
+        380.16,
+        18.38,
+        5.42
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_005.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -7.5600000000000005,
+        -14.89,
+        0.04
+      ],
+      "maxs": [
+        380.96,
+        61.07,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_006.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -25.1,
+        -38.27,
+        -2.2600000000000002
+      ],
+      "maxs": [
+        389.66,
+        5.43,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_007.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -23.580000000000002,
+        -18.17,
+        -2.25
+      ],
+      "maxs": [
+        300.07,
+        6.54,
+        5.6000000000000005
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_008.las",
+      "size": "324.2 MB"
+    },
+    {
+      "signature": "LASF",
+      "version": "1.2",
+      "header_size": 227,
+      "offset_to_points": 384,
+      "point_format": 3,
+      "record_length": 34,
+      "point_count": 10000000,
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mins": [
+        -23.94,
+        -18.62,
+        -0.35000000000000003
+      ],
+      "maxs": [
+        370.6,
+        1.7,
+        5.18
+      ],
+      "path": "/Volumes/enes/MadenGuardAI/Tunnel_Circuit_LAS_Work/chunks_10m/tile_009.las",
+      "size": "324.2 MB"
+    }
+  ],
+  "notes": [
+    "External flash disk is used as raw data source; raw data is not copied into project.",
+    "FullRes LAS is intentionally absent; MediumRes LAS is the active point cloud source.",
+    "Downloads pointcloud directory is not used because the real LAS file is on the flash disk."
+  ]
+}

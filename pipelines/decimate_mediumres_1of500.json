@@ -1,0 +1,11 @@
+[
+  "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+  {
+    "type": "filters.decimation",
+    "step": 500
+  },
+  {
+    "type": "writers.las",
+    "filename": "/Users/enesdasci/MadenGuard/processed/lidar_samples/mediumres_decimated_1of500.las"
+  }
+]

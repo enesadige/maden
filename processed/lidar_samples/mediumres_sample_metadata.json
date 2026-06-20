@@ -1,0 +1,58 @@
+{
+  "source_file": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+  "source_size_bytes": 10761531736,
+  "source_size": "10.0 GB",
+  "created_at": "2026-06-19T21:25:08.713492+00:00",
+  "samples": [
+    {
+      "target_point_count": 250000,
+      "sampled_point_count": 250000,
+      "output": "/Users/enesdasci/MadenGuard/processed/lidar_samples/mediumres_sample_250k.npz",
+      "output_size": "1.2 MB",
+      "bounds": {
+        "mins": [
+          -56.72,
+          -44.76,
+          -4.61
+        ],
+        "maxs": [
+          387.97,
+          318.12,
+          5.6000000000000005
+        ]
+      },
+      "las_header": {
+        "signature": "LASF",
+        "version": "1.2",
+        "header_size": 227,
+        "offset_to_points": 384,
+        "point_format": 3,
+        "record_length": 34,
+        "point_count": 316515628,
+        "scales": [
+          0.01,
+          0.01,
+          0.01
+        ],
+        "offsets": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mins": [
+          -77.31042007030919,
+          -122.64047902310267,
+          -6.064999999999941
+        ],
+        "maxs": [
+          389.66019306657836,
+          329.9989756112918,
+          5.595000000000027
+        ],
+        "sampled_point_count": 250000,
+        "sampling_method": "windowed_distributed_sample_100_windows_2500_records_each"
+      }
+    }
+  ],
+  "safety": "Uses direct record seeking; never calls las.read() or loads full LAS into memory."
+}

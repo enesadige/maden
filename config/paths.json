@@ -1,0 +1,30 @@
+{
+  "project_name": "MadenGuard AI",
+  "project_root": "/Users/enesdasci/Desktop/madenguard",
+  "source_roots": [
+    "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+    "/Volumes/enes/MadenGuardAI",
+    "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001",
+    "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003",
+    "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001"
+  ],
+  "paths": {
+    "mediumres_las": "/Volumes/enes/Tunnel_Circuit_MediumRes_Scan_EX_Frame.las",
+    "graph_ex_edgelist": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/ex_edgelist.csv",
+    "graph_sr_edgelist": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/data/sr_edgelist.csv",
+    "methane_csv": "/Volumes/enes/MadenGuardAI/Mendeley_Methane_CoalMine-20260619T175740Z-3-001/Mendeley_Methane_CoalMine/openml_mirror/methane_openml_42701.csv",
+    "uci_gas_drift_dir": "/Volumes/enes/UCI_Gas_Sensor_Drift-20260619T175738Z-3-001/UCI_Gas_Sensor_Drift/extracted_dataset",
+    "uwb_csv": "/Volumes/enes/UTIL_UWB-20260619T173659Z-3-003/UTIL_UWB/original_dataset/extracted_dataset/dataset/flight-dataset/csv-data/const1/const1-trial5-tdoa2.csv",
+    "tunnel_map_png": "/Users/enesdasci/Downloads/drive-download-20260619T202713Z-3-001/ground_truth_repo/systems_tunnel_ground_truth/network/img/tunnel_map.png"
+  },
+  "runtime": {
+    "exit_node": "3",
+    "lidar_sample_targets": [250000],
+    "dashboard_point_limit": 80000,
+    "geometry_slice_count": 49,
+    "max_uwb_rows": 120000,
+    "worker_timeline_steps": 90,
+    "max_methane_rows": 200000,
+    "gas_timeline_steps": 90
+  }
+}

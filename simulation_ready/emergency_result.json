@@ -1,0 +1,25 @@
+{
+  "time_step": 6,
+  "worker_id": "WORKER_01",
+  "worker_segment": "SEG_047",
+  "blocked_segment": "SEG_047",
+  "exit_node": "3",
+  "exit_reachable_after_blockage": false,
+  "alternative_route_to_exit": null,
+  "emergency_status": "WORKER_INSIDE_HIGHEST_RISK_SEGMENT_STRESS_TEST",
+  "scenario_basis": "no_critical_segment_detected_in_local_safe_pass",
+  "event": {
+    "time_step": 6,
+    "event_type": "HIGHEST_RISK_SEGMENT_ROUTE_STRESS_TEST",
+    "segment_id": "SEG_047",
+    "risk_level": "MEDIUM",
+    "final_segment_risk": 58.528,
+    "reason_breakdown": {
+      "lidar": "LiDAR geometry risk 54.7",
+      "graph": "Graph blocking risk 44.7",
+      "gas": "Methane risk 81.2, confidence-adjusted 52.8",
+      "worker": "worker is inside this segment"
+    },
+    "scenario_basis": "no_critical_segment_detected_in_local_safe_pass"
+  }
+}
