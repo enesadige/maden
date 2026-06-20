@@ -1,0 +1,3509 @@
+[
+  {
+    "segment_id": "S001",
+    "geometry_risk": 35,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.7812,
+      "exit_distance_risk": 0.6954,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 2.08,
+      "width_m": 1.75,
+      "height_m": 0.51,
+      "distance_to_nearest_exit_m": 193.24,
+      "point_density": 0.4864
+    }
+  },
+  {
+    "segment_id": "S002",
+    "geometry_risk": 25,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.3225,
+      "exit_distance_risk": 0.6726,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9999
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 10.9,
+      "width_m": 5.42,
+      "height_m": 1.0,
+      "distance_to_nearest_exit_m": 186.904,
+      "point_density": 3.9648
+    }
+  },
+  {
+    "segment_id": "S003",
+    "geometry_risk": 28,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.5463,
+      "exit_distance_risk": 0.5872,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 7.51,
+      "width_m": 3.63,
+      "height_m": 0.73,
+      "distance_to_nearest_exit_m": 163.183,
+      "point_density": 0.7904
+    }
+  },
+  {
+    "segment_id": "S004",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4047,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9999
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 15.79,
+      "width_m": 8.56,
+      "height_m": 1.62,
+      "distance_to_nearest_exit_m": 112.475,
+      "point_density": 4.8512
+    }
+  },
+  {
+    "segment_id": "S005",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.9675,
+      "exit_distance_risk": 0.3225,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 4.23,
+      "width_m": 0.26,
+      "height_m": 0.23,
+      "distance_to_nearest_exit_m": 89.625,
+      "point_density": 0.0064
+    }
+  },
+  {
+    "segment_id": "S006",
+    "geometry_risk": 57,
+    "risk_level": "medium",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Tek baglantili segment",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.8388,
+      "exit_distance_risk": 0.0,
+      "single_connection_risk": 1.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 1,
+      "length_m": 4.87,
+      "width_m": 1.29,
+      "height_m": 0.58,
+      "distance_to_nearest_exit_m": 0.0,
+      "point_density": 0.1152
+    }
+  },
+  {
+    "segment_id": "S007",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.8175,
+      "exit_distance_risk": 0.46,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 2.59,
+      "width_m": 1.46,
+      "height_m": 0.71,
+      "distance_to_nearest_exit_m": 127.839,
+      "point_density": 0.9152
+    }
+  },
+  {
+    "segment_id": "S008",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5097,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.998
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 15.36,
+      "height_m": 2.4,
+      "distance_to_nearest_exit_m": 141.642,
+      "point_density": 79.7936
+    }
+  },
+  {
+    "segment_id": "S009",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5477,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9968
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 21.41,
+      "width_m": 19.92,
+      "height_m": 1.22,
+      "distance_to_nearest_exit_m": 152.209,
+      "point_density": 129.776
+    }
+  },
+  {
+    "segment_id": "S010",
+    "geometry_risk": 23,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.2687,
+      "exit_distance_risk": 0.6322,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 17.62,
+      "width_m": 5.85,
+      "height_m": 0.14,
+      "distance_to_nearest_exit_m": 175.677,
+      "point_density": 0.0144
+    }
+  },
+  {
+    "segment_id": "S011",
+    "geometry_risk": 19,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6927,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9999
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.37,
+      "width_m": 17.19,
+      "height_m": 0.81,
+      "distance_to_nearest_exit_m": 192.503,
+      "point_density": 5.184
+    }
+  },
+  {
+    "segment_id": "S012",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6165,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9431
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.1,
+      "distance_to_nearest_exit_m": 171.33,
+      "point_density": 2323.0256
+    }
+  },
+  {
+    "segment_id": "S013",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5266,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9989
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.95,
+      "height_m": 3.89,
+      "distance_to_nearest_exit_m": 146.33,
+      "point_density": 44.4912
+    }
+  },
+  {
+    "segment_id": "S014",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4352,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9996
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 16.25,
+      "height_m": 1.84,
+      "distance_to_nearest_exit_m": 120.932,
+      "point_density": 17.5424
+    }
+  },
+  {
+    "segment_id": "S015",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3436,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.999
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 3.58,
+      "distance_to_nearest_exit_m": 95.5,
+      "point_density": 39.3536
+    }
+  },
+  {
+    "segment_id": "S016",
+    "geometry_risk": 10,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2536,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9987
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.07,
+      "height_m": 2.94,
+      "distance_to_nearest_exit_m": 70.478,
+      "point_density": 53.7712
+    }
+  },
+  {
+    "segment_id": "S017",
+    "geometry_risk": 26,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.8738,
+      "exit_distance_risk": 0.1913,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 1.11,
+      "width_m": 1.01,
+      "height_m": 0.13,
+      "distance_to_nearest_exit_m": 53.169,
+      "point_density": 0.1184
+    }
+  },
+  {
+    "segment_id": "S018",
+    "geometry_risk": 26,
+    "risk_level": "low",
+    "reasons": [
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.048,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.9979
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 22.94,
+      "height_m": 1.48,
+      "distance_to_nearest_exit_m": 13.343,
+      "point_density": 86.3792
+    }
+  },
+  {
+    "segment_id": "S019",
+    "geometry_risk": 7,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1143,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9995
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 19.85,
+      "width_m": 13.5,
+      "height_m": 1.39,
+      "distance_to_nearest_exit_m": 31.755,
+      "point_density": 20.1584
+    }
+  },
+  {
+    "segment_id": "S020",
+    "geometry_risk": 11,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3129,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9993
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 20.2,
+      "width_m": 11.93,
+      "height_m": 3.58,
+      "distance_to_nearest_exit_m": 86.958,
+      "point_density": 30.168
+    }
+  },
+  {
+    "segment_id": "S021",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3976,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8999
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.47,
+      "distance_to_nearest_exit_m": 110.494,
+      "point_density": 4085.4944
+    }
+  },
+  {
+    "segment_id": "S022",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4369,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9632
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.85,
+      "distance_to_nearest_exit_m": 121.415,
+      "point_density": 1500.7248
+    }
+  },
+  {
+    "segment_id": "S023",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4666,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8784
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.02,
+      "distance_to_nearest_exit_m": 129.656,
+      "point_density": 4964.9552
+    }
+  },
+  {
+    "segment_id": "S024",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5539,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9905
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.66,
+      "height_m": 1.34,
+      "distance_to_nearest_exit_m": 153.928,
+      "point_density": 387.1728
+    }
+  },
+  {
+    "segment_id": "S025",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6372,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9935
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.1,
+      "distance_to_nearest_exit_m": 177.09,
+      "point_density": 267.04
+    }
+  },
+  {
+    "segment_id": "S026",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6796,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.928
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.99,
+      "height_m": 5.1,
+      "distance_to_nearest_exit_m": 188.854,
+      "point_density": 2937.456
+    }
+  },
+  {
+    "segment_id": "S027",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5896,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9988
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 5.44,
+      "distance_to_nearest_exit_m": 163.849,
+      "point_density": 49.9776
+    }
+  },
+  {
+    "segment_id": "S028",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4996,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9997
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.97,
+      "height_m": 6.03,
+      "distance_to_nearest_exit_m": 138.849,
+      "point_density": 13.1344
+    }
+  },
+  {
+    "segment_id": "S029",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4093,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9994
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 21.31,
+      "height_m": 4.26,
+      "distance_to_nearest_exit_m": 113.741,
+      "point_density": 24.8688
+    }
+  },
+  {
+    "segment_id": "S030",
+    "geometry_risk": 11,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3191,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9963
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 5.89,
+      "distance_to_nearest_exit_m": 88.672,
+      "point_density": 149.2576
+    }
+  },
+  {
+    "segment_id": "S031",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2291,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9098
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.67,
+      "height_m": 7.74,
+      "distance_to_nearest_exit_m": 63.656,
+      "point_density": 3682.6624
+    }
+  },
+  {
+    "segment_id": "S032",
+    "geometry_risk": 8,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1391,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9862
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 7.56,
+      "distance_to_nearest_exit_m": 38.655,
+      "point_density": 561.848
+    }
+  },
+  {
+    "segment_id": "S033",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1985,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9991
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 24.3,
+      "height_m": 8.21,
+      "distance_to_nearest_exit_m": 55.172,
+      "point_density": 38.2112
+    }
+  },
+  {
+    "segment_id": "S034",
+    "geometry_risk": 50,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.165,
+      "exit_distance_risk": 0.0828,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 12.2,
+      "width_m": 6.68,
+      "height_m": 0.17,
+      "distance_to_nearest_exit_m": 23.019,
+      "point_density": 0.0528
+    }
+  },
+  {
+    "segment_id": "S035",
+    "geometry_risk": 48,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1533,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 23.83,
+      "width_m": 15.4,
+      "height_m": 1.12,
+      "distance_to_nearest_exit_m": 42.596,
+      "point_density": 0.84
+    }
+  },
+  {
+    "segment_id": "S036",
+    "geometry_risk": 30,
+    "risk_level": "low",
+    "reasons": [
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2448,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.9984
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.77,
+      "height_m": 4.28,
+      "distance_to_nearest_exit_m": 68.026,
+      "point_density": 66.8928
+    }
+  },
+  {
+    "segment_id": "S037",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3344,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9797
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 5.93,
+      "distance_to_nearest_exit_m": 92.931,
+      "point_density": 827.7536
+    }
+  },
+  {
+    "segment_id": "S038",
+    "geometry_risk": 7,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3463,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.0
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 7.63,
+      "distance_to_nearest_exit_m": 96.247,
+      "point_density": 40824.3104
+    }
+  },
+  {
+    "segment_id": "S039",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3758,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9016
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 6.52,
+      "distance_to_nearest_exit_m": 104.449,
+      "point_density": 4016.6576
+    }
+  },
+  {
+    "segment_id": "S040",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4659,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9092
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 6.26,
+      "distance_to_nearest_exit_m": 129.467,
+      "point_density": 3705.9312
+    }
+  },
+  {
+    "segment_id": "S041",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5466,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.5923
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 6.85,
+      "distance_to_nearest_exit_m": 151.902,
+      "point_density": 16644.248
+    }
+  },
+  {
+    "segment_id": "S042",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6366,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9968
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.97,
+      "width_m": 19.11,
+      "height_m": 7.2,
+      "distance_to_nearest_exit_m": 176.907,
+      "point_density": 130.9376
+    }
+  },
+  {
+    "segment_id": "S043",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6218,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9998
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.82,
+      "width_m": 12.2,
+      "height_m": 3.47,
+      "distance_to_nearest_exit_m": 172.8,
+      "point_density": 7.6848
+    }
+  },
+  {
+    "segment_id": "S044",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.7413,
+      "exit_distance_risk": 0.5572,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 9.05,
+      "width_m": 2.07,
+      "height_m": 0.6,
+      "distance_to_nearest_exit_m": 154.845,
+      "point_density": 0.0256
+    }
+  },
+  {
+    "segment_id": "S045",
+    "geometry_risk": 23,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.4413,
+      "exit_distance_risk": 0.4539,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 5.35,
+      "width_m": 4.47,
+      "height_m": 2.81,
+      "distance_to_nearest_exit_m": 126.153,
+      "point_density": 1.1088
+    }
+  },
+  {
+    "segment_id": "S046",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3984,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.995
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 18.17,
+      "height_m": 5.08,
+      "distance_to_nearest_exit_m": 110.705,
+      "point_density": 206.0928
+    }
+  },
+  {
+    "segment_id": "S047",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3195,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4453
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.6,
+      "distance_to_nearest_exit_m": 88.777,
+      "point_density": 22644.4112
+    }
+  },
+  {
+    "segment_id": "S048",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.23,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.832
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 5.27,
+      "distance_to_nearest_exit_m": 63.916,
+      "point_density": 6857.608
+    }
+  },
+  {
+    "segment_id": "S049",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.2013,
+      "exit_distance_risk": 0.2574,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9995
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 21.3,
+      "width_m": 6.39,
+      "height_m": 3.04,
+      "distance_to_nearest_exit_m": 71.526,
+      "point_density": 21.9488
+    }
+  },
+  {
+    "segment_id": "S050",
+    "geometry_risk": 57,
+    "risk_level": "medium",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Tek baglantili segment",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.8362,
+      "exit_distance_risk": 0.0,
+      "single_connection_risk": 1.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 1,
+      "length_m": 1.71,
+      "width_m": 1.31,
+      "height_m": 0.63,
+      "distance_to_nearest_exit_m": 0.0,
+      "point_density": 0.0224
+    }
+  },
+  {
+    "segment_id": "S051",
+    "geometry_risk": 46,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.0392,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 19.31,
+      "width_m": 8.18,
+      "height_m": 1.45,
+      "distance_to_nearest_exit_m": 10.902,
+      "point_density": 0.3536
+    }
+  },
+  {
+    "segment_id": "S052",
+    "geometry_risk": 11,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3123,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9996
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 14.32,
+      "width_m": 10.56,
+      "height_m": 2.03,
+      "distance_to_nearest_exit_m": 86.777,
+      "point_density": 16.7248
+    }
+  },
+  {
+    "segment_id": "S053",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3579,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9979
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.88,
+      "width_m": 8.24,
+      "height_m": 1.94,
+      "distance_to_nearest_exit_m": 99.462,
+      "point_density": 85.4544
+    }
+  },
+  {
+    "segment_id": "S054",
+    "geometry_risk": 8,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2559,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.5852
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 18.76,
+      "height_m": 5.1,
+      "distance_to_nearest_exit_m": 71.128,
+      "point_density": 16932.0816
+    }
+  },
+  {
+    "segment_id": "S055",
+    "geometry_risk": 19,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.3825,
+      "exit_distance_risk": 0.3211,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9689
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 23.85,
+      "width_m": 4.94,
+      "height_m": 1.12,
+      "distance_to_nearest_exit_m": 89.222,
+      "point_density": 1269.096
+    }
+  },
+  {
+    "segment_id": "S056",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0263,
+      "exit_distance_risk": 0.4091,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.996
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 7.79,
+      "height_m": 2.31,
+      "distance_to_nearest_exit_m": 113.701,
+      "point_density": 164.6384
+    }
+  },
+  {
+    "segment_id": "S057",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4844,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9888
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 16.82,
+      "width_m": 8.23,
+      "height_m": 2.03,
+      "distance_to_nearest_exit_m": 134.618,
+      "point_density": 456.5136
+    }
+  },
+  {
+    "segment_id": "S058",
+    "geometry_risk": 10,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3782,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4166
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 10.37,
+      "height_m": 3.39,
+      "distance_to_nearest_exit_m": 105.113,
+      "point_density": 23815.632
+    }
+  },
+  {
+    "segment_id": "S059",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.4662,
+      "exit_distance_risk": 0.3245,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.765
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 4.27,
+      "height_m": 3.14,
+      "distance_to_nearest_exit_m": 90.19,
+      "point_density": 9594.4288
+    }
+  },
+  {
+    "segment_id": "S060",
+    "geometry_risk": 7,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.166,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7085
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 20.74,
+      "height_m": 5.14,
+      "distance_to_nearest_exit_m": 46.119,
+      "point_density": 11902.272
+    }
+  },
+  {
+    "segment_id": "S061",
+    "geometry_risk": 29,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.9988,
+      "exit_distance_risk": 0.2162,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 0.01,
+      "width_m": 0.01,
+      "height_m": 0.0,
+      "distance_to_nearest_exit_m": 60.083,
+      "point_density": 0.0032
+    }
+  },
+  {
+    "segment_id": "S062",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4553,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9077
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 16.19,
+      "height_m": 3.04,
+      "distance_to_nearest_exit_m": 126.52,
+      "point_density": 3766.856
+    }
+  },
+  {
+    "segment_id": "S063",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.2025,
+      "exit_distance_risk": 0.4146,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.764
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 6.38,
+      "height_m": 3.65,
+      "distance_to_nearest_exit_m": 115.225,
+      "point_density": 9635.2736
+    }
+  },
+  {
+    "segment_id": "S064",
+    "geometry_risk": 48,
+    "risk_level": "medium",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Tek baglantili segment",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.3987,
+      "exit_distance_risk": 0.0,
+      "single_connection_risk": 1.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9985
+    },
+    "metrics": {
+      "degree": 1,
+      "length_m": 16.94,
+      "width_m": 4.81,
+      "height_m": 2.02,
+      "distance_to_nearest_exit_m": 0.0,
+      "point_density": 61.4544
+    }
+  },
+  {
+    "segment_id": "S065",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Gocuk senaryosunda kritik gecis noktasi"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.0751,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.1098
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 22.92,
+      "height_m": 3.55,
+      "distance_to_nearest_exit_m": 20.864,
+      "point_density": 36343.5616
+    }
+  },
+  {
+    "segment_id": "S066",
+    "geometry_risk": 19,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.325,
+      "exit_distance_risk": 0.4164,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7842
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 5.4,
+      "height_m": 2.47,
+      "distance_to_nearest_exit_m": 115.728,
+      "point_density": 8809.9328
+    }
+  },
+  {
+    "segment_id": "S067",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3201,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.5743
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.48,
+      "height_m": 2.41,
+      "distance_to_nearest_exit_m": 88.968,
+      "point_density": 17376.9472
+    }
+  },
+  {
+    "segment_id": "S068",
+    "geometry_risk": 8,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2327,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.6455
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 22.03,
+      "height_m": 2.79,
+      "distance_to_nearest_exit_m": 64.677,
+      "point_density": 14472.2304
+    }
+  },
+  {
+    "segment_id": "S069",
+    "geometry_risk": 27,
+    "risk_level": "low",
+    "reasons": [
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1427,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.8641
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 19.55,
+      "height_m": 2.79,
+      "distance_to_nearest_exit_m": 39.649,
+      "point_density": 5546.9472
+    }
+  },
+  {
+    "segment_id": "S070",
+    "geometry_risk": 46,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.0537,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.9996
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.45,
+      "width_m": 19.41,
+      "height_m": 2.05,
+      "distance_to_nearest_exit_m": 14.916,
+      "point_density": 17.5728
+    }
+  },
+  {
+    "segment_id": "S071",
+    "geometry_risk": 60,
+    "risk_level": "medium",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Tek baglantili segment",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.9875,
+      "exit_distance_risk": 0.0,
+      "single_connection_risk": 1.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 1,
+      "length_m": 0.78,
+      "width_m": 0.1,
+      "height_m": 1.36,
+      "distance_to_nearest_exit_m": 0.0,
+      "point_density": 0.0464
+    }
+  },
+  {
+    "segment_id": "S072",
+    "geometry_risk": 4,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1656,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.1337
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 21.46,
+      "height_m": 3.44,
+      "distance_to_nearest_exit_m": 46.033,
+      "point_density": 35365.9696
+    }
+  },
+  {
+    "segment_id": "S073",
+    "geometry_risk": 10,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2493,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9834
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 19.11,
+      "height_m": 2.82,
+      "distance_to_nearest_exit_m": 69.27,
+      "point_density": 677.576
+    }
+  },
+  {
+    "segment_id": "S074",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3426,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4563
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 11.79,
+      "height_m": 3.35,
+      "distance_to_nearest_exit_m": 95.205,
+      "point_density": 22197.5472
+    }
+  },
+  {
+    "segment_id": "S075",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4352,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7165
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 18.24,
+      "height_m": 2.59,
+      "distance_to_nearest_exit_m": 120.949,
+      "point_density": 11572.2608
+    }
+  },
+  {
+    "segment_id": "S076",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5252,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.3921
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 20.43,
+      "height_m": 2.6,
+      "distance_to_nearest_exit_m": 145.953,
+      "point_density": 24818.4176
+    }
+  },
+  {
+    "segment_id": "S077",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6152,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7247
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 22.3,
+      "height_m": 2.64,
+      "distance_to_nearest_exit_m": 170.958,
+      "point_density": 11236.9344
+    }
+  },
+  {
+    "segment_id": "S078",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7051,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4743
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 22.31,
+      "height_m": 2.77,
+      "distance_to_nearest_exit_m": 195.958,
+      "point_density": 21459.992
+    }
+  },
+  {
+    "segment_id": "S079",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6603,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.3656
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 21.44,
+      "height_m": 2.39,
+      "distance_to_nearest_exit_m": 183.487,
+      "point_density": 25897.52
+    }
+  },
+  {
+    "segment_id": "S080",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5703,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7194
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 20.88,
+      "height_m": 2.39,
+      "distance_to_nearest_exit_m": 158.487,
+      "point_density": 11456.832
+    }
+  },
+  {
+    "segment_id": "S081",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4798,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4854
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.11,
+      "height_m": 2.72,
+      "distance_to_nearest_exit_m": 133.334,
+      "point_density": 21009.5568
+    }
+  },
+  {
+    "segment_id": "S082",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3898,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7636
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 22.61,
+      "height_m": 2.26,
+      "distance_to_nearest_exit_m": 108.332,
+      "point_density": 9651.9888
+    }
+  },
+  {
+    "segment_id": "S083",
+    "geometry_risk": 10,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2998,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8552
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.26,
+      "distance_to_nearest_exit_m": 83.304,
+      "point_density": 5912.3232
+    }
+  },
+  {
+    "segment_id": "S084",
+    "geometry_risk": 10,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2398,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9986
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 19.3,
+      "width_m": 8.25,
+      "height_m": 2.89,
+      "distance_to_nearest_exit_m": 66.644,
+      "point_density": 57.9328
+    }
+  },
+  {
+    "segment_id": "S085",
+    "geometry_risk": 8,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2557,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4916
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 18.86,
+      "height_m": 3.09,
+      "distance_to_nearest_exit_m": 71.06,
+      "point_density": 20756.9616
+    }
+  },
+  {
+    "segment_id": "S086",
+    "geometry_risk": 12,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4106,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7068
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 16.31,
+      "height_m": 2.92,
+      "distance_to_nearest_exit_m": 114.111,
+      "point_density": 11967.8864
+    }
+  },
+  {
+    "segment_id": "S087",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.86,
+      "exit_distance_risk": 0.4426,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9933
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 8.13,
+      "width_m": 1.12,
+      "height_m": 2.24,
+      "distance_to_nearest_exit_m": 122.986,
+      "point_density": 274.2512
+    }
+  },
+  {
+    "segment_id": "S088",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7023,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7117
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 14.61,
+      "height_m": 3.08,
+      "distance_to_nearest_exit_m": 195.177,
+      "point_density": 11769.176
+    }
+  },
+  {
+    "segment_id": "S089",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7736,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4936
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 3.09,
+      "distance_to_nearest_exit_m": 214.987,
+      "point_density": 20674.6032
+    }
+  },
+  {
+    "segment_id": "S090",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7438,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9255
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.18,
+      "distance_to_nearest_exit_m": 206.708,
+      "point_density": 3039.784
+    }
+  },
+  {
+    "segment_id": "S091",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6538,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8544
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.98,
+      "height_m": 4.16,
+      "distance_to_nearest_exit_m": 181.705,
+      "point_density": 5941.992
+    }
+  },
+  {
+    "segment_id": "S092",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5658,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8501
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 22.68,
+      "height_m": 2.79,
+      "distance_to_nearest_exit_m": 157.239,
+      "point_density": 6118.4
+    }
+  },
+  {
+    "segment_id": "S093",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4742,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8152
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 12.99,
+      "height_m": 2.89,
+      "distance_to_nearest_exit_m": 131.774,
+      "point_density": 7545.5232
+    }
+  },
+  {
+    "segment_id": "S094",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3901,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9992
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 20.12,
+      "height_m": 2.31,
+      "distance_to_nearest_exit_m": 108.423,
+      "point_density": 31.9168
+    }
+  },
+  {
+    "segment_id": "S095",
+    "geometry_risk": 9,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3457,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.3441
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 19.59,
+      "height_m": 3.24,
+      "distance_to_nearest_exit_m": 96.068,
+      "point_density": 26776.0944
+    }
+  },
+  {
+    "segment_id": "S096",
+    "geometry_risk": 25,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.5663,
+      "exit_distance_risk": 0.5043,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7238
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 3.47,
+      "height_m": 4.44,
+      "distance_to_nearest_exit_m": 140.139,
+      "point_density": 11277.1216
+    }
+  },
+  {
+    "segment_id": "S097",
+    "geometry_risk": 21,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.792,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9965
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.78,
+      "width_m": 12.94,
+      "height_m": 2.18,
+      "distance_to_nearest_exit_m": 220.089,
+      "point_density": 143.7024
+    }
+  },
+  {
+    "segment_id": "S098",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8488,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9411
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 18.6,
+      "height_m": 2.61,
+      "distance_to_nearest_exit_m": 235.869,
+      "point_density": 2404.5888
+    }
+  },
+  {
+    "segment_id": "S099",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8083,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.2127
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.69,
+      "height_m": 4.82,
+      "distance_to_nearest_exit_m": 224.614,
+      "point_density": 32139.8048
+    }
+  },
+  {
+    "segment_id": "S100",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7206,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7183
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.42,
+      "distance_to_nearest_exit_m": 200.263,
+      "point_density": 11498.52
+    }
+  },
+  {
+    "segment_id": "S101",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6306,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7925
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.86,
+      "distance_to_nearest_exit_m": 175.251,
+      "point_density": 8472.1136
+    }
+  },
+  {
+    "segment_id": "S102",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5406,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9491
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 23.93,
+      "height_m": 2.83,
+      "distance_to_nearest_exit_m": 150.244,
+      "point_density": 2078.5312
+    }
+  },
+  {
+    "segment_id": "S103",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4801,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9998
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 20.12,
+      "height_m": 2.22,
+      "distance_to_nearest_exit_m": 133.423,
+      "point_density": 7.8032
+    }
+  },
+  {
+    "segment_id": "S104",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4357,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7578
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 18.83,
+      "height_m": 3.38,
+      "distance_to_nearest_exit_m": 121.073,
+      "point_density": 9888.3344
+    }
+  },
+  {
+    "segment_id": "S105",
+    "geometry_risk": 29,
+    "risk_level": "low",
+    "reasons": [
+      "Dar gecit olasiligi yuksek",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.595,
+      "exit_distance_risk": 0.5943,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9962
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 3.24,
+      "height_m": 2.94,
+      "distance_to_nearest_exit_m": 165.144,
+      "point_density": 154.6032
+    }
+  },
+  {
+    "segment_id": "S106",
+    "geometry_risk": 23,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8963,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 1.0
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 15.44,
+      "width_m": 12.13,
+      "height_m": 1.82,
+      "distance_to_nearest_exit_m": 249.093,
+      "point_density": 1.1856
+    }
+  },
+  {
+    "segment_id": "S107",
+    "geometry_risk": 24,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.9395,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9935
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.33,
+      "distance_to_nearest_exit_m": 261.095,
+      "point_density": 265.2736
+    }
+  },
+  {
+    "segment_id": "S108",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8751,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9255
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 4.67,
+      "distance_to_nearest_exit_m": 243.2,
+      "point_density": 3041.208
+    }
+  },
+  {
+    "segment_id": "S109",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7852,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9507
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.93,
+      "height_m": 3.66,
+      "distance_to_nearest_exit_m": 218.199,
+      "point_density": 2011.1136
+    }
+  },
+  {
+    "segment_id": "S110",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.692,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8105
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 11.6,
+      "height_m": 2.63,
+      "distance_to_nearest_exit_m": 192.312,
+      "point_density": 7736.5552
+    }
+  },
+  {
+    "segment_id": "S111",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0488,
+      "exit_distance_risk": 0.6018,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8036
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 7.61,
+      "height_m": 2.34,
+      "distance_to_nearest_exit_m": 167.244,
+      "point_density": 8016.1792
+    }
+  },
+  {
+    "segment_id": "S112",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.2237,
+      "exit_distance_risk": 0.5364,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9998
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 18.72,
+      "width_m": 6.21,
+      "height_m": 2.04,
+      "distance_to_nearest_exit_m": 149.06,
+      "point_density": 7.5568
+    }
+  },
+  {
+    "segment_id": "S113",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5256,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.5077
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 19.01,
+      "height_m": 3.0,
+      "distance_to_nearest_exit_m": 146.074,
+      "point_density": 20099.2512
+    }
+  },
+  {
+    "segment_id": "S114",
+    "geometry_risk": 17,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6449,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8477
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 12.84,
+      "width_m": 9.39,
+      "height_m": 3.26,
+      "distance_to_nearest_exit_m": 179.22,
+      "point_density": 6218.7264
+    }
+  },
+  {
+    "segment_id": "S115",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6663,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.2469
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 14.6,
+      "height_m": 4.76,
+      "distance_to_nearest_exit_m": 185.156,
+      "point_density": 30744.112
+    }
+  },
+  {
+    "segment_id": "S116",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7592,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.5801
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 22.58,
+      "height_m": 3.18,
+      "distance_to_nearest_exit_m": 210.974,
+      "point_density": 17140.52
+    }
+  },
+  {
+    "segment_id": "S117",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8494,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9416
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 18.4,
+      "height_m": 2.7,
+      "distance_to_nearest_exit_m": 236.062,
+      "point_density": 2383.944
+    }
+  },
+  {
+    "segment_id": "S118",
+    "geometry_risk": 23,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.9386,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7755
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.53,
+      "width_m": 17.5,
+      "height_m": 3.54,
+      "distance_to_nearest_exit_m": 260.84,
+      "point_density": 9166.9712
+    }
+  },
+  {
+    "segment_id": "S119",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.3238,
+      "exit_distance_risk": 0.9712,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9999
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 9.15,
+      "width_m": 5.41,
+      "height_m": 1.97,
+      "distance_to_nearest_exit_m": 269.888,
+      "point_density": 2.8432
+    }
+  },
+  {
+    "segment_id": "S120",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.9166,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8165
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 20.97,
+      "width_m": 8.88,
+      "height_m": 3.5,
+      "distance_to_nearest_exit_m": 254.718,
+      "point_density": 7490.472
+    }
+  },
+  {
+    "segment_id": "S121",
+    "geometry_risk": 28,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.28,
+      "exit_distance_risk": 0.8516,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9998
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 6.26,
+      "width_m": 5.76,
+      "height_m": 2.99,
+      "distance_to_nearest_exit_m": 236.662,
+      "point_density": 6.3728
+    }
+  },
+  {
+    "segment_id": "S122",
+    "geometry_risk": 15,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6048,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.4925
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 18.72,
+      "height_m": 2.66,
+      "distance_to_nearest_exit_m": 168.078,
+      "point_density": 20717.6416
+    }
+  },
+  {
+    "segment_id": "S123",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0263,
+      "exit_distance_risk": 0.6724,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8186
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 7.79,
+      "height_m": 3.99,
+      "distance_to_nearest_exit_m": 186.874,
+      "point_density": 7406.5728
+    }
+  },
+  {
+    "segment_id": "S124",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8454,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7055
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 19.37,
+      "height_m": 3.1,
+      "distance_to_nearest_exit_m": 234.934,
+      "point_density": 12021.6896
+    }
+  },
+  {
+    "segment_id": "S125",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.9252,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7854
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 2.39,
+      "distance_to_nearest_exit_m": 257.127,
+      "point_density": 8761.6256
+    }
+  },
+  {
+    "segment_id": "S126",
+    "geometry_risk": 24,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 1.0,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8589
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 16.53,
+      "height_m": 3.16,
+      "distance_to_nearest_exit_m": 277.901,
+      "point_density": 5761.3904
+    }
+  },
+  {
+    "segment_id": "S127",
+    "geometry_risk": 13,
+    "risk_level": "low",
+    "reasons": [
+      "Geometri ve baglanti acisindan dusuk risk"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5147,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.464
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 21.86,
+      "height_m": 3.36,
+      "distance_to_nearest_exit_m": 143.041,
+      "point_density": 21883.3024
+    }
+  },
+  {
+    "segment_id": "S128",
+    "geometry_risk": 16,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5793,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8878
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 3.14,
+      "distance_to_nearest_exit_m": 160.986,
+      "point_density": 4580.0448
+    }
+  },
+  {
+    "segment_id": "S129",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6693,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9935
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 21.14,
+      "height_m": 3.39,
+      "distance_to_nearest_exit_m": 185.993,
+      "point_density": 263.9328
+    }
+  },
+  {
+    "segment_id": "S130",
+    "geometry_risk": 19,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7593,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8461
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 3.59,
+      "distance_to_nearest_exit_m": 211.0,
+      "point_density": 6283.5248
+    }
+  },
+  {
+    "segment_id": "S131",
+    "geometry_risk": 21,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8444,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8055
+    },
+    "metrics": {
+      "degree": 4,
+      "length_m": 24.99,
+      "width_m": 24.99,
+      "height_m": 1.91,
+      "distance_to_nearest_exit_m": 234.661,
+      "point_density": 7941.0
+    }
+  },
+  {
+    "segment_id": "S132",
+    "geometry_risk": 23,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.9261,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8938
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 20.38,
+      "height_m": 2.71,
+      "distance_to_nearest_exit_m": 257.36,
+      "point_density": 4334.0224
+    }
+  },
+  {
+    "segment_id": "S133",
+    "geometry_risk": 31,
+    "risk_level": "low",
+    "reasons": [
+      "Gocuk senaryosunda kritik gecis noktasi"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.4248,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.5937
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 21.85,
+      "height_m": 3.03,
+      "distance_to_nearest_exit_m": 118.041,
+      "point_density": 16584.9088
+    }
+  },
+  {
+    "segment_id": "S134",
+    "geometry_risk": 14,
+    "risk_level": "low",
+    "reasons": [
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.5121,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.7949
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 12.34,
+      "height_m": 3.47,
+      "distance_to_nearest_exit_m": 142.31,
+      "point_density": 8372.0816
+    }
+  },
+  {
+    "segment_id": "S135",
+    "geometry_risk": 25,
+    "risk_level": "low",
+    "reasons": [
+      "Gecit genisligi sinirli",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.4162,
+      "exit_distance_risk": 0.6031,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8525
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 4.67,
+      "height_m": 2.54,
+      "distance_to_nearest_exit_m": 167.61,
+      "point_density": 6021.5744
+    }
+  },
+  {
+    "segment_id": "S136",
+    "geometry_risk": 18,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.6941,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.837
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 24.99,
+      "width_m": 12.47,
+      "height_m": 2.39,
+      "distance_to_nearest_exit_m": 192.896,
+      "point_density": 6655.744
+    }
+  },
+  {
+    "segment_id": "S137",
+    "geometry_risk": 20,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.7749,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8765
+    },
+    "metrics": {
+      "degree": 3,
+      "length_m": 19.82,
+      "width_m": 13.23,
+      "height_m": 4.22,
+      "distance_to_nearest_exit_m": 215.333,
+      "point_density": 5040.0608
+    }
+  },
+  {
+    "segment_id": "S138",
+    "geometry_risk": 22,
+    "risk_level": "low",
+    "reasons": [
+      "Cikisa uzak bolge",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.8837,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 0.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.8611
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 13.64,
+      "width_m": 10.72,
+      "height_m": 2.94,
+      "distance_to_nearest_exit_m": 245.57,
+      "point_density": 5669.4464
+    }
+  },
+  {
+    "segment_id": "S139",
+    "geometry_risk": 49,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.3342,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.5346
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 21.0,
+      "height_m": 2.59,
+      "distance_to_nearest_exit_m": 92.882,
+      "point_density": 18998.8176
+    }
+  },
+  {
+    "segment_id": "S140",
+    "geometry_risk": 47,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.2442,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.4031
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 18.7,
+      "height_m": 2.73,
+      "distance_to_nearest_exit_m": 67.862,
+      "point_density": 24366.0784
+    }
+  },
+  {
+    "segment_id": "S141",
+    "geometry_risk": 46,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.1542,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.598
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 18.76,
+      "height_m": 2.55,
+      "distance_to_nearest_exit_m": 42.862,
+      "point_density": 16411.5936
+    }
+  },
+  {
+    "segment_id": "S142",
+    "geometry_risk": 44,
+    "risk_level": "medium",
+    "reasons": [
+      "Alternatif rotasi az olan segment",
+      "Gocuk senaryosunda kritik gecis noktasi",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.0,
+      "exit_distance_risk": 0.0643,
+      "single_connection_risk": 0.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 1.0,
+      "sparse_geometry_risk": 0.6182
+    },
+    "metrics": {
+      "degree": 2,
+      "length_m": 24.99,
+      "width_m": 18.99,
+      "height_m": 2.64,
+      "distance_to_nearest_exit_m": 17.861,
+      "point_density": 15588.056
+    }
+  },
+  {
+    "segment_id": "S143",
+    "geometry_risk": 44,
+    "risk_level": "medium",
+    "reasons": [
+      "Tek baglantili segment",
+      "Nokta yogunlugu dusuk / seyrek geometri"
+    ],
+    "components": {
+      "narrow_passage_risk": 0.215,
+      "exit_distance_risk": 0.0,
+      "single_connection_risk": 1.0,
+      "limited_alternative_route_risk": 1.0,
+      "critical_passage_risk": 0.0,
+      "sparse_geometry_risk": 0.9302
+    },
+    "metrics": {
+      "degree": 1,
+      "length_m": 8.56,
+      "width_m": 6.28,
+      "height_m": 2.11,
+      "distance_to_nearest_exit_m": 0.0,
+      "point_density": 2850.208
+    }
+  }
+]

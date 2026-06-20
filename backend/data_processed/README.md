@@ -10,6 +10,14 @@ Those stay on external disks or in Downloads and are documented by path.
 ```text
 data_processed/
   sample/
+    haki_lidar/
+      pointcloud/tunnel_preview_500k.ply
+      pointcloud/tunnel_downsampled.ply
+      segments/map_segments.json
+      segments/segment_metadata.json
+      graph/mine_graph.json
+      risk/geometry_risk.json
+      viewer_ground_truth/walkable_floor_highlight.ply
     digital_twin/segments.json
     graph/mine_graph.json
     sensors/gas_sensors.json

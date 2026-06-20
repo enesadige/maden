@@ -20,6 +20,8 @@ backend/db.sqlite3
 *.tar
 *.tar.gz
 data_raw/
+colab_results/
+Tunnel_Circuit_LAS_Work/
 backend/data_processed/raw/
 backend/data_processed/live/
 backend/data_processed/cache/

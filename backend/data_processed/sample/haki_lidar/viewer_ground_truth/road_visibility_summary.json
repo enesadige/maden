@@ -1,0 +1,19 @@
+{
+  "source_ply": "D:\\MadenGuardAI\\backend\\data_processed\\pointcloud\\tunnel_downsampled.ply",
+  "source_vertex_count": 998473,
+  "floor_cell_count": 13176,
+  "selected_floor_point_count": 539588,
+  "artifact_count": 20,
+  "artifact_marker_point_count": 1680,
+  "topology_node_count": 43,
+  "topology_edge_count": 49,
+  "chokepoint_count": 3,
+  "outputs": {
+    "walkable_floor_highlight": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\walkable_floor_highlight.ply",
+    "artifact_markers": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\artifact_markers.ply",
+    "ground_truth_artifacts_local": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\ground_truth_artifacts_local.json",
+    "ex_topology_graph": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\ex_topology_graph.json",
+    "floor_density_topdown": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\floor_density_topdown.svg",
+    "road_visibility_layers": "D:\\MadenGuardAI\\backend\\data_processed\\viewer_ground_truth\\road_visibility_layers.json"
+  }
+}

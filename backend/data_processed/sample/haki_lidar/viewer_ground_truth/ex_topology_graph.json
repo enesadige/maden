@@ -1,0 +1,452 @@
+{
+  "course": "ex",
+  "coordinate_status": "topology_only_no_node_coordinates",
+  "note": "Use this graph for route logic. Do not draw it directly over LiDAR without manual node coordinate registration.",
+  "nodes": [
+    {
+      "id": "GT001"
+    },
+    {
+      "id": "GT002"
+    },
+    {
+      "id": "GT003"
+    },
+    {
+      "id": "GT004"
+    },
+    {
+      "id": "GT005"
+    },
+    {
+      "id": "GT006"
+    },
+    {
+      "id": "GT007"
+    },
+    {
+      "id": "GT008"
+    },
+    {
+      "id": "GT009"
+    },
+    {
+      "id": "GT010"
+    },
+    {
+      "id": "GT011"
+    },
+    {
+      "id": "GT012"
+    },
+    {
+      "id": "GT013"
+    },
+    {
+      "id": "GT014"
+    },
+    {
+      "id": "GT015"
+    },
+    {
+      "id": "GT016"
+    },
+    {
+      "id": "GT017"
+    },
+    {
+      "id": "GT018"
+    },
+    {
+      "id": "GT019"
+    },
+    {
+      "id": "GT020"
+    },
+    {
+      "id": "GT021"
+    },
+    {
+      "id": "GT022"
+    },
+    {
+      "id": "GT023"
+    },
+    {
+      "id": "GT024"
+    },
+    {
+      "id": "GT025"
+    },
+    {
+      "id": "GT026"
+    },
+    {
+      "id": "GT027"
+    },
+    {
+      "id": "GT028"
+    },
+    {
+      "id": "GT029"
+    },
+    {
+      "id": "GT030"
+    },
+    {
+      "id": "GT031"
+    },
+    {
+      "id": "GT032"
+    },
+    {
+      "id": "GT033"
+    },
+    {
+      "id": "GT034"
+    },
+    {
+      "id": "GT035"
+    },
+    {
+      "id": "GT036"
+    },
+    {
+      "id": "GT037"
+    },
+    {
+      "id": "GT038"
+    },
+    {
+      "id": "GT039"
+    },
+    {
+      "id": "GT040"
+    },
+    {
+      "id": "GT041"
+    },
+    {
+      "id": "GT042"
+    },
+    {
+      "id": "GT043"
+    }
+  ],
+  "edges": [
+    {
+      "source": "GT003",
+      "target": "GT035",
+      "length_m": 14.6,
+      "notes": ""
+    },
+    {
+      "source": "GT003",
+      "target": "GT025",
+      "length_m": 28.1,
+      "notes": ""
+    },
+    {
+      "source": "GT003",
+      "target": "GT020",
+      "length_m": 20.3,
+      "notes": ""
+    },
+    {
+      "source": "GT004",
+      "target": "GT009",
+      "length_m": 13.8,
+      "notes": "chokepoint"
+    },
+    {
+      "source": "GT004",
+      "target": "GT014",
+      "length_m": 76.8,
+      "notes": ""
+    },
+    {
+      "source": "GT005",
+      "target": "GT031",
+      "length_m": 15.1,
+      "notes": ""
+    },
+    {
+      "source": "GT005",
+      "target": "GT022",
+      "length_m": 29.7,
+      "notes": ""
+    },
+    {
+      "source": "GT006",
+      "target": "GT023",
+      "length_m": 47.3,
+      "notes": ""
+    },
+    {
+      "source": "GT006",
+      "target": "GT013",
+      "length_m": 60.3,
+      "notes": ""
+    },
+    {
+      "source": "GT007",
+      "target": "GT015",
+      "length_m": 14.3,
+      "notes": ""
+    },
+    {
+      "source": "GT007",
+      "target": "GT034",
+      "length_m": 27.7,
+      "notes": ""
+    },
+    {
+      "source": "GT007",
+      "target": "GT031",
+      "length_m": 14.0,
+      "notes": ""
+    },
+    {
+      "source": "GT008",
+      "target": "GT028",
+      "length_m": 84.9,
+      "notes": ""
+    },
+    {
+      "source": "GT008",
+      "target": "GT026",
+      "length_m": 72.3,
+      "notes": ""
+    },
+    {
+      "source": "GT009",
+      "target": "GT030",
+      "length_m": 76.1,
+      "notes": ""
+    },
+    {
+      "source": "GT010",
+      "target": "GT025",
+      "length_m": 32.1,
+      "notes": ""
+    },
+    {
+      "source": "GT010",
+      "target": "GT012",
+      "length_m": 39.9,
+      "notes": ""
+    },
+    {
+      "source": "GT011",
+      "target": "GT032",
+      "length_m": 7.1,
+      "notes": ""
+    },
+    {
+      "source": "GT012",
+      "target": "GT036",
+      "length_m": 13.6,
+      "notes": ""
+    },
+    {
+      "source": "GT012",
+      "target": "GT034",
+      "length_m": 32.4,
+      "notes": ""
+    },
+    {
+      "source": "GT014",
+      "target": "GT030",
+      "length_m": 14.6,
+      "notes": ""
+    },
+    {
+      "source": "GT014",
+      "target": "GT040",
+      "length_m": 57.2,
+      "notes": ""
+    },
+    {
+      "source": "GT002",
+      "target": "GT027",
+      "length_m": 83.9,
+      "notes": ""
+    },
+    {
+      "source": "GT002",
+      "target": "GT001",
+      "length_m": 8.8,
+      "notes": "START"
+    },
+    {
+      "source": "GT015",
+      "target": "GT021",
+      "length_m": 30.3,
+      "notes": ""
+    },
+    {
+      "source": "GT015",
+      "target": "GT022",
+      "length_m": 15.3,
+      "notes": ""
+    },
+    {
+      "source": "GT016",
+      "target": "GT018",
+      "length_m": 23.8,
+      "notes": ""
+    },
+    {
+      "source": "GT016",
+      "target": "GT037",
+      "length_m": 14.9,
+      "notes": ""
+    },
+    {
+      "source": "GT017",
+      "target": "GT030",
+      "length_m": 63.1,
+      "notes": ""
+    },
+    {
+      "source": "GT017",
+      "target": "GT028",
+      "length_m": 97.2,
+      "notes": ""
+    },
+    {
+      "source": "GT018",
+      "target": "GT042",
+      "length_m": 54.4,
+      "notes": ""
+    },
+    {
+      "source": "GT018",
+      "target": "GT033",
+      "length_m": 11.2,
+      "notes": ""
+    },
+    {
+      "source": "GT019",
+      "target": "GT041",
+      "length_m": 13.5,
+      "notes": ""
+    },
+    {
+      "source": "GT019",
+      "target": "GT024",
+      "length_m": 76.7,
+      "notes": ""
+    },
+    {
+      "source": "GT021",
+      "target": "GT036",
+      "length_m": 28.9,
+      "notes": ""
+    },
+    {
+      "source": "GT021",
+      "target": "GT034",
+      "length_m": 14.5,
+      "notes": ""
+    },
+    {
+      "source": "GT022",
+      "target": "GT029",
+      "length_m": 44.5,
+      "notes": ""
+    },
+    {
+      "source": "GT023",
+      "target": "GT043",
+      "length_m": 6.7,
+      "notes": ""
+    },
+    {
+      "source": "GT024",
+      "target": "GT037",
+      "length_m": 14.5,
+      "notes": ""
+    },
+    {
+      "source": "GT025",
+      "target": "GT038",
+      "length_m": 14.4,
+      "notes": ""
+    },
+    {
+      "source": "GT027",
+      "target": "GT032",
+      "length_m": 73.5,
+      "notes": ""
+    },
+    {
+      "source": "GT029",
+      "target": "GT040",
+      "length_m": 19.1,
+      "notes": ""
+    },
+    {
+      "source": "GT031",
+      "target": "GT035",
+      "length_m": 13.4,
+      "notes": ""
+    },
+    {
+      "source": "GT032",
+      "target": "GT040",
+      "length_m": 95.3,
+      "notes": ""
+    },
+    {
+      "source": "GT034",
+      "target": "GT039",
+      "length_m": 12.6,
+      "notes": ""
+    },
+    {
+      "source": "GT035",
+      "target": "GT038",
+      "length_m": 28.7,
+      "notes": ""
+    },
+    {
+      "source": "GT036",
+      "target": "GT043",
+      "length_m": 24.3,
+      "notes": "chokepoint"
+    },
+    {
+      "source": "GT037",
+      "target": "GT041",
+      "length_m": 75.2,
+      "notes": ""
+    },
+    {
+      "source": "GT041",
+      "target": "GT043",
+      "length_m": 11.1,
+      "notes": ""
+    }
+  ],
+  "chokepoints": [
+    {
+      "source": "GT004",
+      "target": "GT009",
+      "length_m": 13.8,
+      "notes": "chokepoint"
+    },
+    {
+      "source": "GT002",
+      "target": "GT001",
+      "length_m": 8.8,
+      "notes": "START"
+    },
+    {
+      "source": "GT036",
+      "target": "GT043",
+      "length_m": 24.3,
+      "notes": "chokepoint"
+    }
+  ]
+}

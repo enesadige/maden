@@ -1,0 +1,40 @@
+{
+  "coordinate_system": "local_shifted",
+  "ground_truth_course": "ex",
+  "important_warning": "EX topology CSV has edge lengths and connectivity, but no node coordinates. 3D road visibility layer is extracted from actual LiDAR floor-like points.",
+  "layers": [
+    {
+      "id": "tunnel_downsampled_1m",
+      "path": "../pointcloud/tunnel_downsampled.ply",
+      "type": "pointcloud",
+      "recommended_point_size": 0.018,
+      "visible_by_default": true
+    },
+    {
+      "id": "walkable_floor_highlight",
+      "path": "walkable_floor_highlight.ply",
+      "type": "actual_lidar_floor_points",
+      "recommended_point_size": 0.08,
+      "visible_by_default": true
+    },
+    {
+      "id": "artifact_markers",
+      "path": "artifact_markers.ply",
+      "type": "ground_truth_artifact_markers",
+      "recommended_point_size": 0.11,
+      "visible_by_default": true
+    },
+    {
+      "id": "floor_density_topdown",
+      "path": "floor_density_topdown.svg",
+      "type": "static_topdown_svg",
+      "visible_by_default": false
+    },
+    {
+      "id": "ex_topology_graph",
+      "path": "ex_topology_graph.json",
+      "type": "topology_only_graph",
+      "visible_by_default": false
+    }
+  ]
+}

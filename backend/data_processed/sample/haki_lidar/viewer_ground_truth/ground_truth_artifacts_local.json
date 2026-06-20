@@ -1,0 +1,286 @@
+{
+  "course": "ex",
+  "config": "a",
+  "artifacts": [
+    {
+      "artifact_id": "A001",
+      "type": "backpack",
+      "position_ex_frame": [
+        67.316,
+        -3.726,
+        1.906
+      ],
+      "position_local_shifted": [
+        -88.788,
+        -107.405,
+        2.146
+      ]
+    },
+    {
+      "artifact_id": "A002",
+      "type": "fire_extinguisher",
+      "position_ex_frame": [
+        102.472,
+        1.66,
+        2.919
+      ],
+      "position_local_shifted": [
+        -53.632,
+        -102.019,
+        3.159
+      ]
+    },
+    {
+      "artifact_id": "A003",
+      "type": "drill",
+      "position_ex_frame": [
+        124.958,
+        -2.697,
+        2.664
+      ],
+      "position_local_shifted": [
+        -31.146,
+        -106.376,
+        2.904
+      ]
+    },
+    {
+      "artifact_id": "A004",
+      "type": "survivor",
+      "position_ex_frame": [
+        155.009,
+        -6.043,
+        2.942
+      ],
+      "position_local_shifted": [
+        -1.095,
+        -109.722,
+        3.182
+      ]
+    },
+    {
+      "artifact_id": "A005",
+      "type": "cell_phone",
+      "position_ex_frame": [
+        186.673,
+        0.526,
+        3.261
+      ],
+      "position_local_shifted": [
+        30.569,
+        -103.153,
+        3.501
+      ]
+    },
+    {
+      "artifact_id": "A006",
+      "type": "drill",
+      "position_ex_frame": [
+        245.365,
+        3.295,
+        3.416
+      ],
+      "position_local_shifted": [
+        89.261,
+        -100.384,
+        3.656
+      ]
+    },
+    {
+      "artifact_id": "A007",
+      "type": "fire_extinguisher",
+      "position_ex_frame": [
+        313.281,
+        -12.783,
+        3.247
+      ],
+      "position_local_shifted": [
+        157.177,
+        -116.462,
+        3.487
+      ]
+    },
+    {
+      "artifact_id": "A008",
+      "type": "backpack",
+      "position_ex_frame": [
+        387.689,
+        -8.601,
+        3.913
+      ],
+      "position_local_shifted": [
+        231.585,
+        -112.28,
+        4.153
+      ]
+    },
+    {
+      "artifact_id": "A009",
+      "type": "fire_extinguisher",
+      "position_ex_frame": [
+        190.435,
+        -17.655,
+        2.95
+      ],
+      "position_local_shifted": [
+        34.331,
+        -121.334,
+        3.19
+      ]
+    },
+    {
+      "artifact_id": "A010",
+      "type": "cell_phone",
+      "position_ex_frame": [
+        96.54,
+        -13.376,
+        1.86
+      ],
+      "position_local_shifted": [
+        -59.564,
+        -117.055,
+        2.1
+      ]
+    },
+    {
+      "artifact_id": "A011",
+      "type": "drill",
+      "position_ex_frame": [
+        264.265,
+        42.821,
+        4.2
+      ],
+      "position_local_shifted": [
+        108.161,
+        -60.858,
+        4.44
+      ]
+    },
+    {
+      "artifact_id": "A012",
+      "type": "survivor",
+      "position_ex_frame": [
+        249.228,
+        66.039,
+        4.079
+      ],
+      "position_local_shifted": [
+        93.124,
+        -37.64,
+        4.319
+      ]
+    },
+    {
+      "artifact_id": "A013",
+      "type": "cell_phone",
+      "position_ex_frame": [
+        224.181,
+        66.209,
+        4.87
+      ],
+      "position_local_shifted": [
+        68.077,
+        -37.47,
+        5.11
+      ]
+    },
+    {
+      "artifact_id": "A014",
+      "type": "fire_extinguisher",
+      "position_ex_frame": [
+        224.235,
+        91.403,
+        4.962
+      ],
+      "position_local_shifted": [
+        68.131,
+        -12.276,
+        5.202
+      ]
+    },
+    {
+      "artifact_id": "A015",
+      "type": "cell_phone",
+      "position_ex_frame": [
+        266.018,
+        91.758,
+        4.99
+      ],
+      "position_local_shifted": [
+        109.914,
+        -11.921,
+        5.23
+      ]
+    },
+    {
+      "artifact_id": "A016",
+      "type": "backpack",
+      "position_ex_frame": [
+        269.117,
+        116.738,
+        4.958
+      ],
+      "position_local_shifted": [
+        113.013,
+        13.059,
+        5.198
+      ]
+    },
+    {
+      "artifact_id": "A017",
+      "type": "survivor",
+      "position_ex_frame": [
+        228.438,
+        105.16,
+        4.626
+      ],
+      "position_local_shifted": [
+        72.334,
+        1.481,
+        4.866
+      ]
+    },
+    {
+      "artifact_id": "A018",
+      "type": "backpack",
+      "position_ex_frame": [
+        189.431,
+        116.414,
+        4.467
+      ],
+      "position_local_shifted": [
+        33.327,
+        12.735,
+        4.707
+      ]
+    },
+    {
+      "artifact_id": "A019",
+      "type": "drill",
+      "position_ex_frame": [
+        206.645,
+        73.609,
+        4.555
+      ],
+      "position_local_shifted": [
+        50.541,
+        -30.07,
+        4.795
+      ]
+    },
+    {
+      "artifact_id": "A020",
+      "type": "backpack",
+      "position_ex_frame": [
+        190.105,
+        47.44,
+        4.261
+      ],
+      "position_local_shifted": [
+        34.001,
+        -56.239,
+        4.501
+      ]
+    }
+  ]
+}

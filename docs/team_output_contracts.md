@@ -8,14 +8,29 @@ Canonical handoff root:
 backend/data_processed/sample/
 ```
 
+Non-breaking Haki LiDAR handoff folder:
+
+```text
+backend/data_processed/sample/haki_lidar/
+```
+
+The current backend API sample still reads `digital_twin/segments.json`, which
+uses a `from_node` / `to_node` route-engine format. Haki's richer LiDAR outputs
+are staged separately under `haki_lidar/` until the backend loader is migrated.
+
 ## Haki - LiDAR / Digital Twin
 
 Target files:
 
 ```text
-digital_twin/segments.json
-graph/mine_graph.json
-risk/geometry_risk.json
+haki_lidar/pointcloud/tunnel_preview_500k.ply
+haki_lidar/pointcloud/tunnel_downsampled.ply
+haki_lidar/segments/map_segments.json
+haki_lidar/segments/segment_metadata.json
+haki_lidar/graph/mine_graph.json
+haki_lidar/risk/geometry_risk.json
+haki_lidar/viewer_ground_truth/walkable_floor_highlight.ply
+haki_lidar/viewer_ground_truth/artifact_markers.ply
 ```
 
 Segment fields:
@@ -37,6 +52,7 @@ Notes:
 - Do not create a second segment ID standard.
 - Use `S001` format. Backend can temporarily normalize `SEG_001`, but final files should use `S001`.
 - Do not commit raw LAS/LAZ.
+- `haki_lidar/viewer_ground_truth/` contains the preferred road visibility layers for the Three.js digital twin.
 
 ## Recep - Gas / Methane Sensors
 

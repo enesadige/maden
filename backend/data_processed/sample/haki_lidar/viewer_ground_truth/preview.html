@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MadenGuardAI Road Visibility Preview</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0f1317;
+      color: #e7edf3;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #2b333b;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 20px;
+    }
+    p {
+      margin: 0;
+      color: #aab4bf;
+      font-size: 14px;
+    }
+    iframe {
+      width: 100vw;
+      height: calc(100vh - 74px);
+      border: 0;
+      background: #0f1317;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MadenGuardAI Road Visibility Preview</h1>
+    <p>Actual LiDAR floor/road-like points with ground-truth artifact markers. Use walkable_floor_highlight.ply in the 3D viewer.</p>
+  </header>
+  <iframe src="floor_density_topdown.svg"></iframe>
+</body>
+</html>

@@ -1,0 +1,12 @@
+*.ply binary
+*.las binary
+*.laz binary
+*.pcd binary
+*.e57 binary
+
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.ipynb text eol=lf
+*.html text eol=lf
+*.svg text eol=lf
