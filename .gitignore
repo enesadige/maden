@@ -10,6 +10,8 @@ backend/db.sqlite3
 .pytest_cache/
 
 # Raw / heavy source data must stay outside git.
+raw_data/
+datasets/
 *.las
 *.laz
 *.pcd
@@ -28,6 +30,9 @@ backend/data_processed/cache/
 runs/
 latest/
 logs/
+
+# Local UWB configuration must stay outside git.
+uwb_config.local.json
 
 # Keep generated point samples local unless explicitly needed.
 processed/lidar_samples/*.npz

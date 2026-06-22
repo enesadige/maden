@@ -1,1172 +1,129 @@
 [
   {
+    "worker_id": "WORKER_01",
+    "tag_id": "TAG_001",
     "time_step": 0,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.3040000200271606,
-      "y": 0.06599999964237213,
-      "z": 0.07800000160932541
-    },
-    "mapped_segment_id": "SEG_049",
-    "acc_magnitude": 0.9992,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 1,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.2799999713897705,
-      "y": 0.07000000029802322,
-      "z": 1.5809999704360962
-    },
-    "mapped_segment_id": "SEG_049",
-    "acc_magnitude": 0.9046,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 2,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -0.7369999885559082,
-      "y": 0.5220000147819519,
-      "z": 1.4129999876022339
-    },
-    "mapped_segment_id": "SEG_011",
-    "acc_magnitude": 1.028,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 3,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.1509999930858612,
-      "y": 0.0430000014603138,
-      "z": 1.4769999980926514
-    },
-    "mapped_segment_id": "SEG_028",
-    "acc_magnitude": 1.0325,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 4,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.328000009059906,
-      "y": 0.8399999737739563,
-      "z": 1.472000002861023
-    },
-    "mapped_segment_id": "SEG_031",
-    "acc_magnitude": 0.975,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 5,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -0.8820000290870667,
-      "y": 0.2930000126361847,
-      "z": 1.2999999523162842
-    },
-    "mapped_segment_id": "SEG_009",
-    "acc_magnitude": 0.9794,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 6,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.1490000486373901,
-      "y": 0.9179999828338623,
-      "z": 1.5360000133514404
-    },
-    "mapped_segment_id": "SEG_047",
-    "acc_magnitude": 0.9721,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 7,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -1.2920000553131104,
-      "y": 0.2840000092983246,
-      "z": 1.1619999408721924
-    },
-    "mapped_segment_id": "SEG_001",
-    "acc_magnitude": 0.999,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 8,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.0989999771118164,
-      "y": 0.6690000295639038,
-      "z": 1.5700000524520874
-    },
-    "mapped_segment_id": "SEG_046",
-    "acc_magnitude": 1.0446,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 9,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -0.796999990940094,
-      "y": -0.014000000432133675,
-      "z": 1.0770000219345093
-    },
-    "mapped_segment_id": "SEG_010",
-    "acc_magnitude": 1.0194,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 10,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.24400000274181366,
-      "y": 0.2619999945163727,
-      "z": 1.5490000247955322
-    },
-    "mapped_segment_id": "SEG_030",
-    "acc_magnitude": 0.9872,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 11,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.20000000298023224,
-      "y": -0.3709999918937683,
-      "z": 1.0829999446868896
-    },
-    "mapped_segment_id": "SEG_029",
-    "acc_magnitude": 1.0069,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 12,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -0.7789999842643738,
-      "y": -0.2370000034570694,
-      "z": 1.4620000123977661
-    },
-    "mapped_segment_id": "SEG_011",
-    "acc_magnitude": 0.9839,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 13,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.093999981880188,
-      "y": -0.6729999780654907,
-      "z": 1.152999997138977
-    },
-    "mapped_segment_id": "SEG_046",
-    "acc_magnitude": 0.9947,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 14,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -1.3140000104904175,
-      "y": -0.47200000286102295,
-      "z": 1.343999981880188
-    },
-    "mapped_segment_id": "SEG_001",
-    "acc_magnitude": 0.9733,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 15,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.1460000276565552,
-      "y": -0.718999981880188,
-      "z": 1.274999976158142
-    },
-    "mapped_segment_id": "SEG_047",
-    "acc_magnitude": 1.0146,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 16,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": -0.8659999966621399,
-      "y": -0.4659999907016754,
-      "z": 1.2209999561309814
-    },
-    "mapped_segment_id": "SEG_009",
-    "acc_magnitude": 1.0178,
-    "motion_status": "fast_motion",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 17,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.335999995470047,
-      "y": -0.47600001096725464,
-      "z": 1.4049999713897705
-    },
-    "mapped_segment_id": "SEG_031",
-    "acc_magnitude": 0.9886,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 18,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 1.0019999742507935,
-      "y": 0.004000000189989805,
-      "z": 0.5849999785423279
-    },
-    "mapped_segment_id": "SEG_044",
-    "acc_magnitude": 1.0246,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 19,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9791,
-    "motion_status": "moving",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 20,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9885,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 21,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9861,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 22,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9649,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 23,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9845,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 24,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0195,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 25,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.981,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 26,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0336,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 27,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9802,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 28,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9993,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 29,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9994,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 30,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0263,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 31,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0076,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 32,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0336,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 33,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9947,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 34,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0292,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 35,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9985,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 36,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0275,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 37,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9993,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 38,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.96,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 39,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0123,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 40,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9737,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 41,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9902,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 42,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.946,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 43,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0467,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 44,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9759,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 45,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0072,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 46,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9702,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 47,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9908,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 48,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0106,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 49,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0228,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 50,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9607,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 51,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9724,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 52,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9713,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 53,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0201,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 54,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0171,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 55,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0122,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 56,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9789,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 57,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9603,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 58,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0034,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 59,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0112,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 60,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9524,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 61,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9449,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 62,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0209,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 63,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0237,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 64,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.012,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 65,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9928,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 66,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9925,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 67,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0122,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 68,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0059,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 69,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0237,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 70,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0366,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 71,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0618,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 72,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0007,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 73,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0113,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 74,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9962,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 75,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0009,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 76,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0212,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 77,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0499,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 78,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.961,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 79,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.997,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 80,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.028,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 81,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0169,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 82,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0149,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 83,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 1.0039,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 84,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9942,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 85,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9352,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 86,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9874,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 87,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9871,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 88,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9909,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
-  },
-  {
-    "time_step": 89,
-    "worker_id": "WORKER_01",
-    "uwb_pose": {
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
-    },
-    "mapped_segment_id": "SEG_025",
-    "acc_magnitude": 0.9757,
-    "motion_status": "still",
-    "source_row_policy": "decimated_from_first_120000_rows"
+    "timestamp_s": 126.000132,
+    "current_segment": "S141",
+    "position": {
+      "x": 199.7887526178522,
+      "y": -0.3352313453445537,
+      "z": -0.971499978452921
+    },
+    "position_reliability": 0.3,
+    "reliability_status": "poor",
+    "status": "tracking_lost",
+    "mapped_segment_id": "S141",
+    "uwb_pose": {
+      "x": 199.7887526178522,
+      "y": -0.3352313453445537,
+      "z": -0.971499978452921
+    },
+    "motion_status": "tracking_lost",
+    "visible_anchor_count": 0,
+    "visible_anchors": [],
+    "tracking_status": "no_tracking",
+    "tracking_risk_score": 70.0,
+    "mean_signal_quality_est": 0.0,
+    "nearest_anchor_id": "A274",
+    "nearest_anchor_distance_3d_m": 93.3143,
+    "mapping_method": "continuity_fallback",
+    "mapping_confidence": 0.2,
+    "continuity_score": 0.4,
+    "flight_signal_reliability": 1.0,
+    "source_trial": "const4-trial3-tdoa2-traj1",
+    "source_position_type": "mocap_ground_truth",
+    "source": "uwb_tracking",
+    "latest_time_step": 126,
+    "latest_timestamp_s": 126.000132,
+    "snapshot_type": "latest_worker_snapshot"
+  },
+  {
+    "worker_id": "WORKER_02",
+    "tag_id": "TAG_002",
+    "time_step": 0,
+    "timestamp_s": 138.00141,
+    "current_segment": "S120",
+    "position": {
+      "x": 56.958330146810034,
+      "y": 60.99308374498058,
+      "z": -0.9804999817907811
+    },
+    "position_reliability": 0.7499,
+    "reliability_status": "degraded",
+    "status": "safe",
+    "mapped_segment_id": "S120",
+    "uwb_pose": {
+      "x": 56.958330146810034,
+      "y": 60.99308374498058,
+      "z": -0.9804999817907811
+    },
+    "motion_status": "safe",
+    "visible_anchor_count": 4,
+    "visible_anchors": [
+      "A236",
+      "A237",
+      "A238",
+      "A240"
+    ],
+    "tracking_status": "full_tracking",
+    "tracking_risk_score": 25.01,
+    "mean_signal_quality_est": 0.0992,
+    "nearest_anchor_id": "A238",
+    "nearest_anchor_distance_3d_m": 27.9258,
+    "mapping_method": "nearest_center",
+    "mapping_confidence": 0.3009214152265166,
+    "continuity_score": 1.0,
+    "flight_signal_reliability": 1.0,
+    "source_trial": "const4-trial1-tdoa3-traj3",
+    "source_position_type": "mocap_ground_truth",
+    "source": "uwb_tracking",
+    "latest_time_step": 128,
+    "latest_timestamp_s": 138.00141,
+    "snapshot_type": "latest_worker_snapshot"
+  },
+  {
+    "worker_id": "WORKER_03",
+    "tag_id": "TAG_003",
+    "time_step": 0,
+    "timestamp_s": 142.00321399999999,
+    "current_segment": "S137",
+    "position": {
+      "x": 134.2911836003355,
+      "y": 0.8751958363537463,
+      "z": -0.977499983161688
+    },
+    "position_reliability": 0.7463,
+    "reliability_status": "degraded",
+    "status": "safe",
+    "mapped_segment_id": "S137",
+    "uwb_pose": {
+      "x": 134.2911836003355,
+      "y": 0.8751958363537463,
+      "z": -0.977499983161688
+    },
+    "motion_status": "safe",
+    "visible_anchor_count": 4,
+    "visible_anchors": [
+      "A273",
+      "A274",
+      "A275",
+      "A276"
+    ],
+    "tracking_status": "full_tracking",
+    "tracking_risk_score": 25.37,
+    "mean_signal_quality_est": 0.0948,
+    "nearest_anchor_id": "A274",
+    "nearest_anchor_distance_3d_m": 28.6295,
+    "mapping_method": "nearest_center",
+    "mapping_confidence": 0.2731864291150666,
+    "continuity_score": 1.0,
+    "flight_signal_reliability": 1.0,
+    "source_trial": "const1-trial5-tdoa2",
+    "source_position_type": "mocap_ground_truth",
+    "source": "uwb_tracking",
+    "latest_time_step": 122,
+    "latest_timestamp_s": 142.00321399999999,
+    "snapshot_type": "latest_worker_snapshot"
   }
 ]

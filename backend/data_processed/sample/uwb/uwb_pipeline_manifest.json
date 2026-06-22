@@ -1,0 +1,81 @@
+{
+  "generated_at_unix": 1782163103,
+  "dry_run": false,
+  "source": "uwb_tracking",
+  "source_position_type": "mocap_ground_truth",
+  "output_root": "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample",
+  "written_files": [
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\workers.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\worker_positions_clean.csv",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\worker_positions_demo.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\worker_segment_timeline.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\worker_segment_timeline_summary.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\workers\\uwb_extraction_summary.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\anchors\\anchor_positions.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\anchors\\anchor_cables.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\anchors\\anchor_coverage_report.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\anchors\\anchor_tag_distances.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\anchors\\anchor_tag_distance_summary.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\risk\\worker_exposure_risk.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\uwb\\uwb_pipeline_manifest.json",
+    "C:\\Users\\sarib\\Desktop\\maden_mn\\maden-main\\backend\\data_processed\\sample\\uwb\\uwb_validation_summary.json"
+  ],
+  "counts": {
+    "segment_count": 143,
+    "anchor_count": 283,
+    "cable_link_count": 642,
+    "timeline_record_count": 379,
+    "distance_observation_count": 107257,
+    "exposure_record_count": 379,
+    "latest_worker_count": 3
+  },
+  "limitations": [
+    "UTIL pose_x/y/z values are motion-capture ground-truth proxy positions, not real UWB-estimated miner positions.",
+    "bounds_fit transform is approximate and not calibrated UWB-to-mine registration.",
+    "segment mapping uses bounds-center graph geometry and fallback continuity.",
+    "anchor visibility is approximate distance/graph visibility, not calibrated RF propagation.",
+    "worker exposure risk is occupancy contribution only and does not include gas/geometric risk fusion.",
+    "final fused segment risk and emergency routing are owned by backend risk/routing modules.",
+    "workers.json is a backend-compatible latest snapshot. Its time_step is normalized to 0 for the existing API filter; latest_time_step preserves the original per-worker timeline step."
+  ],
+  "validation": {
+    "ok": true,
+    "error_count": 0,
+    "warning_count": 9,
+    "info_count": 1,
+    "segment_count": 143,
+    "anchor_count": 283,
+    "cable_link_count": 642,
+    "timeline_record_count": 379,
+    "distance_observation_count": 107257,
+    "enriched_timeline_record_count": 379,
+    "exposure_record_count": 379,
+    "latest_worker_count": 3,
+    "segments_with_worker_exposure": 88,
+    "records_with_no_tracking": 185,
+    "fallback_record_count": 133,
+    "ready_for_pipeline_write": true,
+    "warnings": [
+      "some segments are below target anchor coverage",
+      "some worker-time records have no visible anchors",
+      "no_tracking records are retained for safety debugging",
+      "fallback segment mapping is present",
+      "worker exposure is occupancy contribution only and not fused risk",
+      "fallback mapping ratio is high",
+      "no_tracking ratio is high",
+      "mean mapping confidence is low",
+      "mean enriched position reliability is low"
+    ]
+  },
+  "warnings": [
+    "some segments are below target anchor coverage",
+    "some worker-time records have no visible anchors",
+    "no_tracking records are retained for safety debugging",
+    "fallback segment mapping is present",
+    "worker exposure is occupancy contribution only and not fused risk",
+    "fallback mapping ratio is high",
+    "no_tracking ratio is high",
+    "mean mapping confidence is low",
+    "mean enriched position reliability is low"
+  ]
+}

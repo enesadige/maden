@@ -1,0 +1,92 @@
+{
+  "dataset_root": "C:/Users/sarib/Downloads/UTIL_UWB-20260619T173659Z-3-003",
+  "output_root": "backend/data_processed/sample",
+  "segment_source": {
+    "map_segments_path": "backend/data_processed/sample/haki_lidar/segments/map_segments.json",
+    "segment_metadata_path": "backend/data_processed/sample/haki_lidar/segments/segment_metadata.json",
+    "mine_graph_path": "backend/data_processed/sample/haki_lidar/graph/mine_graph.json",
+    "geometry_risk_path": "backend/data_processed/sample/haki_lidar/risk/geometry_risk.json"
+  },
+  "anchor_placement": {
+    "geometry_mode": "bounds_center",
+    "coverage_radius_m": 35.0,
+    "anchor_spacing_m": 25.0,
+    "sample_spacing_m": 5.0,
+    "min_visible_anchors_2d": 3,
+    "redundancy": 1,
+    "anchor_height_m": 2.2,
+    "junction_extra_anchor": true,
+    "dead_end_extra_anchor": true,
+    "exit_extra_anchor": true,
+    "risk_zone_extra_anchor": true,
+    "curve_extra_anchor": true,
+    "turn_angle_threshold_deg": 30,
+    "long_edge_threshold_m": 30.0,
+    "max_anchor_count": null
+  },
+  "cable_topology": {
+    "mode": "graph_based",
+    "enable_cross_links": true,
+    "max_cross_link_distance_m": 60.0,
+    "head_end_selection": "nearest_exit",
+    "wall_offset_m": 0.4
+  },
+  "workers": [
+    {
+      "worker_id": "WORKER_01",
+      "tag_id": "TAG_001",
+      "source_trial_hint": "const4-trial3-tdoa2-traj1",
+      "time_offset_s": 0,
+      "start_segment": "S001"
+    },
+    {
+      "worker_id": "WORKER_02",
+      "tag_id": "TAG_002",
+      "source_trial_hint": "const4-trial1-tdoa3-traj3",
+      "time_offset_s": 10,
+      "start_segment": "S001"
+    },
+    {
+      "worker_id": "WORKER_03",
+      "tag_id": "TAG_003",
+      "source_trial_hint": "const1-trial5-tdoa2",
+      "time_offset_s": 20,
+      "start_segment": "S001"
+    }
+  ],
+  "allow_trial_reuse": false,
+  "sample_rate_hz": 1,
+  "source_position_type": "mocap_ground_truth",
+  "coordinate_transform": {
+    "mode": "bounds_fit",
+    "axis_mapping": {
+      "source_x": "x",
+      "source_y": "y",
+      "source_z": "z"
+    },
+    "scale": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "rotation_deg_z": 0.0,
+    "translation": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "segment_mapping": {
+    "method": "bounds_center",
+    "max_nearest_segment_distance_m": 20.0,
+    "graph_jump_penalty": 0.25,
+    "hysteresis_margin_m": 1.5
+  },
+  "reliability": {
+    "flight_signal_weight": 0.30,
+    "visible_anchor_weight": 0.30,
+    "signal_quality_weight": 0.20,
+    "mapping_confidence_weight": 0.10,
+    "continuity_weight": 0.10
+  }
+}

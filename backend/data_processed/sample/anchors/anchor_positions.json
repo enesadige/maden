@@ -1,0 +1,3681 @@
+[
+  {
+    "anchor_id": "A001",
+    "segment_id": "S001",
+    "position": {
+      "x": -227.764,
+      "y": -25.884,
+      "z": -0.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A002",
+    "segment_id": "S001",
+    "position": {
+      "x": -227.755,
+      "y": -25.009,
+      "z": -0.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A003",
+    "segment_id": "S002",
+    "position": {
+      "x": -227.723,
+      "y": -20.6893,
+      "z": -0.73
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A004",
+    "segment_id": "S002",
+    "position": {
+      "x": -227.714,
+      "y": -19.549,
+      "z": -0.73
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A005",
+    "segment_id": "S003",
+    "position": {
+      "x": -226.9801,
+      "y": 0.121,
+      "z": -4.49
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A006",
+    "segment_id": "S003",
+    "position": {
+      "x": -226.819,
+      "y": 3.876,
+      "z": -4.49
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A007",
+    "segment_id": "S004",
+    "position": {
+      "x": -229.284,
+      "y": 64.456,
+      "z": -4.2
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A008",
+    "segment_id": "S004",
+    "position": {
+      "x": -229.0617,
+      "y": 70.4833,
+      "z": -4.2
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A009",
+    "segment_id": "S004",
+    "position": {
+      "x": -228.66649999999998,
+      "y": 72.351,
+      "z": -4.2
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A010",
+    "segment_id": "S005",
+    "position": {
+      "x": -228.2713,
+      "y": 97.811,
+      "z": -5.33
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A011",
+    "segment_id": "S005",
+    "position": {
+      "x": -228.049,
+      "y": 97.941,
+      "z": -5.33
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A012",
+    "segment_id": "S006",
+    "position": {
+      "x": -225.649,
+      "y": 140.696,
+      "z": -4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A013",
+    "segment_id": "S006",
+    "position": {
+      "x": -225.004,
+      "y": 140.10875,
+      "z": -4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A014",
+    "segment_id": "S006",
+    "position": {
+      "x": -225.004,
+      "y": 140.3045,
+      "z": -4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A015",
+    "segment_id": "S007",
+    "position": {
+      "x": -200.734,
+      "y": -126.304,
+      "z": -2.18
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A016",
+    "segment_id": "S008",
+    "position": {
+      "x": -207.684,
+      "y": -112.504,
+      "z": -1.1799999999999997
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A017",
+    "segment_id": "S008",
+    "position": {
+      "x": -206.433,
+      "y": -114.988,
+      "z": -1.1799999999999997
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A018",
+    "segment_id": "S009",
+    "position": {
+      "x": -209.964,
+      "y": -89.294,
+      "z": -0.91
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A019",
+    "segment_id": "S009",
+    "position": {
+      "x": -209.5536,
+      "y": -93.4718,
+      "z": -0.91
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A020",
+    "segment_id": "S010",
+    "position": {
+      "x": -210.979,
+      "y": -65.849,
+      "z": -1.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A021",
+    "segment_id": "S010",
+    "position": {
+      "x": -210.7963,
+      "y": -70.0691,
+      "z": -1.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A022",
+    "segment_id": "S010",
+    "position": {
+      "x": -211.584,
+      "y": -57.039,
+      "z": -1.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A023",
+    "segment_id": "S011",
+    "position": {
+      "x": -214.9925,
+      "y": -32.2144,
+      "z": -0.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A024",
+    "segment_id": "S011",
+    "position": {
+      "x": -212.189,
+      "y": -33.604,
+      "z": -0.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A025",
+    "segment_id": "S012",
+    "position": {
+      "x": -215.2377,
+      "y": -13.7721,
+      "z": -2.7699999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A026",
+    "segment_id": "S012",
+    "position": {
+      "x": -212.499,
+      "y": -12.504,
+      "z": -2.7699999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A027",
+    "segment_id": "S013",
+    "position": {
+      "x": -215.0602,
+      "y": 10.9444,
+      "z": -2.58
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A028",
+    "segment_id": "S013",
+    "position": {
+      "x": -212.479,
+      "y": 12.496,
+      "z": -2.58
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A029",
+    "segment_id": "S014",
+    "position": {
+      "x": -208.912,
+      "y": 32.996,
+      "z": -0.85
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A030",
+    "segment_id": "S014",
+    "position": {
+      "x": -208.129,
+      "y": 37.496,
+      "z": -0.85
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A031",
+    "segment_id": "S015",
+    "position": {
+      "x": -215.5203,
+      "y": 62.848800000000004,
+      "z": -3.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A032",
+    "segment_id": "S015",
+    "position": {
+      "x": -212.499,
+      "y": 62.496,
+      "z": -3.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A033",
+    "segment_id": "S016",
+    "position": {
+      "x": -214.92079999999999,
+      "y": 89.3761,
+      "z": -3.63
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A034",
+    "segment_id": "S016",
+    "position": {
+      "x": -212.039,
+      "y": 87.496,
+      "z": -3.63
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A035",
+    "segment_id": "S017",
+    "position": {
+      "x": -201.184,
+      "y": 100.001,
+      "z": -3.89
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A036",
+    "segment_id": "S017",
+    "position": {
+      "x": -200.629,
+      "y": 100.506,
+      "z": -3.89
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A037",
+    "segment_id": "S017",
+    "position": {
+      "x": -201.184,
+      "y": 101.011,
+      "z": -3.89
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A038",
+    "segment_id": "S018",
+    "position": {
+      "x": -214.86599999999999,
+      "y": 138.9125,
+      "z": -3.51
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A039",
+    "segment_id": "S018",
+    "position": {
+      "x": -212.499,
+      "y": 138.521,
+      "z": -3.51
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A040",
+    "segment_id": "S019",
+    "position": {
+      "x": -210.3916,
+      "y": 153.4696,
+      "z": -3.32
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A041",
+    "segment_id": "S019",
+    "position": {
+      "x": -209.929,
+      "y": 156.751,
+      "z": -3.32
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A042",
+    "segment_id": "S020",
+    "position": {
+      "x": -182.1444,
+      "y": -156.0401,
+      "z": -1.0599999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A043",
+    "segment_id": "S020",
+    "position": {
+      "x": -180.969,
+      "y": -160.109,
+      "z": -1.0599999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A044",
+    "segment_id": "S021",
+    "position": {
+      "x": -189.8813,
+      "y": -135.488,
+      "z": -2.0599999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A045",
+    "segment_id": "S021",
+    "position": {
+      "x": -187.499,
+      "y": -137.504,
+      "z": -2.0599999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A046",
+    "segment_id": "S022",
+    "position": {
+      "x": -191.1323,
+      "y": -112.504,
+      "z": -0.09999999999999964
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A047",
+    "segment_id": "S022",
+    "position": {
+      "x": -187.499,
+      "y": -112.504,
+      "z": -0.09999999999999964
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A048",
+    "segment_id": "S023",
+    "position": {
+      "x": -191.5427,
+      "y": -87.8262,
+      "z": 0.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A049",
+    "segment_id": "S023",
+    "position": {
+      "x": -187.499,
+      "y": -87.504,
+      "z": 0.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A050",
+    "segment_id": "S024",
+    "position": {
+      "x": -191.1801,
+      "y": -63.1061,
+      "z": -0.17
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A051",
+    "segment_id": "S024",
+    "position": {
+      "x": -186.834,
+      "y": -62.504,
+      "z": -0.17
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A052",
+    "segment_id": "S025",
+    "position": {
+      "x": -191.9432,
+      "y": -36.802,
+      "z": 0.39
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A053",
+    "segment_id": "S025",
+    "position": {
+      "x": -187.499,
+      "y": -37.504,
+      "z": 0.39
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A054",
+    "segment_id": "S026",
+    "position": {
+      "x": -192.409,
+      "y": -12.504,
+      "z": 0.3400000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A055",
+    "segment_id": "S026",
+    "position": {
+      "x": -187.999,
+      "y": -12.504,
+      "z": 0.3400000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A056",
+    "segment_id": "S027",
+    "position": {
+      "x": -191.9954,
+      "y": 12.496,
+      "z": 0.11000000000000032
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A057",
+    "segment_id": "S027",
+    "position": {
+      "x": -187.499,
+      "y": 12.496,
+      "z": 0.11000000000000032
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A058",
+    "segment_id": "S028",
+    "position": {
+      "x": -191.2206,
+      "y": 37.496,
+      "z": -0.20999999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A059",
+    "segment_id": "S028",
+    "position": {
+      "x": -187.509,
+      "y": 37.496,
+      "z": -0.20999999999999996
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A060",
+    "segment_id": "S029",
+    "position": {
+      "x": -193.5078,
+      "y": 62.496,
+      "z": -0.7599999999999998
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A061",
+    "segment_id": "S029",
+    "position": {
+      "x": -189.339,
+      "y": 62.496,
+      "z": -0.7599999999999998
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A062",
+    "segment_id": "S029",
+    "position": {
+      "x": -178.684,
+      "y": 67.626,
+      "z": -0.7599999999999998
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A063",
+    "segment_id": "S030",
+    "position": {
+      "x": -191.9162,
+      "y": 87.496,
+      "z": -1.8399999999999999
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A064",
+    "segment_id": "S030",
+    "position": {
+      "x": -187.499,
+      "y": 87.496,
+      "z": -1.8399999999999999
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A065",
+    "segment_id": "S031",
+    "position": {
+      "x": -189.7312,
+      "y": 110.3378,
+      "z": -1.88
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A066",
+    "segment_id": "S031",
+    "position": {
+      "x": -187.339,
+      "y": 112.496,
+      "z": -1.88
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A067",
+    "segment_id": "S032",
+    "position": {
+      "x": -191.999,
+      "y": 137.6805,
+      "z": -2.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A068",
+    "segment_id": "S032",
+    "position": {
+      "x": -187.499,
+      "y": 137.496,
+      "z": -2.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A069",
+    "segment_id": "S033",
+    "position": {
+      "x": -191.5364,
+      "y": 161.179,
+      "z": -1.9100000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A070",
+    "segment_id": "S033",
+    "position": {
+      "x": -187.499,
+      "y": 162.151,
+      "z": -1.9100000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A071",
+    "segment_id": "S034",
+    "position": {
+      "x": -153.844,
+      "y": -206.299,
+      "z": 0.07
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A072",
+    "segment_id": "S035",
+    "position": {
+      "x": -159.524,
+      "y": -187.564,
+      "z": 0.48
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A073",
+    "segment_id": "S036",
+    "position": {
+      "x": -165.8236,
+      "y": -161.9827,
+      "z": 2.06
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A074",
+    "segment_id": "S036",
+    "position": {
+      "x": -162.499,
+      "y": -162.394,
+      "z": 2.06
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A075",
+    "segment_id": "S037",
+    "position": {
+      "x": -166.999,
+      "y": -137.504,
+      "z": 2.1100000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A076",
+    "segment_id": "S037",
+    "position": {
+      "x": -162.499,
+      "y": -137.504,
+      "z": 2.1100000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A077",
+    "segment_id": "S038",
+    "position": {
+      "x": -166.999,
+      "y": -112.504,
+      "z": 0.41000000000000014
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A078",
+    "segment_id": "S038",
+    "position": {
+      "x": -162.499,
+      "y": -112.504,
+      "z": 0.41000000000000014
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A079",
+    "segment_id": "S039",
+    "position": {
+      "x": -166.999,
+      "y": -87.504,
+      "z": 1.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A080",
+    "segment_id": "S039",
+    "position": {
+      "x": -162.499,
+      "y": -87.504,
+      "z": 1.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A081",
+    "segment_id": "S040",
+    "position": {
+      "x": -166.8793,
+      "y": -62.504,
+      "z": 0.7100000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A082",
+    "segment_id": "S040",
+    "position": {
+      "x": -162.499,
+      "y": -62.504,
+      "z": 0.7100000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A083",
+    "segment_id": "S041",
+    "position": {
+      "x": -166.999,
+      "y": -37.504,
+      "z": 1.1900000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A084",
+    "segment_id": "S041",
+    "position": {
+      "x": -162.499,
+      "y": -37.504,
+      "z": 1.1900000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A085",
+    "segment_id": "S042",
+    "position": {
+      "x": -166.392,
+      "y": -12.5122,
+      "z": 0.8400000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A086",
+    "segment_id": "S042",
+    "position": {
+      "x": -161.649,
+      "y": -12.514,
+      "z": 0.8400000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A087",
+    "segment_id": "S043",
+    "position": {
+      "x": -172.2429,
+      "y": 12.4345,
+      "z": 4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A088",
+    "segment_id": "S043",
+    "position": {
+      "x": -168.894,
+      "y": 12.421,
+      "z": 4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A089",
+    "segment_id": "S044",
+    "position": {
+      "x": -174.944,
+      "y": 31.0672,
+      "z": 3.98
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A090",
+    "segment_id": "S044",
+    "position": {
+      "x": -173.909,
+      "y": 29.656,
+      "z": 3.98
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A091",
+    "segment_id": "S044",
+    "position": {
+      "x": -172.874,
+      "y": 34.181,
+      "z": 3.98
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A092",
+    "segment_id": "S045",
+    "position": {
+      "x": -164.004,
+      "y": 70.9092,
+      "z": 4.720000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A093",
+    "segment_id": "S045",
+    "position": {
+      "x": -161.329,
+      "y": 72.756,
+      "z": 4.720000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A094",
+    "segment_id": "S046",
+    "position": {
+      "x": -169.7952,
+      "y": 87.496,
+      "z": 2.96
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A095",
+    "segment_id": "S046",
+    "position": {
+      "x": -165.909,
+      "y": 87.496,
+      "z": 2.96
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A096",
+    "segment_id": "S047",
+    "position": {
+      "x": -166.9702,
+      "y": 112.496,
+      "z": 3.4400000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A097",
+    "segment_id": "S047",
+    "position": {
+      "x": -162.499,
+      "y": 112.496,
+      "z": 3.4400000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A098",
+    "segment_id": "S048",
+    "position": {
+      "x": -166.999,
+      "y": 137.496,
+      "z": 2.77
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A099",
+    "segment_id": "S048",
+    "position": {
+      "x": -162.499,
+      "y": 137.496,
+      "z": 2.77
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A100",
+    "segment_id": "S049",
+    "position": {
+      "x": -174.625,
+      "y": 160.92100000000002,
+      "z": 5.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A101",
+    "segment_id": "S049",
+    "position": {
+      "x": -171.799,
+      "y": 160.651,
+      "z": 5.0
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A102",
+    "segment_id": "S050",
+    "position": {
+      "x": -143.164,
+      "y": -225.009,
+      "z": 0.92
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A103",
+    "segment_id": "S050",
+    "position": {
+      "x": -142.9363,
+      "y": -225.009,
+      "z": 0.92
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A104",
+    "segment_id": "S050",
+    "position": {
+      "x": -142.309,
+      "y": -225.664,
+      "z": 0.92
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A105",
+    "segment_id": "S051",
+    "position": {
+      "x": -145.794,
+      "y": -215.334,
+      "z": 1.34
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A106",
+    "segment_id": "S052",
+    "position": {
+      "x": -147.9153,
+      "y": -158.1095,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A107",
+    "segment_id": "S052",
+    "position": {
+      "x": -144.714,
+      "y": -157.169,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A108",
+    "segment_id": "S053",
+    "position": {
+      "x": -148.8665,
+      "y": -137.5491,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A109",
+    "segment_id": "S053",
+    "position": {
+      "x": -145.874,
+      "y": -137.559,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A110",
+    "segment_id": "S054",
+    "position": {
+      "x": -141.999,
+      "y": -111.1879,
+      "z": -0.1599999999999997
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A111",
+    "segment_id": "S054",
+    "position": {
+      "x": -137.499,
+      "y": -110.899,
+      "z": -0.1599999999999997
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A112",
+    "segment_id": "S055",
+    "position": {
+      "x": -149.994,
+      "y": -87.03659999999999,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A113",
+    "segment_id": "S055",
+    "position": {
+      "x": -147.524,
+      "y": -86.934,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A114",
+    "segment_id": "S056",
+    "position": {
+      "x": -149.051,
+      "y": -62.504,
+      "z": 5.73
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A115",
+    "segment_id": "S056",
+    "position": {
+      "x": -146.099,
+      "y": -62.504,
+      "z": 5.73
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A116",
+    "segment_id": "S057",
+    "position": {
+      "x": -148.8706,
+      "y": -40.853699999999996,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A117",
+    "segment_id": "S057",
+    "position": {
+      "x": -145.879,
+      "y": -41.589,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A118",
+    "segment_id": "S058",
+    "position": {
+      "x": -141.999,
+      "y": 114.136,
+      "z": 4.19
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A119",
+    "segment_id": "S058",
+    "position": {
+      "x": -137.499,
+      "y": 114.496,
+      "z": 4.19
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A120",
+    "segment_id": "S059",
+    "position": {
+      "x": -141.999,
+      "y": 130.8704,
+      "z": 4.04
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A121",
+    "segment_id": "S059",
+    "position": {
+      "x": -137.499,
+      "y": 129.416,
+      "z": 4.04
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A122",
+    "segment_id": "S060",
+    "position": {
+      "x": -116.999,
+      "y": -110.489,
+      "z": 0.29000000000000026
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A123",
+    "segment_id": "S060",
+    "position": {
+      "x": -112.499,
+      "y": -110.399,
+      "z": 0.29000000000000026
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A124",
+    "segment_id": "S061",
+    "position": {
+      "x": -121.659,
+      "y": -99.944,
+      "z": 1.99
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A125",
+    "segment_id": "S062",
+    "position": {
+      "x": -116.999,
+      "y": 116.464,
+      "z": 4.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A126",
+    "segment_id": "S062",
+    "position": {
+      "x": -112.499,
+      "y": 116.896,
+      "z": 4.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A127",
+    "segment_id": "S063",
+    "position": {
+      "x": -116.999,
+      "y": 128.4115,
+      "z": 4.300000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A128",
+    "segment_id": "S063",
+    "position": {
+      "x": -112.499,
+      "y": 128.191,
+      "z": 4.300000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A129",
+    "segment_id": "S064",
+    "position": {
+      "x": -93.619,
+      "y": -133.479,
+      "z": 2.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A130",
+    "segment_id": "S064",
+    "position": {
+      "x": -92.5174,
+      "y": -129.8898,
+      "z": 2.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A131",
+    "segment_id": "S064",
+    "position": {
+      "x": -91.9666,
+      "y": -128.0952,
+      "z": 2.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A132",
+    "segment_id": "S065",
+    "position": {
+      "x": -91.999,
+      "y": -112.9738,
+      "z": 2.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A133",
+    "segment_id": "S065",
+    "position": {
+      "x": -87.499,
+      "y": -113.539,
+      "z": 2.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A134",
+    "segment_id": "S066",
+    "position": {
+      "x": -91.999,
+      "y": 112.4639,
+      "z": 5.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A135",
+    "segment_id": "S066",
+    "position": {
+      "x": -87.499,
+      "y": 111.491,
+      "z": 5.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A136",
+    "segment_id": "S067",
+    "position": {
+      "x": -91.999,
+      "y": 136.4402,
+      "z": 5.630000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A137",
+    "segment_id": "S067",
+    "position": {
+      "x": -87.499,
+      "y": 138.251,
+      "z": 5.630000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A138",
+    "segment_id": "S068",
+    "position": {
+      "x": -86.28540000000001,
+      "y": 158.1319,
+      "z": 5.25
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A139",
+    "segment_id": "S068",
+    "position": {
+      "x": -86.019,
+      "y": 162.496,
+      "z": 5.25
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A140",
+    "segment_id": "S069",
+    "position": {
+      "x": -87.209,
+      "y": 187.496,
+      "z": 5.25
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A141",
+    "segment_id": "S069",
+    "position": {
+      "x": -86.9948,
+      "y": 182.996,
+      "z": 5.25
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A142",
+    "segment_id": "S070",
+    "position": {
+      "x": -87.249,
+      "y": 212.226,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A143",
+    "segment_id": "S071",
+    "position": {
+      "x": -93.134,
+      "y": 225.931,
+      "z": 5.62
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A144",
+    "segment_id": "S071",
+    "position": {
+      "x": -93.084,
+      "y": 225.541,
+      "z": 5.62
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A145",
+    "segment_id": "S072",
+    "position": {
+      "x": -66.999,
+      "y": -111.24300000000001,
+      "z": 3.64
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A146",
+    "segment_id": "S072",
+    "position": {
+      "x": -62.499,
+      "y": -110.739,
+      "z": 3.64
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A147",
+    "segment_id": "S073",
+    "position": {
+      "x": -62.769,
+      "y": -87.504,
+      "z": 4.09
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A148",
+    "segment_id": "S074",
+    "position": {
+      "x": -57.135600000000004,
+      "y": -67.004,
+      "z": 4.470000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A149",
+    "segment_id": "S074",
+    "position": {
+      "x": -55.899,
+      "y": -62.504,
+      "z": 4.470000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A150",
+    "segment_id": "S075",
+    "position": {
+      "x": -62.044,
+      "y": -37.504,
+      "z": 4.82
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A151",
+    "segment_id": "S075",
+    "position": {
+      "x": -60.9379,
+      "y": -42.004,
+      "z": 4.82
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A152",
+    "segment_id": "S076",
+    "position": {
+      "x": -61.609,
+      "y": -12.504,
+      "z": 4.970000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A153",
+    "segment_id": "S077",
+    "position": {
+      "x": -61.2359,
+      "y": 7.996,
+      "z": 5.21
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A154",
+    "segment_id": "S077",
+    "position": {
+      "x": -61.154,
+      "y": 12.496,
+      "z": 5.21
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A155",
+    "segment_id": "S078",
+    "position": {
+      "x": -61.159,
+      "y": 37.496,
+      "z": 5.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A156",
+    "segment_id": "S078",
+    "position": {
+      "x": -61.1581,
+      "y": 32.996,
+      "z": 5.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A157",
+    "segment_id": "S079",
+    "position": {
+      "x": -60.802299999999995,
+      "y": 57.996,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A158",
+    "segment_id": "S079",
+    "position": {
+      "x": -60.724,
+      "y": 62.496,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A159",
+    "segment_id": "S080",
+    "position": {
+      "x": -60.683,
+      "y": 82.996,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A160",
+    "segment_id": "S080",
+    "position": {
+      "x": -60.674,
+      "y": 87.496,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A161",
+    "segment_id": "S081",
+    "position": {
+      "x": -67.7698,
+      "y": 112.3151,
+      "z": 5.32
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A162",
+    "segment_id": "S081",
+    "position": {
+      "x": -63.439,
+      "y": 112.496,
+      "z": 5.32
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A163",
+    "segment_id": "S082",
+    "position": {
+      "x": -67.9748,
+      "y": 137.6319,
+      "z": 5.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A164",
+    "segment_id": "S082",
+    "position": {
+      "x": -63.689,
+      "y": 137.496,
+      "z": 5.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A165",
+    "segment_id": "S082",
+    "position": {
+      "x": -52.384,
+      "y": 137.496,
+      "z": 5.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A166",
+    "segment_id": "S083",
+    "position": {
+      "x": -66.7326,
+      "y": 162.496,
+      "z": 5.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A167",
+    "segment_id": "S083",
+    "position": {
+      "x": -62.499,
+      "y": 162.496,
+      "z": 5.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A168",
+    "segment_id": "S084",
+    "position": {
+      "x": -66.16369999999999,
+      "y": 180.6326,
+      "z": 5.15
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A169",
+    "segment_id": "S084",
+    "position": {
+      "x": -61.544,
+      "y": 179.126,
+      "z": 5.15
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A170",
+    "segment_id": "S085",
+    "position": {
+      "x": -37.499,
+      "y": -111.869,
+      "z": 4.050000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A171",
+    "segment_id": "S086",
+    "position": {
+      "x": -40.811,
+      "y": -58.9452,
+      "z": 4.890000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A172",
+    "segment_id": "S086",
+    "position": {
+      "x": -37.499,
+      "y": -58.164,
+      "z": 4.890000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A173",
+    "segment_id": "S087",
+    "position": {
+      "x": -39.954,
+      "y": -48.879,
+      "z": 5.02
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A174",
+    "segment_id": "S087",
+    "position": {
+      "x": -35.889,
+      "y": -49.439,
+      "z": 5.02
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A175",
+    "segment_id": "S088",
+    "position": {
+      "x": -41.7569,
+      "y": 16.7518,
+      "z": 4.720000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A176",
+    "segment_id": "S088",
+    "position": {
+      "x": -37.499,
+      "y": 17.686,
+      "z": 4.720000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A177",
+    "segment_id": "S089",
+    "position": {
+      "x": -41.7578,
+      "y": 37.496,
+      "z": 4.74
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A178",
+    "segment_id": "S089",
+    "position": {
+      "x": -37.499,
+      "y": 37.496,
+      "z": 4.74
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A179",
+    "segment_id": "S090",
+    "position": {
+      "x": -41.679500000000004,
+      "y": 62.496,
+      "z": 3.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A180",
+    "segment_id": "S090",
+    "position": {
+      "x": -37.499,
+      "y": 62.496,
+      "z": 3.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A181",
+    "segment_id": "S091",
+    "position": {
+      "x": -41.666399999999996,
+      "y": 87.496,
+      "z": 3.4400000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A182",
+    "segment_id": "S091",
+    "position": {
+      "x": -37.494,
+      "y": 87.496,
+      "z": 3.4400000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A183",
+    "segment_id": "S092",
+    "position": {
+      "x": -41.2211,
+      "y": 112.496,
+      "z": 4.87
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A184",
+    "segment_id": "S092",
+    "position": {
+      "x": -36.344,
+      "y": 112.496,
+      "z": 4.87
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A185",
+    "segment_id": "S093",
+    "position": {
+      "x": -37.2932,
+      "y": 137.496,
+      "z": 4.95
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A186",
+    "segment_id": "S093",
+    "position": {
+      "x": -31.499,
+      "y": 137.496,
+      "z": 4.95
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A187",
+    "segment_id": "S094",
+    "position": {
+      "x": -41.999,
+      "y": 160.4993,
+      "z": 5.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A188",
+    "segment_id": "S094",
+    "position": {
+      "x": -37.499,
+      "y": 160.061,
+      "z": 5.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A189",
+    "segment_id": "S095",
+    "position": {
+      "x": -12.499,
+      "y": -112.514,
+      "z": 4.01
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A190",
+    "segment_id": "S096",
+    "position": {
+      "x": -12.499,
+      "y": -65.274,
+      "z": 2.75
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A191",
+    "segment_id": "S097",
+    "position": {
+      "x": -17.0851,
+      "y": 18.3707,
+      "z": 4.76
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A192",
+    "segment_id": "S097",
+    "position": {
+      "x": -12.604,
+      "y": 18.521,
+      "z": 4.76
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A193",
+    "segment_id": "S098",
+    "position": {
+      "x": -16.999000000000002,
+      "y": 34.8761,
+      "z": 4.6
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A194",
+    "segment_id": "S098",
+    "position": {
+      "x": -12.499,
+      "y": 34.301,
+      "z": 4.6
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A195",
+    "segment_id": "S099",
+    "position": {
+      "x": -16.999000000000002,
+      "y": 63.029,
+      "z": 3.0700000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A196",
+    "segment_id": "S099",
+    "position": {
+      "x": -12.499,
+      "y": 63.146,
+      "z": 3.0700000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A197",
+    "segment_id": "S100",
+    "position": {
+      "x": -16.9981,
+      "y": 87.496,
+      "z": 3.0700000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A198",
+    "segment_id": "S100",
+    "position": {
+      "x": -12.499,
+      "y": 87.496,
+      "z": 3.0700000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A199",
+    "segment_id": "S101",
+    "position": {
+      "x": -16.7911,
+      "y": 112.496,
+      "z": 4.62
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A200",
+    "segment_id": "S101",
+    "position": {
+      "x": -12.499,
+      "y": 112.496,
+      "z": 4.62
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A201",
+    "segment_id": "S102",
+    "position": {
+      "x": -16.3536,
+      "y": 137.496,
+      "z": 4.94
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A202",
+    "segment_id": "S102",
+    "position": {
+      "x": -13.029,
+      "y": 137.496,
+      "z": 4.94
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A203",
+    "segment_id": "S103",
+    "position": {
+      "x": -16.999000000000002,
+      "y": 160.0856,
+      "z": 5.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A204",
+    "segment_id": "S103",
+    "position": {
+      "x": -12.499,
+      "y": 160.091,
+      "z": 5.52
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A205",
+    "segment_id": "S104",
+    "position": {
+      "x": 12.501,
+      "y": -112.094,
+      "z": 4.25
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A206",
+    "segment_id": "S105",
+    "position": {
+      "x": 12.501,
+      "y": -65.369,
+      "z": 4.01
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A207",
+    "segment_id": "S106",
+    "position": {
+      "x": 11.176000000000002,
+      "y": 18.853099999999998,
+      "z": 4.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A208",
+    "segment_id": "S106",
+    "position": {
+      "x": 16.396,
+      "y": 18.926,
+      "z": 4.27
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A209",
+    "segment_id": "S107",
+    "position": {
+      "x": 8.001,
+      "y": 36.9209,
+      "z": 2.66
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A210",
+    "segment_id": "S107",
+    "position": {
+      "x": 12.501,
+      "y": 37.496,
+      "z": 2.66
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A211",
+    "segment_id": "S108",
+    "position": {
+      "x": 8.001,
+      "y": 62.613,
+      "z": 2.7300000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A212",
+    "segment_id": "S108",
+    "position": {
+      "x": 12.501,
+      "y": 62.496,
+      "z": 2.7300000000000004
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A213",
+    "segment_id": "S109",
+    "position": {
+      "x": 7.976400000000001,
+      "y": 87.496,
+      "z": 3.47
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A214",
+    "segment_id": "S109",
+    "position": {
+      "x": 12.471,
+      "y": 87.496,
+      "z": 3.47
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A215",
+    "segment_id": "S110",
+    "position": {
+      "x": 2.5111000000000003,
+      "y": 112.496,
+      "z": 4.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A216",
+    "segment_id": "S110",
+    "position": {
+      "x": 5.806,
+      "y": 112.496,
+      "z": 4.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A217",
+    "segment_id": "S111",
+    "position": {
+      "x": 0.911,
+      "y": 137.496,
+      "z": 5.220000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A218",
+    "segment_id": "S111",
+    "position": {
+      "x": 3.971,
+      "y": 137.496,
+      "z": 5.220000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A219",
+    "segment_id": "S112",
+    "position": {
+      "x": 0.3094000000000001,
+      "y": 159.4924,
+      "z": 5.35
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A220",
+    "segment_id": "S112",
+    "position": {
+      "x": 3.121,
+      "y": 159.361,
+      "z": 5.35
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A221",
+    "segment_id": "S113",
+    "position": {
+      "x": 33.001,
+      "y": -112.24980000000001,
+      "z": 4.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A222",
+    "segment_id": "S113",
+    "position": {
+      "x": 37.501,
+      "y": -112.284,
+      "z": 4.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A223",
+    "segment_id": "S113",
+    "position": {
+      "x": 40.5385,
+      "y": -102.779,
+      "z": 4.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A224",
+    "segment_id": "S114",
+    "position": {
+      "x": 42.4825,
+      "y": -84.399,
+      "z": 4.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A225",
+    "segment_id": "S114",
+    "position": {
+      "x": 43.576,
+      "y": -79.704,
+      "z": 4.78
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A226",
+    "segment_id": "S115",
+    "position": {
+      "x": 28.741099999999996,
+      "y": -63.0197,
+      "z": 3.2800000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A227",
+    "segment_id": "S115",
+    "position": {
+      "x": 32.306,
+      "y": -62.504,
+      "z": 3.2800000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A228",
+    "segment_id": "S116",
+    "position": {
+      "x": 37.554,
+      "y": -42.004,
+      "z": 4.86
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A229",
+    "segment_id": "S116",
+    "position": {
+      "x": 38.706,
+      "y": -37.504,
+      "z": 4.86
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A230",
+    "segment_id": "S117",
+    "position": {
+      "x": 40.4198,
+      "y": -17.003999999999998,
+      "z": 5.34
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A231",
+    "segment_id": "S117",
+    "position": {
+      "x": 40.796,
+      "y": -12.504,
+      "z": 5.34
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A232",
+    "segment_id": "S118",
+    "position": {
+      "x": 36.773,
+      "y": 13.4648,
+      "z": 4.5
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A233",
+    "segment_id": "S118",
+    "position": {
+      "x": 41.246,
+      "y": 12.266,
+      "z": 4.5
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A234",
+    "segment_id": "S118",
+    "position": {
+      "x": 34.4785,
+      "y": 24.531,
+      "z": 4.5
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A235",
+    "segment_id": "S119",
+    "position": {
+      "x": 25.006,
+      "y": 43.9904,
+      "z": 4.48
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A236",
+    "segment_id": "S119",
+    "position": {
+      "x": 27.711,
+      "y": 45.416,
+      "z": 4.48
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A237",
+    "segment_id": "S120",
+    "position": {
+      "x": 26.3959,
+      "y": 60.8478,
+      "z": 3.7800000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A238",
+    "segment_id": "S120",
+    "position": {
+      "x": 29.446,
+      "y": 60.486,
+      "z": 3.7800000000000002
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A239",
+    "segment_id": "S121",
+    "position": {
+      "x": 25.701700000000002,
+      "y": 80.1365,
+      "z": 3.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A240",
+    "segment_id": "S121",
+    "position": {
+      "x": 28.606,
+      "y": 78.521,
+      "z": 3.8000000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A241",
+    "segment_id": "S122",
+    "position": {
+      "x": 58.001,
+      "y": -112.2799,
+      "z": 4.5600000000000005
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A242",
+    "segment_id": "S122",
+    "position": {
+      "x": 62.501,
+      "y": -112.279,
+      "z": 4.5600000000000005
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A243",
+    "segment_id": "S122",
+    "position": {
+      "x": 62.501,
+      "y": -102.919,
+      "z": 4.5600000000000005
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A244",
+    "segment_id": "S123",
+    "position": {
+      "x": 59.0945,
+      "y": -80.59779999999999,
+      "z": 4.050000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A245",
+    "segment_id": "S123",
+    "position": {
+      "x": 62.501,
+      "y": -80.794,
+      "z": 4.050000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A246",
+    "segment_id": "S124",
+    "position": {
+      "x": 58.2179,
+      "y": -35.1998,
+      "z": 4.94
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A247",
+    "segment_id": "S124",
+    "position": {
+      "x": 62.501,
+      "y": -34.694,
+      "z": 4.94
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A248",
+    "segment_id": "S125",
+    "position": {
+      "x": 58.5941,
+      "y": -12.504,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A249",
+    "segment_id": "S125",
+    "position": {
+      "x": 62.501,
+      "y": -12.504,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A250",
+    "segment_id": "S126",
+    "position": {
+      "x": 58.6751,
+      "y": 8.986,
+      "z": 4.880000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A251",
+    "segment_id": "S126",
+    "position": {
+      "x": 62.501,
+      "y": 8.266,
+      "z": 4.880000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A252",
+    "segment_id": "S127",
+    "position": {
+      "x": 83.001,
+      "y": -111.1802,
+      "z": 4.49
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A253",
+    "segment_id": "S127",
+    "position": {
+      "x": 87.501,
+      "y": -110.939,
+      "z": 4.49
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A254",
+    "segment_id": "S128",
+    "position": {
+      "x": 83.001,
+      "y": -86.2962,
+      "z": 4.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A255",
+    "segment_id": "S128",
+    "position": {
+      "x": 87.501,
+      "y": -87.504,
+      "z": 4.9
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A256",
+    "segment_id": "S129",
+    "position": {
+      "x": 86.926,
+      "y": -62.504,
+      "z": 4.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A257",
+    "segment_id": "S129",
+    "position": {
+      "x": 87.0295,
+      "y": -67.004,
+      "z": 4.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A258",
+    "segment_id": "S130",
+    "position": {
+      "x": 83.001,
+      "y": -36.9982,
+      "z": 4.45
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A259",
+    "segment_id": "S130",
+    "position": {
+      "x": 87.501,
+      "y": -37.504,
+      "z": 4.45
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A260",
+    "segment_id": "S131",
+    "position": {
+      "x": 83.001,
+      "y": -12.504,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A261",
+    "segment_id": "S131",
+    "position": {
+      "x": 87.501,
+      "y": -12.504,
+      "z": 5.84
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A262",
+    "segment_id": "S132",
+    "position": {
+      "x": 83.001,
+      "y": 9.8445,
+      "z": 5.33
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A263",
+    "segment_id": "S132",
+    "position": {
+      "x": 87.501,
+      "y": 10.191,
+      "z": 5.33
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A264",
+    "segment_id": "S133",
+    "position": {
+      "x": 108.001,
+      "y": -110.9349,
+      "z": 4.79
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A265",
+    "segment_id": "S133",
+    "position": {
+      "x": 112.501,
+      "y": -110.934,
+      "z": 4.79
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A266",
+    "segment_id": "S134",
+    "position": {
+      "x": 102.81450000000001,
+      "y": -87.504,
+      "z": 4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A267",
+    "segment_id": "S134",
+    "position": {
+      "x": 106.176,
+      "y": -87.504,
+      "z": 4.57
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A268",
+    "segment_id": "S135",
+    "position": {
+      "x": 107.696,
+      "y": -62.504,
+      "z": 5.5
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A269",
+    "segment_id": "S135",
+    "position": {
+      "x": 110.031,
+      "y": -62.504,
+      "z": 5.5
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A270",
+    "segment_id": "S136",
+    "position": {
+      "x": 102.8678,
+      "y": -37.504,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A271",
+    "segment_id": "S136",
+    "position": {
+      "x": 106.241,
+      "y": -37.504,
+      "z": 5.65
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A272",
+    "segment_id": "S137",
+    "position": {
+      "x": 103.1794,
+      "y": -14.6237,
+      "z": 3.8200000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A273",
+    "segment_id": "S137",
+    "position": {
+      "x": 106.621,
+      "y": -15.089,
+      "z": 3.8200000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "junction",
+    "placement_reason": "base_coverage+junction",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A274",
+    "segment_id": "S137",
+    "position": {
+      "x": 106.7235,
+      "y": -5.179,
+      "z": 3.8200000000000003
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "long_edge_relay",
+    "placement_reason": "long_edge_intermediate",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A275",
+    "segment_id": "S138",
+    "position": {
+      "x": 103.3475,
+      "y": 14.25,
+      "z": 5.1
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A276",
+    "segment_id": "S138",
+    "position": {
+      "x": 106.826,
+      "y": 15.141,
+      "z": 5.1
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage+curve_turn",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A277",
+    "segment_id": "S139",
+    "position": {
+      "x": 137.501,
+      "y": -113.759,
+      "z": 4.98
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A278",
+    "segment_id": "S140",
+    "position": {
+      "x": 162.501,
+      "y": -112.789,
+      "z": 5.130000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A279",
+    "segment_id": "S141",
+    "position": {
+      "x": 187.501,
+      "y": -112.789,
+      "z": 5.220000000000001
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A280",
+    "segment_id": "S142",
+    "position": {
+      "x": 212.501,
+      "y": -112.854,
+      "z": 5.37
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "relay",
+    "placement_reason": "base_coverage",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A281",
+    "segment_id": "S143",
+    "position": {
+      "x": 225.006,
+      "y": -117.31065,
+      "z": 5.69
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A282",
+    "segment_id": "S143",
+    "position": {
+      "x": 226.2647,
+      "y": -117.8601,
+      "z": 5.69
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  },
+  {
+    "anchor_id": "A283",
+    "segment_id": "S143",
+    "position": {
+      "x": 229.286,
+      "y": -118.959,
+      "z": 5.69
+    },
+    "coverage_radius_m": 35.0,
+    "anchor_type": "gateway",
+    "placement_reason": "base_coverage+dead_end+exit_gateway",
+    "status": "active"
+  }
+]

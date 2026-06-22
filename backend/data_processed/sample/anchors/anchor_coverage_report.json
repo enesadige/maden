@@ -1,0 +1,155 @@
+{
+  "source": "uwb_anchor_planner",
+  "anchor_plan_summary": {
+    "anchor_count": 283,
+    "covered_segment_count": 139,
+    "undercovered_segment_count": 4,
+    "exit_anchor_count": 14,
+    "junction_anchor_count": 214,
+    "dead_end_anchor_count": 14,
+    "risk_anchor_count": 0,
+    "curve_anchor_count": 28,
+    "long_edge_anchor_count": 10,
+    "min_visible_anchor_estimate": 3,
+    "mean_visible_anchor_estimate": 11.1958,
+    "max_visible_anchor_estimate": 17,
+    "warnings": [
+      "coverage is estimated using bounds-center graph geometry, not true LOS",
+      "centerline/start/end unavailable; long-edge anchors are approximate"
+    ]
+  },
+  "coverage_report": {
+    "geometry_mode": "bounds_center",
+    "coverage_radius_m": 35.0,
+    "anchor_spacing_m": 25.0,
+    "min_visible_anchors_2d": 3,
+    "redundancy": 1,
+    "target_visible_anchors": 4,
+    "segment_count": 143,
+    "generated_anchor_count": 283,
+    "covered_segment_count": 139,
+    "undercovered_segment_count": 4,
+    "undercovered_segments": [
+      {
+        "segment_id": "S071",
+        "visible_anchor_estimate": 3,
+        "visible_anchors": [
+          "A142",
+          "A143",
+          "A144"
+        ],
+        "target_visible_anchors": 4
+      },
+      {
+        "segment_id": "S095",
+        "visible_anchor_estimate": 3,
+        "visible_anchors": [
+          "A170",
+          "A189",
+          "A205"
+        ],
+        "target_visible_anchors": 4
+      },
+      {
+        "segment_id": "S140",
+        "visible_anchor_estimate": 3,
+        "visible_anchors": [
+          "A277",
+          "A278",
+          "A279"
+        ],
+        "target_visible_anchors": 4
+      },
+      {
+        "segment_id": "S141",
+        "visible_anchor_estimate": 3,
+        "visible_anchors": [
+          "A278",
+          "A279",
+          "A280"
+        ],
+        "target_visible_anchors": 4
+      }
+    ],
+    "min_visible_anchor_estimate": 3,
+    "mean_visible_anchor_estimate": 11.1958,
+    "max_visible_anchor_estimate": 17,
+    "anchors_by_reason": {
+      "base_coverage": 273,
+      "curve_turn": 28,
+      "dead_end": 14,
+      "exit_gateway": 14,
+      "junction": 214,
+      "long_edge_intermediate": 10
+    },
+    "warnings": [
+      "coverage is estimated using bounds-center graph geometry, not true LOS",
+      "centerline/start/end unavailable; long-edge anchors are approximate"
+    ]
+  },
+  "distance_visibility_summary": {
+    "observation_count": 107257,
+    "timeline_record_count": 379,
+    "anchor_count": 283,
+    "worker_time_count": 379,
+    "worker_count": 3,
+    "min_visible_anchor_count": 0,
+    "mean_visible_anchor_count": 4.0396,
+    "max_visible_anchor_count": 19,
+    "records_with_full_tracking_candidate": 155,
+    "records_with_no_visible_anchors": 185,
+    "mean_signal_quality_est": 0.148,
+    "warnings": [
+      "Anchor visibility is estimated using distance, coverage radius and graph/segment constraints. This is not a calibrated RF propagation or exact line-of-sight model.",
+      "185 worker-time records have no visible anchors"
+    ]
+  },
+  "undercovered_segments": [
+    {
+      "segment_id": "S071",
+      "visible_anchor_estimate": 3,
+      "visible_anchors": [
+        "A142",
+        "A143",
+        "A144"
+      ],
+      "target_visible_anchors": 4
+    },
+    {
+      "segment_id": "S095",
+      "visible_anchor_estimate": 3,
+      "visible_anchors": [
+        "A170",
+        "A189",
+        "A205"
+      ],
+      "target_visible_anchors": 4
+    },
+    {
+      "segment_id": "S140",
+      "visible_anchor_estimate": 3,
+      "visible_anchors": [
+        "A277",
+        "A278",
+        "A279"
+      ],
+      "target_visible_anchors": 4
+    },
+    {
+      "segment_id": "S141",
+      "visible_anchor_estimate": 3,
+      "visible_anchors": [
+        "A278",
+        "A279",
+        "A280"
+      ],
+      "target_visible_anchors": 4
+    }
+  ],
+  "warnings": [
+    "coverage is estimated using bounds-center graph geometry, not true LOS",
+    "centerline/start/end unavailable; long-edge anchors are approximate",
+    "Anchor visibility is estimated using distance, coverage radius and graph/segment constraints. This is not a calibrated RF propagation or exact line-of-sight model.",
+    "185 worker-time records have no visible anchors"
+  ]
+}

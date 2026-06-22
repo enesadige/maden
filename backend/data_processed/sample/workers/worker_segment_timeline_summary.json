@@ -1,0 +1,38 @@
+{
+  "timeline_record_count": 379,
+  "worker_count": 3,
+  "latest_worker_count": 3,
+  "tracking_status_counts": {
+    "full_tracking": 155,
+    "degraded_tracking": 28,
+    "weak_tracking": 11,
+    "no_tracking": 185
+  },
+  "status_counts": {
+    "safe": 194,
+    "tracking_lost": 185,
+    "low_confidence": 0,
+    "unknown": 0
+  },
+  "reliability_status_counts": {
+    "good": 28,
+    "degraded": 153,
+    "poor": 198
+  },
+  "min_position_reliability": 0.3,
+  "mean_position_reliability": 0.5244,
+  "max_position_reliability": 0.8618,
+  "min_visible_anchor_count": 0,
+  "mean_visible_anchor_count": 4.0396,
+  "max_visible_anchor_count": 19,
+  "records_with_no_visible_anchors": 185,
+  "records_with_full_tracking": 155,
+  "fallback_record_count": 133,
+  "distance_observation_count": 107257,
+  "warnings": [
+    "Tracking status and reliability are estimated using anchor distance, approximate graph visibility, mapping confidence and continuity. This is not certified safety localization and not calibrated RF positioning.",
+    "anchor visibility uses an approximate RF/graph visibility model",
+    "185 no-visible-anchor records are retained as no_tracking",
+    "fallback segment assignments remain low-confidence in enriched records"
+  ]
+}
