@@ -88,5 +88,25 @@
     "signal_quality_weight": 0.20,
     "mapping_confidence_weight": 0.10,
     "continuity_weight": 0.10
+  },
+  "uwb_position_solver": {
+    "enabled": false,
+    "position_source_mode": "mocap_proxy",
+    "measurement_type": "tdoa",
+    "anchor_calibration_path": "backend/uwb_processing/uwb_anchor_calibration.example.json",
+    "speed_of_light_m_s": 299702547.0,
+    "solve_dimension": "2d",
+    "z_mode": "fixed_from_segment_or_ground_truth",
+    "max_measurement_age_s": 0.5,
+    "min_anchor_pairs": 3,
+    "min_unique_anchors": 3,
+    "max_iterations": 200,
+    "learning_rate": 0.02,
+    "convergence_tolerance_m": 0.001,
+    "max_position_jump_m": 10.0,
+    "outlier_residual_threshold_m": 15.0,
+    "fallback_to_mocap_proxy": true,
+    "write_solver_outputs": true,
+    "use_solver_positions_for_backend": false
   }
 }

@@ -1,0 +1,19 @@
+{
+  "source": "example_anchor_calibration",
+  "coordinate_frame": "haki_mine_frame",
+  "description": "Example calibrated UWB anchor coordinates. Replace with real field-measured anchor positions. This is not real calibration unless field-measured coordinates are provided.",
+  "anchors": [
+    {
+      "anchor_id": "A001",
+      "segment_id": "S001",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 2.2
+      },
+      "status": "active",
+      "calibrated": true,
+      "clock_bias_ns": 0.0
+    }
+  ]
+}

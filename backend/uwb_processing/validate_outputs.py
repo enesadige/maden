@@ -98,6 +98,53 @@ def assert_json_serializable(name: str, obj: Any, issues: list[ValidationIssue])
         add_issue(issues, "error", "json_serialization_failed", f"{name} is not JSON serializable", error=str(exc))
 
 
+def validate_optional_solver_generated_outputs(config: dict[str, Any], issues: list[ValidationIssue]) -> None:
+    output_root = Path(str(config.get("output_root", "")))
+    if not output_root:
+        return
+    estimates_path = output_root / "uwb" / "uwb_position_estimates.json"
+    validation_path = output_root / "uwb" / "uwb_solver_validation.json"
+    for path in (estimates_path, validation_path):
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            json.dumps(payload, allow_nan=False)
+        except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+            add_issue(issues, "error", "solver_json_invalid", "optional solver output JSON is malformed", path=str(path), error=str(exc))
+            continue
+        warnings = payload.get("warnings", [])
+        if isinstance(warnings, list):
+            for warning in warnings:
+                text = str(warning)
+                if "missing calibration" in text:
+                    add_issue(issues, "warning", "solver_missing_calibration", "optional solver output reports missing calibration")
+                if "fallback" in text:
+                    add_issue(issues, "warning", "solver_fallback_mocap_proxy", "optional solver output reports fallback to mocap proxy")
+                if "insufficient anchor" in text:
+                    add_issue(issues, "warning", "solver_insufficient_anchors", "optional solver output reports insufficient anchors")
+                if "high RMSE" in text:
+                    add_issue(issues, "warning", "solver_high_rmse", "optional solver output reports high RMSE")
+                if "no solved positions" in text:
+                    add_issue(issues, "warning", "solver_no_solved_positions", "optional solver output reports no solved positions")
+        if path == estimates_path:
+            records = payload.get("estimates", [])
+            if not isinstance(records, list):
+                add_issue(issues, "error", "solver_estimates_invalid", "solver estimates must be a list", path=str(path))
+                continue
+            for index, record in enumerate(records):
+                if not isinstance(record, dict):
+                    add_issue(issues, "error", "solver_estimate_invalid", "solver estimate must be an object", index=index)
+                    continue
+                confidence = record.get("confidence")
+                if not is_finite_number(confidence) or not 0 <= float(confidence) <= 1:
+                    add_issue(issues, "error", "solver_confidence_invalid", "solver confidence is outside [0,1]", index=index)
+                for key in ("estimated_position", "ground_truth_position"):
+                    point = record.get(key)
+                    if point is not None and not point_is_finite(point):
+                        add_issue(issues, "error", "solver_position_invalid", "solver position is non-finite", index=index, field=key)
+
+
 def count_by(items: Any, key_func: Any) -> dict[str, int]:
     return dict(sorted(Counter(str(key_func(item)) for item in items).items()))
 
@@ -335,6 +382,7 @@ def validate_all_outputs(config: dict | None = None, dataset: SegmentDataset | N
     validate_enriched_timeline_contract(enrichment_result, timeline_result, distance_result, dataset, issues)
     validate_exposure_contract(exposure_result, enrichment_result, dataset, issues)
     validate_cross_consistency(anchor_plan, cable_plan, timeline_result, distance_result, enrichment_result, exposure_result, dataset, issues)
+    validate_optional_solver_generated_outputs(config, issues)
     issue_tuple = tuple(issues)
     summary = build_validation_summary(issue_tuple, anchor_plan, cable_plan, timeline_result, distance_result, enrichment_result, exposure_result, dataset)
     return OutputValidationResult(summary["ok"], summary["error_count"], summary["warning_count"], summary["info_count"], issue_tuple, summary)

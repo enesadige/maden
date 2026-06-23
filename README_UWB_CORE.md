@@ -58,6 +58,18 @@ The current Haki handoff provides bounds-center geometry. Dynamic anchor plannin
 
 UTIL UWB pose_x, pose_y and pose_z values are motion-capture ground-truth proxy positions, not real UWB-estimated miner positions. In this MVP they are used only as worker movement proxies.
 
+## Gerçek UWB Position Solver Genişletmesi
+
+The existing MVP mode is `position_source_mode = "mocap_proxy"`. In this mode, `pose_x/y/z` values are used as motion-capture proxy worker positions, and anchor distance/reliability calculations are derived from those proxy positions.
+
+The experimental solver mode is `position_source_mode = "tdoa_solver"`. In tdoa_solver mode, worker position is estimated from UWB measurements. The UTIL pose_x/y/z values are used only as motion-capture ground-truth proxy references for validation metrics, not as the primary position source.
+
+This extension supports the plumbing for calibrated anchor coordinates plus TDoA/ToF measurements to produce estimated worker positions and validation error metrics. Solver outputs are optional and must not replace `workers.json` unless explicitly enabled by config.
+
+Real field deployment requires measured anchor coordinates, clock synchronization, TDoA/ToF calibration, NLOS/multipath validation, and certified/ex-proof hardware for mine use.
+
+Bu genişletme, gerçek UWB sinyalinden konum hesaplama altyapısını ekler. Ancak gerçek saha doğruluğu, anchor kalibrasyonu ve donanım doğrulaması yapılmadan sertifikalı lokalizasyon iddiası taşımaz.
+
 ## Anchor Planning Policy
 
 Anchor planning will use segment length, bounds, graph degree, exits, geometry risk, neighbor-center turns and long graph edges. IDs use `A001` format, and positions will be clamped or validated against segment bounds when possible.

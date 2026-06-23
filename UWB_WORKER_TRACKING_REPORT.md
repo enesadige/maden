@@ -390,3 +390,15 @@ Teslim edilen çalışma; UWB pipeline modüllerini, doğrulanmış çıktı dos
 - Backend risk fusion ile worker exposure entegrasyonu
 - Dashboard’da worker/anchor görselleştirme
 - Çok daha fazla worker/trial ile config-driven test
+
+## 14. Gerçek UWB Position Solver Genişletmesi
+
+Mevcut MVP modu `position_source_mode = "mocap_proxy"` olarak çalışır. Bu modda `pose_x/y/z` değerleri worker hareketi için motion-capture ground-truth proxy pozisyonlarıdır. Anchor distance, takip güvenilirliği ve worker timeline bu proxy pozisyonlardan türetilir.
+
+Yeni deneysel mod `position_source_mode = "tdoa_solver"` olarak tanımlanmıştır. In tdoa_solver mode, worker position is estimated from UWB measurements. The UTIL pose_x/y/z values are used only as motion-capture ground-truth proxy references for validation metrics, not as the primary position source.
+
+Bu genişletme, calibrated anchor x/y/z koordinatları ve tag-anchor TDoA/ToF ölçümlerinden worker pozisyonu tahmin etme altyapısını ekler. Üretilen tahminler `pose_x/y/z` proxy ground truth ile karşılaştırılarak hata metrikleri üretir. Varsayılan konfigürasyonda solver kapalıdır ve mevcut `workers.json` veya `/api/workers` davranışını değiştirmez.
+
+Gerçek saha kullanımı için ölçülmüş anchor koordinatları, clock synchronization, TDoA/ToF kalibrasyonu, NLOS/multipath validasyonu ve maden ortamına uygun certified/ex-proof donanım gerekir.
+
+Bu genişletme, gerçek UWB sinyalinden konum hesaplama altyapısını ekler. Ancak gerçek saha doğruluğu, anchor kalibrasyonu ve donanım doğrulaması yapılmadan sertifikalı lokalizasyon iddiası taşımaz.

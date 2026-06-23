@@ -26,6 +26,7 @@ try:
     from backend.uwb_processing.timeline_enricher import enrich_timeline
     from backend.uwb_processing.exposure_builder import build_exposure
     from backend.uwb_processing.validate_outputs import validate_all_outputs
+    from backend.uwb_processing.uwb_position_solver import solve_worker_positions_from_tdoa
 except ModuleNotFoundError:
     repo_root = Path(__file__).resolve().parents[2]
     if str(repo_root) not in sys.path:
@@ -40,6 +41,7 @@ except ModuleNotFoundError:
     from backend.uwb_processing.timeline_enricher import enrich_timeline
     from backend.uwb_processing.exposure_builder import build_exposure
     from backend.uwb_processing.validate_outputs import validate_all_outputs
+    from backend.uwb_processing.uwb_position_solver import solve_worker_positions_from_tdoa
 
 
 LIMITATIONS = [
@@ -137,8 +139,13 @@ def resolve_output_root(config: dict[str, Any]) -> Path:
     return output_root
 
 
-def approved_output_paths(output_root: Path) -> dict[str, Path]:
-    return {
+def solver_outputs_enabled(config: dict[str, Any]) -> bool:
+    solver = config.get("uwb_position_solver") or {}
+    return bool(solver.get("enabled", False) and solver.get("write_solver_outputs", False))
+
+
+def approved_output_paths(output_root: Path, config: dict[str, Any] | None = None) -> dict[str, Path]:
+    paths = {
         "workers_json": output_root / "workers" / "workers.json",
         "worker_positions_clean_csv": output_root / "workers" / "worker_positions_clean.csv",
         "worker_positions_demo_json": output_root / "workers" / "worker_positions_demo.json",
@@ -154,6 +161,12 @@ def approved_output_paths(output_root: Path) -> dict[str, Path]:
         "uwb_pipeline_manifest_json": output_root / "uwb" / "uwb_pipeline_manifest.json",
         "uwb_validation_summary_json": output_root / "uwb" / "uwb_validation_summary.json",
     }
+    if config is not None and solver_outputs_enabled(config):
+        paths.update({
+            "uwb_position_estimates_json": output_root / "uwb" / "uwb_position_estimates.json",
+            "uwb_solver_validation_json": output_root / "uwb" / "uwb_solver_validation.json",
+        })
+    return paths
 
 
 def ensure_safe_output_path(path: Path, output_root: Path) -> None:
@@ -164,6 +177,10 @@ def ensure_safe_output_path(path: Path, output_root: Path) -> None:
     if "haki_lidar" in resolved_path.parts:
         raise ValueError(f"output path must not touch haki_lidar: {resolved_path}")
     approved = {item.resolve() for item in approved_output_paths(resolved_root).values()}
+    approved.update({
+        (resolved_root / "uwb" / "uwb_position_estimates.json").resolve(),
+        (resolved_root / "uwb" / "uwb_solver_validation.json").resolve(),
+    })
     if resolved_path not in approved:
         raise ValueError(f"output path is not approved: {resolved_path}")
 
@@ -427,6 +444,29 @@ def build_pipeline_manifest(artifacts: PipelineArtifacts, written_files: list[st
     }
 
 
+def build_solver_payloads(artifacts: PipelineArtifacts) -> dict[str, Any]:
+    result = solve_worker_positions_from_tdoa(config=artifacts.config)
+    return {
+        "uwb_position_estimates_json": {
+            "source": "uwb_position_solver",
+            "mode_note": (
+                "In tdoa_solver mode, worker position is estimated from UWB measurements. "
+                "The UTIL pose_x/y/z values are used only as motion-capture ground-truth "
+                "proxy references for validation metrics, not as the primary position source."
+            ),
+            "estimates": result.estimates,
+            "summary": result.summary,
+            "warnings": result.summary.get("warnings", []),
+        },
+        "uwb_solver_validation_json": {
+            "source": "uwb_position_solver",
+            "validation_summary": result.validation_summary,
+            "summary": result.summary,
+            "warnings": result.summary.get("warnings", []),
+        },
+    }
+
+
 def build_output_payloads(artifacts: PipelineArtifacts, output_root: Path) -> dict[str, Any]:
     del output_root
     return {
@@ -448,8 +488,10 @@ def build_output_payloads(artifacts: PipelineArtifacts, output_root: Path) -> di
 
 
 def write_pipeline_outputs(artifacts: PipelineArtifacts, output_root: Path, dry_run: bool) -> PipelineWriteResult:
-    paths = approved_output_paths(output_root)
+    paths = approved_output_paths(output_root, artifacts.config)
     payloads = build_output_payloads(artifacts, output_root)
+    if solver_outputs_enabled(artifacts.config):
+        payloads.update(build_solver_payloads(artifacts))
     all_files = [str(paths[name]) for name in paths]
     if dry_run:
         summary = build_pipeline_manifest(artifacts, [], True)
