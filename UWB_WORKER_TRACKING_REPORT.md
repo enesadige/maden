@@ -402,3 +402,145 @@ Bu genişletme, calibrated anchor x/y/z koordinatları ve tag-anchor TDoA/ToF ö
 Gerçek saha kullanımı için ölçülmüş anchor koordinatları, clock synchronization, TDoA/ToF kalibrasyonu, NLOS/multipath validasyonu ve maden ortamına uygun certified/ex-proof donanım gerekir.
 
 Bu genişletme, gerçek UWB sinyalinden konum hesaplama altyapısını ekler. Ancak gerçek saha doğruluğu, anchor kalibrasyonu ve donanım doğrulaması yapılmadan sertifikalı lokalizasyon iddiası taşımaz.
+
+## 15. Gerçek UWB Position Solver Genişletmesi - Commit 38fe152
+
+Yeni commit:
+
+```text
+38fe152 Add experimental UWB TDoA position solver
+```
+
+Bu commit, mevcut çalışan UWB worker tracking MVP pipeline'ını kaldırmadan deneysel gerçek UWB position solver altyapısını ekler. Projede artık iki ayrı UWB position mode açık şekilde ayrılmıştır.
+
+### 15.1 Existing MVP mode
+
+```text
+position_source_mode = "mocap_proxy"
+```
+
+Bu mod varsayılan ve güvenli moddur. UTIL dataset içindeki `pose_x`, `pose_y`, `pose_z` değerleri motion-capture ground-truth proxy worker pozisyonları olarak kullanılır.
+
+Bu mod, mevcut MVP pipeline çıktılarının temelidir:
+
+```text
+worker timeline
+segment mapping
+anchor-tag distance matrix
+tracking reliability
+worker exposure risk
+backend-compatible workers.json
+```
+
+Mevcut `/api/workers` davranışı bu modda değişmeden korunur. Backend-compatible `workers.json` dosyası aynı latest worker snapshot sözleşmesini sürdürür.
+
+### 15.2 New experimental real UWB solver mode
+
+```text
+position_source_mode = "tdoa_solver"
+```
+
+Bu mod yeni deneysel genişletmedir. Worker pozisyonu, kalibre edilmiş anchor koordinatları ve UWB ToF/TDoA ölçümleri kullanılarak tahmin edilir. Bu modda `pose_x/y/z` ana pozisyon kaynağı değildir.
+
+tdoa_solver modunda worker pozisyonu UWB ölçümlerinden hesaplanır. UTIL pose_x/y/z değerleri ana konum kaynağı olarak değil, motion-capture ground-truth proxy doğrulama referansı olarak kullanılır.
+
+Gerçek anchor calibration eksikse sistem güvenli şekilde `mocap_proxy` davranışına fallback yapabilir. Bu fallback açıkça `fallback_mocap_proxy` olarak raporlanır ve gerçek solved position iddiası üretmez.
+
+### 15.3 Data flow
+
+```text
+Kalibre edilmiş anchor koordinatları
++ UWB tag-anchor ToF/TDoA ölçümleri
+→ UWB position solver
+→ estimated worker position
+→ pose_x/y/z ile doğrulama
+→ error metrics
+→ Haki segment mapping
+→ tracking reliability
+→ worker exposure risk
+→ backend output
+```
+
+### 15.4 Yeni dosyalar
+
+```text
+backend/uwb_processing/uwb_position_solver.py
+backend/uwb_processing/uwb_anchor_calibration.example.json
+```
+
+Opsiyonel solver output dosyaları:
+
+```text
+backend/data_processed/sample/uwb/uwb_position_estimates.json
+backend/data_processed/sample/uwb/uwb_solver_validation.json
+```
+
+Bu opsiyonel output dosyaları yalnızca solver output config içinde enabled olduğunda yazılır. Varsayılan config solver'ı kapalı tuttuğu için baseline 14 output dosyası değişmeden kalır.
+
+### 15.5 Solver validation metrics
+
+Solver validation summary aşağıdaki metrikleri destekler:
+
+```text
+mean_error_m
+median_error_m
+rmse_error_m
+p95_error_m
+max_error_m
+mean_residual_rmse_m
+solved_count
+fallback_count
+failed_count
+```
+
+### 15.6 Güncel doğrulama sonucu
+
+Default config keeps solver disabled:
+
+```text
+enabled=false
+position_source_mode=mocap_proxy
+```
+
+Existing pipeline still passes:
+
+```text
+validate_outputs.py → ok=true, error_count=0
+run_pipeline.py --dry-run → baseline 14 files unchanged
+run_pipeline.py --write → baseline 14 files written
+python manage.py check → no issues
+/api/workers → returned 3 worker snapshots
+```
+
+Targeted enabled + missing calibration check:
+
+```text
+estimate_count=379
+solved_count=0
+fallback_count=379
+failed_count=0
+```
+
+Reason:
+
+```text
+Real field anchor calibration was not available. Therefore solver did not claim real solved positions and used explicit fallback_mocap_proxy behavior.
+```
+
+Bu genişletme gerçek UWB konum çözümü için yazılım altyapısı sağlar; gerçek saha doğruluğu için anchor kalibrasyonu, ölçüm birimi doğrulaması, clock synchronization, NLOS/multipath testi ve sertifikalı donanım gerekir.
+
+### 15.7 Güncellenmiş sınırlamalar
+
+- Gerçek UWB solver çıktısı, kalibre edilmiş anchor koordinatları ve doğru ToF/TDoA ölçüm birimleri sağlanmadan gerçek saha doğruluğu iddiası taşımaz.
+- UTIL TDoA ölçüm birimleri açık şekilde doğrulanmalıdır; yanlış zaman/mesafe birimi solver hatasını büyütür.
+- Gerçek sahada clock synchronization, anchor clock bias, NLOS/multipath ve RF zayıflaması ayrıca test edilmelidir.
+- pose_x/y/z yalnızca doğrulama referansı olarak kullanılmalıdır; tdoa_solver modunda ana pozisyon kaynağı olmamalıdır.
+
+### 15.8 Güncellenmiş gelecek iyileştirmeler
+
+- TDoA/ToF ölçüm birimi doğrulaması
+- Clock bias ve senkronizasyon düzeltmesi
+- Gerçek anchor koordinatlarıyla saha kalibrasyonu
+- NLOS/multipath outlier filtreleme
+- Solver sonucunu güvenli şekilde workers.json backend snapshot'ına opsiyonel bağlama
+- Solver error metrics dashboard gösterimi
