@@ -1,0 +1,29 @@
+{
+  "MM263": {
+    "sensor_id": "GAS_SENSOR_01",
+    "segment_id": "S006",
+    "source_column": "MM263",
+    "placement_reason": "haki_geometry_risk_or_junction_priority",
+    "segment_type": "exit_point",
+    "segment_role": "exit_or_dead_end_candidate",
+    "geometry_risk": 57.0
+  },
+  "MM264": {
+    "sensor_id": "GAS_SENSOR_02",
+    "segment_id": "S034",
+    "source_column": "MM264",
+    "placement_reason": "haki_geometry_risk_or_junction_priority",
+    "segment_type": "side_gallery",
+    "segment_role": "secondary_route",
+    "geometry_risk": 50.0
+  },
+  "MM256": {
+    "sensor_id": "GAS_SENSOR_03",
+    "segment_id": "S035",
+    "source_column": "MM256",
+    "placement_reason": "haki_geometry_risk_or_junction_priority",
+    "segment_type": "side_gallery",
+    "segment_role": "secondary_route",
+    "geometry_risk": 48.0
+  }
+}

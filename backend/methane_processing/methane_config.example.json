@@ -1,0 +1,16 @@
+{
+  "input": {
+    "methane_csv_env": "MADENGUARD_METHANE_CSV",
+    "fallback_config_key": "paths.methane_csv"
+  },
+  "methane_columns": [
+    "MM263",
+    "MM264",
+    "MM256"
+  ],
+  "output_root": "backend/data_processed/sample",
+  "method": {
+    "anomaly": "rolling_z_score",
+    "risk_formula": "100 * (0.60 * robust_value_score + 0.40 * anomaly_score)"
+  }
+}

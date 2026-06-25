@@ -1,0 +1,78 @@
+{
+  "module": "methane_processing",
+  "methane_csv_path": "/Users/recepozturk/Desktop/methane-risk-pipeline/data_raw/methane_openml_42701.csv",
+  "max_rows_scanned": 200000,
+  "target_steps": 90,
+  "gas_timeline_record_count": 270,
+  "environmental_risk_record_count": 270,
+  "sensor_mapping": {
+    "MM263": {
+      "sensor_id": "GAS_SENSOR_01",
+      "segment_id": "S006",
+      "source_column": "MM263",
+      "placement_reason": "haki_geometry_risk_or_junction_priority",
+      "segment_type": "exit_point",
+      "segment_role": "exit_or_dead_end_candidate",
+      "geometry_risk": 57.0
+    },
+    "MM264": {
+      "sensor_id": "GAS_SENSOR_02",
+      "segment_id": "S034",
+      "source_column": "MM264",
+      "placement_reason": "haki_geometry_risk_or_junction_priority",
+      "segment_type": "side_gallery",
+      "segment_role": "secondary_route",
+      "geometry_risk": 50.0
+    },
+    "MM256": {
+      "sensor_id": "GAS_SENSOR_03",
+      "segment_id": "S035",
+      "source_column": "MM256",
+      "placement_reason": "haki_geometry_risk_or_junction_priority",
+      "segment_type": "side_gallery",
+      "segment_role": "secondary_route",
+      "geometry_risk": 48.0
+    }
+  },
+  "status_counts": {
+    "critical": 6,
+    "high": 76,
+    "medium": 21,
+    "normal": 167
+  },
+  "sensor_counts": {
+    "GAS_SENSOR_01": 90,
+    "GAS_SENSOR_02": 90,
+    "GAS_SENSOR_03": 90
+  },
+  "segment_counts": {
+    "S006": 90,
+    "S034": 90,
+    "S035": 90
+  },
+  "max_methane_risk_score": 100.0,
+  "max_risk_record": {
+    "time_step": 86,
+    "timestamp": "2014-03-04T05:04:52",
+    "source_row": 191092,
+    "sensor_id": "GAS_SENSOR_02",
+    "segment_id": "S034",
+    "source_column": "MM264",
+    "methane_value": 0.3,
+    "methane_risk_score": 100.0,
+    "anomaly_score": 1.0,
+    "environmental_risk": 100.0,
+    "status": "critical",
+    "placement_reason": "haki_geometry_risk_or_junction_priority",
+    "segment_type": "side_gallery",
+    "segment_role": "secondary_route",
+    "geometry_risk": 50.0
+  },
+  "validation": {
+    "ok": true,
+    "error_count": 0,
+    "errors": [],
+    "gas_record_count": 270,
+    "environmental_risk_record_count": 270
+  }
+}
