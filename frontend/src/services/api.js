@@ -18,7 +18,6 @@ function apiUrl(path) {
 function backendAssetUrl(url) {
   if (!url || typeof url !== 'string') return url
   if (/^(https?:)?\/\//.test(url) || url.startsWith('data:') || url.startsWith('blob:')) return url
-  if (USE_API && url.startsWith('/static/')) return apiUrl(url)
   return url
 }
 
