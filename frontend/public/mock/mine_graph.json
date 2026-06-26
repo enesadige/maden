@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    { "segment_id": "S001", "is_exit": true },
+    { "segment_id": "S002", "is_exit": false },
+    { "segment_id": "S003", "is_exit": false },
+    { "segment_id": "S004", "is_exit": false },
+    { "segment_id": "S005", "is_exit": false }
+  ],
+  "edges": [
+    { "from": "S001", "to": "S002", "weight": 6 },
+    { "from": "S002", "to": "S003", "weight": 6 },
+    { "from": "S003", "to": "S004", "weight": 6 },
+    { "from": "S004", "to": "S005", "weight": 7 }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "worker_id": "W001",
+    "name": "İşçi 01",
+    "role": "miner",
+    "time_step": 12,
+    "current_segment": "S004",
+    "position": [18, 2.6, 0.4],
+    "status": "safe",
+    "motion_status": "moving",
+    "position_reliability": 0.82,
+    "last_seen": "00:02:10"
+  },
+  {
+    "worker_id": "W002",
+    "name": "İşçi 02",
+    "role": "miner",
+    "time_step": 12,
+    "current_segment": "S002",
+    "position": [6, -0.6, 0.4],
+    "status": "safe",
+    "motion_status": "still",
+    "position_reliability": 0.91,
+    "last_seen": "00:00:30"
+  }
+]

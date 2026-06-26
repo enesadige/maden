@@ -1,0 +1,42 @@
+[
+  {
+    "segment_id": "S001",
+    "description": "Tünel ağının ana girişi, yüzey çıkışına en yakın nokta.",
+    "centroid": [0, 0, 0],
+    "length_m": 12.5,
+    "width_m": 4.2,
+    "height_m": 3.0
+  },
+  {
+    "segment_id": "S002",
+    "description": "Giriş ile dar galeri arasındaki bağlantı bölümü.",
+    "centroid": [6, 0, 0],
+    "length_m": 15.0,
+    "width_m": 3.8,
+    "height_m": 2.8
+  },
+  {
+    "segment_id": "S003",
+    "description": "İşçi ve hava akışı için boğaz noktası işlevi gören dar galeri.",
+    "centroid": [12, 2, 0],
+    "length_m": 10.0,
+    "width_m": 2.1,
+    "height_m": 2.0
+  },
+  {
+    "segment_id": "S004",
+    "description": "Geçmişte yüksek metan ölçümleri kaydedilen derin bölge.",
+    "centroid": [18, 2, 0],
+    "length_m": 18.7,
+    "width_m": 3.5,
+    "height_m": 2.6
+  },
+  {
+    "segment_id": "S005",
+    "description": "Çıkışa en uzak, düşük trafikli tünel bölümü.",
+    "centroid": [25, 0, 0],
+    "length_m": 14.2,
+    "width_m": 3.6,
+    "height_m": 2.7
+  }
+]

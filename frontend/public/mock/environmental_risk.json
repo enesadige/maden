@@ -1,0 +1,7 @@
+[
+  { "segment_id": "S001", "methane_ppm": 4.1, "gas_risk_score": 5, "anomaly_detected": false },
+  { "segment_id": "S002", "methane_ppm": 8.7, "gas_risk_score": 18, "anomaly_detected": false },
+  { "segment_id": "S003", "methane_ppm": 22.4, "gas_risk_score": 40, "anomaly_detected": false },
+  { "segment_id": "S004", "methane_ppm": 26.5, "gas_risk_score": 35, "anomaly_detected": false },
+  { "segment_id": "S005", "methane_ppm": 30.1, "gas_risk_score": 45, "anomaly_detected": false }
+]

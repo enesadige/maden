@@ -1,0 +1,7 @@
+[
+  { "segment_id": "S001", "structural_risk_score": 8, "notes": "stabil, yüzeye yakın" },
+  { "segment_id": "S002", "structural_risk_score": 20, "notes": "küçük duvar düzensizliği" },
+  { "segment_id": "S003", "structural_risk_score": 55, "notes": "dar boğaz noktası, düşük tavan yüksekliği" },
+  { "segment_id": "S004", "structural_risk_score": 35, "notes": "derin bölge, hafif deformasyon sinyali" },
+  { "segment_id": "S005", "structural_risk_score": 25, "notes": "stabil derin bölüm" }
+]

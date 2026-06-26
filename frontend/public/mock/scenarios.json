@@ -1,0 +1,27 @@
+[
+  {
+    "scenario_id": "normal",
+    "label": "Normal Durum",
+    "description": "Tüm segmentler açık, riskler taban seviyede."
+  },
+  {
+    "scenario_id": "methane_spike",
+    "label": "Metan Artışı",
+    "description": "Metan anomalisi S004 segmentinde çevresel riski yükseltir."
+  },
+  {
+    "scenario_id": "collapse_s004",
+    "label": "Göçük Senaryosu",
+    "description": "S004 segmenti kapanır ve acil rota analizi tetiklenir."
+  },
+  {
+    "scenario_id": "worker_at_risk",
+    "label": "İşçi Riskte",
+    "description": "İşçi W001 kritik riskli bir segmentin içinde bulunur."
+  },
+  {
+    "scenario_id": "show_route",
+    "label": "Acil Rota Göster",
+    "description": "Grafik sonucuna göre mevcut rotayı veya mahsur durumunu göster."
+  }
+]

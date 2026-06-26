@@ -1,0 +1,37 @@
+[
+  {
+    "segment_id": "S001",
+    "risk_score": 12,
+    "risk_level": "low",
+    "active_reasons": ["çıkış segmenti", "normal koşullar"],
+    "recommended_action": "Aksiyon gerekmiyor."
+  },
+  {
+    "segment_id": "S002",
+    "risk_score": 28,
+    "risk_level": "low",
+    "active_reasons": ["işçi trafiği"],
+    "recommended_action": "Standart prosedürle izlemeye devam et."
+  },
+  {
+    "segment_id": "S003",
+    "risk_score": 45,
+    "risk_level": "medium",
+    "active_reasons": ["dar bölüm", "boğaz noktası"],
+    "recommended_action": "İşçi erişimini sınırla, izleme sıklığını artır."
+  },
+  {
+    "segment_id": "S004",
+    "risk_score": 38,
+    "risk_level": "medium",
+    "active_reasons": ["geçmişte yüksek metan geçmişi", "geometri riski"],
+    "recommended_action": "Standart prosedürle izlemeye devam et."
+  },
+  {
+    "segment_id": "S005",
+    "risk_score": 30,
+    "risk_level": "low",
+    "active_reasons": ["derin tünel bölümü"],
+    "recommended_action": "Standart prosedürle izlemeye devam et."
+  }
+]
