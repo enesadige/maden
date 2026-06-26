@@ -1,0 +1,57 @@
+[
+  {
+    "segment_id": "S001",
+    "name": "Ana Tünel Girişi",
+    "type": "tunnel_section",
+    "center": [0, 0, 0],
+    "length_m": 12.5,
+    "connected_segments": ["S002"],
+    "status": "open",
+    "is_blocked": false,
+    "is_exit": true
+  },
+  {
+    "segment_id": "S002",
+    "name": "Ana Yol",
+    "type": "tunnel_section",
+    "center": [6, 0, 0],
+    "length_m": 15.0,
+    "connected_segments": ["S001", "S003"],
+    "status": "open",
+    "is_blocked": false,
+    "is_exit": false
+  },
+  {
+    "segment_id": "S003",
+    "name": "Dar Galeri",
+    "type": "chokepoint",
+    "center": [12, 2, 0],
+    "length_m": 10.0,
+    "connected_segments": ["S002", "S004"],
+    "status": "open",
+    "is_blocked": false,
+    "is_exit": false
+  },
+  {
+    "segment_id": "S004",
+    "name": "Riskli Metan Bölgesi",
+    "type": "risk_zone",
+    "center": [18, 2, 0],
+    "length_m": 18.7,
+    "connected_segments": ["S003", "S005"],
+    "status": "open",
+    "is_blocked": false,
+    "is_exit": false
+  },
+  {
+    "segment_id": "S005",
+    "name": "Derin Tünel",
+    "type": "tunnel_section",
+    "center": [25, 0, 0],
+    "length_m": 14.2,
+    "connected_segments": ["S004"],
+    "status": "open",
+    "is_blocked": false,
+    "is_exit": false
+  }
+]

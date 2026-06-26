@@ -1,0 +1,5 @@
+{
+  "preview_url": "/models/tunnel_preview_500k.ply",
+  "downsampled_url": "/models/tunnel_downsampled.ply",
+  "version": "local-fallback"
+}

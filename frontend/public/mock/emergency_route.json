@@ -1,0 +1,13 @@
+{
+  "scenario_id": "collapse_s004",
+  "event_type": "collapse",
+  "blocked_segment": "S004",
+  "affected_workers": ["W001"],
+  "exit_segment": "S001",
+  "exit_reachable": false,
+  "route": ["S004", "S003", "S002", "S001"],
+  "route_segments": ["S004", "S003", "S002", "S001"],
+  "alternative_route_available": false,
+  "emergency_status": "KRİTİK_İŞÇİ_MAHSUR",
+  "message": "İşçi W001 kapalı segmentin içinde veya ötesinde. Mock grafikte alternatif rota bulunmuyor."
+}

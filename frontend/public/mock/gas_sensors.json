@@ -1,0 +1,35 @@
+[
+  {
+    "sensor_id": "GAS-001",
+    "segment_id": "S004",
+    "position": [18, 1.5, 0.8],
+    "gas_type": "methane",
+    "methane_value": 0.6,
+    "anomaly_score": 0.1,
+    "risk_score": 18,
+    "risk_level": "low",
+    "status": "normal"
+  },
+  {
+    "sensor_id": "GAS-002",
+    "segment_id": "S002",
+    "position": [6, 0.5, 0.8],
+    "gas_type": "methane",
+    "methane_value": 0.4,
+    "anomaly_score": 0.05,
+    "risk_score": 15,
+    "risk_level": "low",
+    "status": "normal"
+  },
+  {
+    "sensor_id": "GAS-003",
+    "segment_id": "S003",
+    "position": [12, 2.5, 0.8],
+    "gas_type": "methane",
+    "methane_value": 1.1,
+    "anomaly_score": 0.2,
+    "risk_score": 30,
+    "risk_level": "medium",
+    "status": "normal"
+  }
+]
