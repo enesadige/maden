@@ -34,9 +34,9 @@ def _recommended_action(risk_level: str, has_worker: bool) -> str:
     return "Standart izleme yeterli."
 
 
-def _environmental_by_segment(time_step: int | None) -> dict[str, dict[str, Any]]:
+def _environmental_by_segment(time_step: int | None, fallback: str = "first") -> dict[str, dict[str, Any]]:
     grouped: dict[str, dict[str, Any]] = {}
-    for item in get_environmental_risks(time_step):
+    for item in get_environmental_risks(time_step, fallback=fallback):
         segment_id = item.get("segment_id")
         if not segment_id:
             continue
@@ -46,26 +46,36 @@ def _environmental_by_segment(time_step: int | None) -> dict[str, dict[str, Any]
     return grouped
 
 
-def _worker_exposure_by_segment(time_step: int | None) -> dict[str, dict[str, Any]]:
-    if time_step in (None, 0):
-        workers = get_workers(0)
-        grouped: dict[str, dict[str, Any]] = {}
-        for worker in workers:
-            segment_id = worker.get("current_segment")
-            if not segment_id:
-                continue
-            bucket = grouped.setdefault(
-                segment_id,
-                {
-                    "worker_exposure_risk": 0.0,
-                    "active_worker_ids": [],
-                    "tracking_risk_score": 0.0,
-                },
-            )
-            bucket["worker_exposure_risk"] = 100.0
+def _worker_exposure_from_workers(workers: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, dict[str, Any]] = {}
+    for worker in workers:
+        segment_id = worker.get("current_segment")
+        if not segment_id:
+            continue
+        bucket = grouped.setdefault(
+            segment_id,
+            {
+                "worker_exposure_risk": 0.0,
+                "active_worker_ids": [],
+                "tracking_risk_score": 0.0,
+            },
+        )
+        bucket["worker_exposure_risk"] = 100.0
+        if worker.get("worker_id") not in bucket["active_worker_ids"]:
             bucket["active_worker_ids"].append(worker.get("worker_id"))
-            bucket["tracking_risk_score"] = max(bucket["tracking_risk_score"], float(worker.get("tracking_risk_score", 0.0)))
-        return grouped
+        bucket["tracking_risk_score"] = max(bucket["tracking_risk_score"], float(worker.get("tracking_risk_score", 0.0)))
+    return grouped
+
+
+def _worker_exposure_by_segment(
+    time_step: int | None,
+    workers_override: list[dict[str, Any]] | None = None,
+) -> dict[str, dict[str, Any]]:
+    if workers_override is not None:
+        return _worker_exposure_from_workers(workers_override)
+
+    if time_step in (None, 0):
+        return _worker_exposure_from_workers(get_workers(0))
 
     raw = load_json("risk/worker_exposure_risk.json", default={})
     records = raw.get("records", raw if isinstance(raw, list) else [])
@@ -91,11 +101,15 @@ def _worker_exposure_by_segment(time_step: int | None) -> dict[str, dict[str, An
     return grouped
 
 
-def get_segment_risks(time_step: int | None = 0) -> list[dict[str, Any]]:
+def get_segment_risks(
+    time_step: int | None = 0,
+    workers_override: list[dict[str, Any]] | None = None,
+    sensor_fallback: str = "first",
+) -> list[dict[str, Any]]:
     segments = get_segments()
     geometry = {item["segment_id"]: item for item in get_geometry_risks()}
-    environmental = _environmental_by_segment(time_step)
-    worker_exposure = _worker_exposure_by_segment(time_step)
+    environmental = _environmental_by_segment(time_step, fallback=sensor_fallback)
+    worker_exposure = _worker_exposure_by_segment(time_step, workers_override=workers_override)
 
     risks = []
     for segment in segments:

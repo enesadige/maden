@@ -106,3 +106,44 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(len(data), 3)
         self.assertIn("risk_score", data[0])
         self.assertIn("gas_type", data[0])
+
+    def test_simulation_state_returns_joined_initial_state(self):
+        response = self.client.get("/api/simulation/state?time_step=0")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["time_step"], 0)
+        self.assertEqual(data["counts"]["segments"], 143)
+        self.assertEqual(data["counts"]["workers"], 3)
+        self.assertEqual(data["counts"]["gas_sensors"], 3)
+        self.assertEqual(data["source_contract"]["join_key"], "segment_id")
+        self.assertEqual(
+            [(item["worker_id"], item["current_segment"]) for item in data["workers"]],
+            [("WORKER_01", "S001"), ("WORKER_02", "S001"), ("WORKER_03", "S001")],
+        )
+        s001 = next(item for item in data["segments"] if item["segment_id"] == "S001")
+        self.assertEqual(s001["worker_count"], 3)
+        self.assertEqual(s001["active_worker_ids"], ["WORKER_01", "WORKER_02", "WORKER_03"])
+
+    def test_simulation_state_returns_joined_historical_state(self):
+        response = self.client.get("/api/simulation/state?time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["time_step"], 27)
+        self.assertEqual(data["counts"]["segments"], 143)
+        self.assertEqual(data["counts"]["workers"], 3)
+        worker = next(item for item in data["workers"] if item["worker_id"] == "WORKER_01")
+        self.assertEqual(worker["current_segment"], "S047")
+        s047 = next(item for item in data["segments"] if item["segment_id"] == "S047")
+        self.assertIn("WORKER_01", s047["active_worker_ids"])
+
+    def test_simulation_state_holds_last_known_gas_after_gas_timeline_ends(self):
+        response = self.client.get("/api/simulation/state?time_step=126")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["time_step"], 126)
+        self.assertEqual(data["counts"]["workers"], 2)
+        self.assertEqual(data["counts"]["gas_sensors"], 3)
+        self.assertTrue(all(item["time_step"] == 89 for item in data["gas_sensors"]))

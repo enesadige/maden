@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "apps.risk",
     "apps.routing",
     "apps.scenarios",
+    "apps.simulation",
 ]
 
 MIDDLEWARE = [

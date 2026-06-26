@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from apps.common.ids import normalize_record_ids
-from apps.common.json_store import filter_time_step, load_json
+from apps.common.json_store import available_time_steps, filter_time_step, load_json
 
 
 def _risk_level_from_sensor(sensor: dict[str, Any]) -> str:
@@ -15,9 +15,9 @@ def _risk_level_from_sensor(sensor: dict[str, Any]) -> str:
     return str(level).lower()
 
 
-def get_gas_sensors(time_step: int | None = 0) -> list[dict[str, Any]]:
+def get_gas_sensors(time_step: int | None = 0, fallback: str = "first") -> list[dict[str, Any]]:
     records = load_json("sensors/gas_sensors.json", default=[])
-    selected = filter_time_step(records, time_step)
+    selected = filter_time_step(records, time_step, fallback=fallback)
     sensors = []
     for item in selected:
         sensor = normalize_record_ids(item)
@@ -28,9 +28,9 @@ def get_gas_sensors(time_step: int | None = 0) -> list[dict[str, Any]]:
     return sensors
 
 
-def get_environmental_risks(time_step: int | None = 0) -> list[dict[str, Any]]:
+def get_environmental_risks(time_step: int | None = 0, fallback: str = "first") -> list[dict[str, Any]]:
     records = load_json("risk/environmental_risk.json", default=[])
-    selected = filter_time_step(records, time_step)
+    selected = filter_time_step(records, time_step, fallback=fallback)
     risks = []
     for item in selected:
         risk = normalize_record_ids(item)
@@ -39,3 +39,7 @@ def get_environmental_risks(time_step: int | None = 0) -> list[dict[str, Any]]:
         risk["methane_ppm"] = risk.get("methane_value", 0.0)
         risks.append(risk)
     return risks
+
+
+def get_gas_time_steps() -> list[int]:
+    return available_time_steps("sensors/gas_sensors.json")

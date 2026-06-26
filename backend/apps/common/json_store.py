@@ -45,7 +45,11 @@ def available_files() -> list[str]:
     return sorted(str(path.relative_to(root)) for path in root.rglob("*.json"))
 
 
-def filter_time_step(records: list[dict[str, Any]], time_step: int | None = 0) -> list[dict[str, Any]]:
+def filter_time_step(
+    records: list[dict[str, Any]],
+    time_step: int | None = 0,
+    fallback: str = "first",
+) -> list[dict[str, Any]]:
     if time_step is None:
         return records
     if not records or "time_step" not in records[0]:
@@ -55,9 +59,30 @@ def filter_time_step(records: list[dict[str, Any]], time_step: int | None = 0) -
     if selected:
         return selected
 
+    if fallback == "none":
+        return []
+
     available = sorted({item.get("time_step") for item in records if item.get("time_step") is not None})
     if not available:
         return records
 
-    fallback_step = available[0]
+    if fallback == "last_lte":
+        previous_steps = [step for step in available if step <= time_step]
+        fallback_step = previous_steps[-1] if previous_steps else available[0]
+    elif fallback == "nearest":
+        fallback_step = min(available, key=lambda step: abs(step - time_step))
+    else:
+        fallback_step = available[0]
     return [item for item in records if item.get("time_step") == fallback_step]
+
+
+def available_time_steps(relative_path: str) -> list[int]:
+    data = load_json(relative_path, default=[])
+    records = data.get("records", []) if isinstance(data, dict) else data
+    return sorted(
+        {
+            int(item["time_step"])
+            for item in records
+            if isinstance(item, dict) and item.get("time_step") is not None
+        }
+    )
