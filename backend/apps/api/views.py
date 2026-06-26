@@ -100,6 +100,7 @@ def emergency_route(request):
         start_segment=normalize_segment_id(start_segment),
         exit_node=exit_node,
         blocked_segment=blocked_segment,
+        worker_id=worker_id,
         time_step=time_step,
     )
     route["worker_id"] = worker_id

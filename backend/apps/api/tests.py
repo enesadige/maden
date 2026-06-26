@@ -81,12 +81,15 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertTrue(all(item["time_step"] == 0 for item in data))
 
     def test_emergency_route_endpoint(self):
-        response = self.client.get("/api/routes/emergency?worker_id=WORKER_01&time_step=6")
+        response = self.client.get("/api/routes/emergency?worker_id=WORKER_01&time_step=6&blocked_segment=S999")
 
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertIn("reachable", data)
-        self.assertIn("trapped", data)
+        self.assertTrue(data["reachable"])
+        self.assertFalse(data["trapped"])
+        self.assertEqual(data["route_segments"], ["S001", "S002", "S003"])
+        self.assertEqual(data["cost_policy"], "length + geometry*0.15 + environmental*0.45 + worker*0.12 + tracking*0.05 + occupancy penalty")
+        self.assertIn("worker_overlap_segments", data)
 
     def test_risk_endpoint_returns_current_integrated_risk(self):
         response = self.client.get("/api/risk/segments")
