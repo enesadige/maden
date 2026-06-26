@@ -71,11 +71,11 @@ export async function getRiskSegments() {
 }
 
 export async function getEnvironmentalRisk() {
-  return fetchJson(mockUrl('environmental_risk.json'))
+  return fetchApiOrMock('/api/risk/environmental', 'environmental_risk.json')
 }
 
 export async function getGeometryRisk() {
-  return fetchJson(mockUrl('geometry_risk.json'))
+  return fetchApiOrMock('/api/risk/geometry', 'geometry_risk.json')
 }
 
 export async function getScenarios() {
@@ -83,7 +83,8 @@ export async function getScenarios() {
 }
 
 export async function getEmergencyRoute(scenarioId) {
-  return fetchApiOrMock(`/api/scenarios/collapse?scenario=${scenarioId}`, 'emergency_route.json')
+  if (!USE_API) return fetchJson(mockUrl('emergency_route.json'))
+  return fetchApiOrMock(`/api/routes/emergency?worker_id=WORKER_01&time_step=0&scenario=${scenarioId}`, 'emergency_route.json')
 }
 
 export async function getGasSensors() {
@@ -97,4 +98,3 @@ export async function getSystemStatus() {
 export async function getPointCloudMetadata() {
   return fetchApiOrMock('/api/digital-twin/pointcloud', 'pointcloud_metadata.json')
 }
-

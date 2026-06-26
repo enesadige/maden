@@ -26,6 +26,18 @@ def load_json(relative_path: str, default: Any | None = None) -> Any:
         return json.load(handle)
 
 
+def load_first_json(relative_paths: list[str], default: Any | None = None) -> Any:
+    for relative_path in relative_paths:
+        path = data_root() / relative_path
+        if path.exists():
+            with path.open("r", encoding="utf-8") as handle:
+                return json.load(handle)
+    if default is not None:
+        return default
+    searched = ", ".join(str(data_root() / item) for item in relative_paths)
+    raise DataFileMissing(f"Data file is missing. Searched: {searched}")
+
+
 def available_files() -> list[str]:
     root = data_root()
     if not root.exists():

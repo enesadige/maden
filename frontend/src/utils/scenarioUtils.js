@@ -46,7 +46,7 @@ export function applyScenario(scenarioId, baseData, emergencyRouteData) {
         s004Risk.recommended_action = 'Rota varsa tahliye ol; yoksa kurtarma talimatı bekle.'
       }
 
-      const primarySensor = gasSensorByIdMap['GAS-001']
+      const primarySensor = gasSensorByIdMap['GAS-001'] || gasSensorByIdMap['GAS_SENSOR_01'] || gasSensors?.[0]
       if (primarySensor) {
         primarySensor.methane_value = 4.8
         primarySensor.risk_score = 91

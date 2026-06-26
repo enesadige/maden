@@ -6,30 +6,31 @@ import heapq
 import math
 
 from apps.common.ids import normalize_segment_id
-from apps.lidar.services import get_segments
+from apps.lidar.services import get_graph, get_segments
 from apps.risk.services import risk_by_segment
 
 
 def _edge_weight(segment: dict[str, Any], risks: dict[str, dict[str, Any]]) -> float:
-    base = float(segment.get("length") or 1.0)
-    risk = float(risks.get(segment["segment_id"], {}).get("final_risk_score") or 0.0)
+    base = float(segment.get("weight", segment.get("length", segment.get("length_m", 1.0))) or 1.0)
+    risk_key = segment.get("segment_id") or segment.get("source")
+    risk = float(risks.get(risk_key, {}).get("final_risk_score") or 0.0)
     return base + (risk * 0.20)
 
 
 def _build_adjacency(blocked_segment: str | None, risks: dict[str, dict[str, Any]]):
     adjacency = defaultdict(list)
-    segment_lookup = {}
-    for segment in get_segments():
-        segment_id = normalize_segment_id(segment["segment_id"])
-        segment["segment_id"] = segment_id
-        segment_lookup[segment_id] = segment
-        if blocked_segment and segment_id == blocked_segment:
+    graph = get_graph()
+    segment_lookup = {segment["segment_id"]: segment for segment in get_segments()}
+    for edge in graph.get("edges", []):
+        left = normalize_segment_id(edge.get("source") or edge.get("from_segment") or edge.get("from_node"))
+        right = normalize_segment_id(edge.get("target") or edge.get("to_segment") or edge.get("to_node"))
+        if not left or not right:
             continue
-        left = str(segment["from_node"])
-        right = str(segment["to_node"])
-        weight = _edge_weight(segment, risks)
-        adjacency[left].append((right, weight, segment_id))
-        adjacency[right].append((left, weight, segment_id))
+        if blocked_segment and (left == blocked_segment or right == blocked_segment):
+            continue
+        weight = _edge_weight({"segment_id": left, "weight": edge.get("weight", 1.0)}, risks)
+        adjacency[left].append((right, weight, right))
+        adjacency[right].append((left, weight, left))
     return adjacency, segment_lookup
 
 
@@ -78,41 +79,65 @@ def get_emergency_route(
     if blocked_segment == start_segment:
         return {
             "reachable": False,
+            "exit_reachable": False,
             "trapped": True,
             "reason": "worker_segment_blocked",
             "start_segment": start_segment,
             "blocked_segment": blocked_segment,
             "exit_node": exit_node,
+            "exit_segment": None,
             "route_segments": [],
+            "route": [],
             "route_nodes": [],
+            "alternative_route_available": False,
+            "emergency_status": "WORKER_TRAPPED",
+            "message": "Worker segment is blocked; no safe route is available.",
         }
 
-    candidates = []
-    for node in (str(start["from_node"]), str(start["to_node"])):
-        candidates.append(_shortest_path(node, str(exit_node), adjacency))
+    exit_segment = normalize_segment_id(exit_node)
+    exit_segments = [exit_segment] if exit_segment in segment_lookup else []
+    if not exit_segments:
+        exit_segments = [item["segment_id"] for item in segment_lookup.values() if item.get("is_exit")]
+    if not exit_segments:
+        exit_segments = [start_segment]
 
-    cost, route_segments, route_nodes = min(candidates, key=lambda item: item[0])
+    candidates = [_shortest_path(start_segment, candidate, adjacency) + (candidate,) for candidate in exit_segments]
+
+    cost, route_segments, route_nodes, selected_exit = min(candidates, key=lambda item: item[0])
     if math.isinf(cost):
         return {
             "reachable": False,
+            "exit_reachable": False,
             "trapped": True,
             "reason": "no_route_to_exit",
             "start_segment": start_segment,
             "blocked_segment": blocked_segment,
             "exit_node": exit_node,
+            "exit_segment": selected_exit,
             "route_segments": [],
+            "route": [],
             "route_nodes": [],
+            "alternative_route_available": False,
+            "emergency_status": "NO_ROUTE_TO_EXIT",
+            "message": "No reachable exit segment was found after blockage constraints.",
         }
 
+    route_segments = [start_segment] + route_segments
     return {
         "reachable": True,
+        "exit_reachable": True,
         "trapped": False,
         "reason": "route_found",
         "start_segment": start_segment,
         "blocked_segment": blocked_segment,
         "exit_node": str(exit_node),
+        "exit_segment": selected_exit,
         "route_segments": route_segments,
+        "route": route_segments,
         "route_nodes": route_nodes,
+        "alternative_route_available": True,
+        "emergency_status": "ROUTE_AVAILABLE",
+        "message": "Risk-aware route to an exit segment is available.",
         "total_cost": round(cost, 3),
         "cost_policy": "length + final_risk_score * 0.20",
     }

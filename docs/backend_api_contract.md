@@ -30,6 +30,14 @@ Returns backend status and available JSON files.
 
 Returns segment list from Haki's processed digital twin output.
 
+Current integration source:
+
+```text
+backend/data_processed/sample/haki_lidar/segments/map_segments.json
+```
+
+Current record count: `143`.
+
 Required fields:
 
 ```json
@@ -45,6 +53,33 @@ Required fields:
 ### `GET /api/digital-twin/graph`
 
 Returns graph nodes and edges derived from segment data.
+
+Current integration source:
+
+```text
+backend/data_processed/sample/haki_lidar/graph/mine_graph.json
+```
+
+The current graph is segment-to-segment:
+
+```json
+{
+  "source": "S001",
+  "target": "S011",
+  "weight": 17.383
+}
+```
+
+### `GET /api/digital-twin/pointcloud`
+
+Returns local viewer metadata for the frontend LiDAR layer.
+
+```json
+{
+  "preview_url": "/models/tunnel_preview_500k.ply",
+  "downsampled_url": "/models/tunnel_downsampled.ply"
+}
+```
 
 ### `GET /api/workers?time_step=0`
 
@@ -67,6 +102,15 @@ Required fields:
 
 Returns final segment risk for one timestep.
 
+Current integration behavior:
+
+- Reads Haki geometry risk from `haki_lidar/risk/geometry_risk.json`.
+- Reads Recep environmental risk from `risk/environmental_risk.json`.
+- Reads Huseyin worker occupancy/tracking state from `workers/workers.json` for current snapshots.
+- Returns one integrated risk record per Haki segment.
+
+This is the integration adapter, not the final advanced Enes risk model yet.
+
 Required fields:
 
 ```json
@@ -85,6 +129,14 @@ Required fields:
 ### `GET /api/gas-sensors?time_step=0`
 
 Returns gas/methane sensor state for one timestep.
+
+### `GET /api/risk/environmental?time_step=0`
+
+Returns Recep's environmental/methane risk records for one timestep.
+
+### `GET /api/risk/geometry`
+
+Returns Haki's geometry risk records.
 
 ### `GET /api/scenarios/collapse`
 

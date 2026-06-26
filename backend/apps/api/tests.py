@@ -13,8 +13,25 @@ class ApiSmokeTests(SimpleTestCase):
 
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertEqual(len(data), 49)
+        self.assertEqual(len(data), 143)
         self.assertTrue(data[0]["segment_id"].startswith("S"))
+        self.assertEqual(data[0]["source"], "haki_lidar")
+
+    def test_graph_endpoint_returns_haki_segment_graph(self):
+        response = self.client.get("/api/digital-twin/graph")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data["nodes"]), 143)
+        self.assertEqual(len(data["edges"]), 219)
+
+    def test_pointcloud_metadata_endpoint(self):
+        response = self.client.get("/api/digital-twin/pointcloud")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("preview_url", data)
+        self.assertIn("downsampled_url", data)
 
     def test_workers_endpoint_returns_latest_snapshots_by_default(self):
         response = self.client.get("/api/workers")
@@ -61,3 +78,22 @@ class ApiSmokeTests(SimpleTestCase):
         data = response.json()
         self.assertIn("reachable", data)
         self.assertIn("trapped", data)
+
+    def test_risk_endpoint_returns_current_integrated_risk(self):
+        response = self.client.get("/api/risk/segments")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data), 143)
+        self.assertIn("geometry_risk", data[0])
+        self.assertIn("environmental_risk", data[0])
+        self.assertIn("worker_exposure_risk", data[0])
+
+    def test_gas_sensors_endpoint_returns_recep_records(self):
+        response = self.client.get("/api/gas-sensors?time_step=0")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data), 3)
+        self.assertIn("risk_score", data[0])
+        self.assertIn("gas_type", data[0])

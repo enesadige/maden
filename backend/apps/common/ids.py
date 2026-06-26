@@ -10,6 +10,9 @@ SEGMENT_ID_KEYS = {
     "current_segment",
     "worker_segment",
     "blocked_segment",
+    "source",
+    "target",
+    "exit_segment",
 }
 
 

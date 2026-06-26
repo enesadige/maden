@@ -6,11 +6,11 @@ from django.views.decorators.http import require_GET
 from apps.common.http import api_response, error_response, get_time_step
 from apps.common.ids import normalize_segment_id
 from apps.common.json_store import available_files, data_root
-from apps.lidar.services import get_graph, get_segments
-from apps.risk.services import get_segment_risks
+from apps.lidar.services import get_graph, get_pointcloud_metadata, get_segments
+from apps.risk.services import get_geometry_risk_records, get_segment_risks
 from apps.routing.services import get_emergency_route
 from apps.scenarios.services import get_collapse_result
-from apps.sensors.services import get_gas_sensors
+from apps.sensors.services import get_environmental_risks, get_gas_sensors
 from apps.workers.services import get_workers
 
 
@@ -40,6 +40,11 @@ def digital_twin_graph(request):
 
 
 @require_GET
+def digital_twin_pointcloud(request):
+    return api_response(get_pointcloud_metadata())
+
+
+@require_GET
 def workers(request):
     return api_response(get_workers(get_time_step(request)))
 
@@ -47,6 +52,16 @@ def workers(request):
 @require_GET
 def risk_segments(request):
     return api_response(get_segment_risks(get_time_step(request)))
+
+
+@require_GET
+def geometry_risk(request):
+    return api_response(get_geometry_risk_records())
+
+
+@require_GET
+def environmental_risk(request):
+    return api_response(get_environmental_risks(get_time_step(request)))
 
 
 @require_GET
@@ -82,5 +97,6 @@ def emergency_route(request):
         time_step=time_step,
     )
     route["worker_id"] = worker_id
+    route["affected_workers"] = [worker_id]
     route["time_step"] = time_step
     return api_response(route)
