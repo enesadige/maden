@@ -97,6 +97,13 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertIn("geometry_risk", data[0])
         self.assertIn("environmental_risk", data[0])
         self.assertIn("worker_exposure_risk", data[0])
+        self.assertIn("risk_breakdown", data[0])
+        self.assertEqual(data[0]["risk_breakdown"]["formula"], "0.40*geometry + 0.35*environmental + 0.20*worker + 0.05*tracking")
+        self.assertAlmostEqual(
+            data[0]["risk_breakdown"]["total"],
+            data[0]["final_risk_score"],
+            places=3,
+        )
 
     def test_gas_sensors_endpoint_returns_recep_records(self):
         response = self.client.get("/api/gas-sensors?time_step=0")

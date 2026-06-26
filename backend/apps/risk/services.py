@@ -9,6 +9,14 @@ from apps.sensors.services import get_environmental_risks
 from apps.workers.services import get_workers
 
 
+RISK_WEIGHTS = {
+    "geometry": 0.40,
+    "environmental": 0.35,
+    "worker": 0.20,
+    "tracking": 0.05,
+}
+
+
 def _active_reasons(item: dict[str, Any]) -> list[str]:
     reason_breakdown = item.get("reason_breakdown") or {}
     return [str(value) for value in reason_breakdown.values() if value]
@@ -32,6 +40,33 @@ def _recommended_action(risk_level: str, has_worker: bool) -> str:
     if has_worker:
         return "İşçi varlığı nedeniyle periyodik kontrolü sürdür."
     return "Standart izleme yeterli."
+
+
+def _build_risk_breakdown(
+    geometry_risk: float,
+    environmental_risk: float,
+    worker_risk: float,
+    tracking_risk: float,
+) -> dict[str, Any]:
+    contributions = {
+        "geometry": round(geometry_risk * RISK_WEIGHTS["geometry"], 3),
+        "environmental": round(environmental_risk * RISK_WEIGHTS["environmental"], 3),
+        "worker": round(worker_risk * RISK_WEIGHTS["worker"], 3),
+        "tracking": round(tracking_risk * RISK_WEIGHTS["tracking"], 3),
+    }
+    total = round(sum(contributions.values()), 3)
+    return {
+        "weights": dict(RISK_WEIGHTS),
+        "raw": {
+            "geometry": round(geometry_risk, 3),
+            "environmental": round(environmental_risk, 3),
+            "worker": round(worker_risk, 3),
+            "tracking": round(tracking_risk, 3),
+        },
+        "contributions": contributions,
+        "total": total,
+        "formula": "0.40*geometry + 0.35*environmental + 0.20*worker + 0.05*tracking",
+    }
 
 
 def _environmental_by_segment(time_step: int | None, fallback: str = "first") -> dict[str, dict[str, Any]]:
@@ -123,7 +158,13 @@ def get_segment_risks(
         worker_risk = float(worker.get("worker_exposure_risk", 0.0) or 0.0)
         tracking_risk = float(worker.get("tracking_risk_score", 0.0) or 0.0)
 
-        final_score = round((geometry_risk * 0.40) + (environmental_risk * 0.35) + (worker_risk * 0.20) + (tracking_risk * 0.05), 3)
+        breakdown = _build_risk_breakdown(
+            geometry_risk=geometry_risk,
+            environmental_risk=environmental_risk,
+            worker_risk=worker_risk,
+            tracking_risk=tracking_risk,
+        )
+        final_score = breakdown["total"]
         level = _risk_level(final_score)
         active_reasons = []
         if geo.get("reasons"):
@@ -144,6 +185,7 @@ def get_segment_risks(
             "final_segment_risk": final_score,
             "risk_score": final_score,
             "risk_level": level,
+            "risk_breakdown": breakdown,
             "geometry_risk": geometry_risk,
             "lidar_geometry_risk": geometry_risk,
             "environmental_risk": environmental_risk,
