@@ -11,7 +11,7 @@ from apps.risk.services import get_geometry_risk_records, get_segment_risks
 from apps.routing.services import get_emergency_route
 from apps.scenarios.services import get_collapse_result
 from apps.sensors.services import get_environmental_risks, get_gas_sensors
-from apps.simulation.services import get_simulation_state, get_trapped_analysis
+from apps.simulation.services import get_scenario_state, get_simulation_state, get_trapped_analysis
 from apps.workers.services import get_workers
 
 
@@ -81,6 +81,12 @@ def simulation_trapped(request):
 
 
 @require_GET
+def simulation_scenario(request):
+    scenario_id = request.GET.get("scenario_id") or request.GET.get("scenario") or "normal"
+    return api_response(get_scenario_state(scenario_id, get_time_step(request, default=0)))
+
+
+@require_GET
 def collapse_scenario(request):
     return api_response(get_collapse_result())
 
@@ -90,9 +96,12 @@ def emergency_route(request):
     time_step = get_time_step(request)
     worker_id = request.GET.get("worker_id", "WORKER_01")
     exit_node = request.GET.get("exit_node", "3")
+    scenario_id = request.GET.get("scenario")
 
     collapse = get_collapse_result()
-    blocked_segment = request.GET.get("blocked_segment") or collapse.get("blocked_segment")
+    scenario_state = get_scenario_state(scenario_id, time_step) if scenario_id else None
+    scenario_blocked_segment = scenario_state.get("scenario", {}).get("blocked_segment") if scenario_state else None
+    blocked_segment = request.GET.get("blocked_segment") or scenario_blocked_segment or collapse.get("blocked_segment")
 
     start_segment = request.GET.get("segment_id")
     if not start_segment:
@@ -111,4 +120,7 @@ def emergency_route(request):
     route["worker_id"] = worker_id
     route["affected_workers"] = [worker_id]
     route["time_step"] = time_step
+    if scenario_state:
+        route["scenario_id"] = scenario_state.get("scenario_id")
+        route["scenario_state"] = scenario_state.get("scenario")
     return api_response(route)

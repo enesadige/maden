@@ -59,6 +59,20 @@ def _trapped_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _clone_record(record: dict[str, Any]) -> dict[str, Any]:
+    cloned = dict(record)
+    for key in ("active_reasons", "active_worker_ids", "active_sensor_ids", "route_segments", "route_nodes"):
+        if isinstance(cloned.get(key), list):
+            cloned[key] = list(cloned[key])
+    if isinstance(cloned.get("risk"), dict):
+        cloned["risk"] = dict(cloned["risk"])
+    return cloned
+
+
+def _clone_record_list(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [_clone_record(record) for record in records]
+
+
 def _enrich_segments(
     segments: list[dict[str, Any]],
     risks: list[dict[str, Any]],
@@ -91,6 +105,207 @@ def _enrich_segments(
             }
         )
     return enriched
+
+
+def _apply_methane_spike(segments: list[dict[str, Any]], risks: list[dict[str, Any]], gas_sensors: list[dict[str, Any]]) -> dict[str, Any]:
+    segments_by_id = {item["segment_id"]: item for item in segments}
+    risks_by_id = {item["segment_id"]: item for item in risks}
+
+    target_segment_id = None
+    for sensor in gas_sensors:
+        if str(sensor.get("status") or "").lower() == "alarm":
+            target_segment_id = normalize_segment_id(sensor.get("segment_id"))
+            break
+    if not target_segment_id:
+        target_segment_id = "S004"
+
+    mutated_segment = segments_by_id.get(target_segment_id)
+    mutated_risk = risks_by_id.get(target_segment_id)
+    mutated_sensor = next(
+        (sensor for sensor in gas_sensors if normalize_segment_id(sensor.get("segment_id")) == target_segment_id),
+        None,
+    )
+    if not mutated_sensor and gas_sensors:
+        mutated_sensor = gas_sensors[0]
+        target_segment_id = normalize_segment_id(mutated_sensor.get("segment_id")) or target_segment_id
+
+    if mutated_segment:
+        mutated_segment["status"] = "gas_alert"
+        mutated_segment["is_blocked"] = False
+    if mutated_risk:
+        mutated_risk["risk_level"] = "critical"
+        mutated_risk["final_risk_score"] = max(float(mutated_risk.get("final_risk_score", 0.0) or 0.0), 90.0)
+        mutated_risk["risk_score"] = mutated_risk["final_risk_score"]
+        mutated_risk.setdefault("active_reasons", [])
+        if "metan anomalisi tespit edildi" not in mutated_risk["active_reasons"]:
+            mutated_risk["active_reasons"].append("metan anomalisi tespit edildi")
+        mutated_risk.setdefault("risk_breakdown", {})
+        mutated_risk["risk_breakdown"]["scenario_boost"] = 12.0
+    if mutated_sensor:
+        mutated_sensor["risk_level"] = "critical"
+        mutated_sensor["risk_score"] = max(float(mutated_sensor.get("risk_score", 0.0) or 0.0), 91.0)
+        mutated_sensor["status"] = "alarm"
+
+    return {
+        "scenario_id": "methane_spike",
+        "label": "Methane Spike",
+        "blocked_segment": None,
+        "affected_segment": target_segment_id,
+        "segment": _clone_record(mutated_segment) if mutated_segment else None,
+        "risk": _clone_record(mutated_risk) if mutated_risk else None,
+        "gas_sensor": _clone_record(mutated_sensor) if mutated_sensor else None,
+        "message": "Methane spike scenario applied to the highest-risk gas segment.",
+    }
+
+
+def _apply_worker_at_risk(workers: list[dict[str, Any]], risks: list[dict[str, Any]]) -> dict[str, Any]:
+    workers_by_id = {item.get("worker_id"): item for item in workers}
+    target_worker = workers_by_id.get("WORKER_01") or (workers[0] if workers else None)
+    if target_worker:
+        target_worker["status"] = "at_risk"
+        target_worker.setdefault("scenario_flags", [])
+        if "at_risk" not in target_worker["scenario_flags"]:
+            target_worker["scenario_flags"].append("at_risk")
+
+    target_segment_id = normalize_segment_id(target_worker.get("current_segment")) if target_worker else None
+    target_risk = next((item for item in risks if item.get("segment_id") == target_segment_id), None)
+    if target_risk:
+        target_risk["risk_level"] = "critical"
+        target_risk["final_risk_score"] = max(float(target_risk.get("final_risk_score", 0.0) or 0.0), 85.0)
+        target_risk["risk_score"] = target_risk["final_risk_score"]
+        target_risk.setdefault("active_reasons", [])
+        if "işçi riskli segmentte" not in target_risk["active_reasons"]:
+            target_risk["active_reasons"].append("işçi riskli segmentte")
+
+    return {
+        "scenario_id": "worker_at_risk",
+        "label": "Worker At Risk",
+        "blocked_segment": None,
+        "worker_id": target_worker.get("worker_id") if target_worker else None,
+        "segment_id": target_segment_id,
+        "worker": _clone_record(target_worker) if target_worker else None,
+        "risk": _clone_record(target_risk) if target_risk else None,
+        "message": "Worker marked as at risk and the segment risk boosted.",
+    }
+
+
+def _apply_collapse(workers: list[dict[str, Any]], segments: list[dict[str, Any]], risks: list[dict[str, Any]]) -> dict[str, Any]:
+    collapse = get_collapse_result()
+    blocked_segment = normalize_segment_id(collapse.get("blocked_segment"))
+    affected_workers = []
+    for worker in workers:
+        if normalize_segment_id(worker.get("current_segment")) == blocked_segment:
+            worker["status"] = "trapped"
+            worker["scenario_flags"] = ["blocked_segment"]
+            affected_workers.append(worker.get("worker_id"))
+
+    segment = next((item for item in segments if item.get("segment_id") == blocked_segment), None)
+    if segment:
+        segment["status"] = "blocked"
+        segment["is_blocked"] = True
+    risk = next((item for item in risks if item.get("segment_id") == blocked_segment), None)
+    if risk:
+        risk["risk_level"] = "critical"
+        risk["final_risk_score"] = max(float(risk.get("final_risk_score", 0.0) or 0.0), 90.0)
+        risk["risk_score"] = risk["final_risk_score"]
+        risk.setdefault("active_reasons", [])
+        if "göçük / segment kapalı" not in risk["active_reasons"]:
+            risk["active_reasons"].append("göçük / segment kapalı")
+
+    return {
+        "scenario_id": "collapse_s004",
+        "label": "Collapse S004",
+        "blocked_segment": blocked_segment,
+        "collapse": collapse,
+        "affected_workers": affected_workers,
+        "segment": _clone_record(segment) if segment else None,
+        "risk": _clone_record(risk) if risk else None,
+        "message": "Collapse scenario applied to the blocked segment and impacted workers.",
+    }
+
+
+def build_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]:
+    scenario_id = str(scenario_id or "normal")
+    segments = _clone_record_list(get_segments())
+    graph = get_graph()
+    workers = _clone_record_list(get_workers_at_time_step(time_step, fallback="none"))
+    gas_sensors = _clone_record_list(get_gas_sensors(time_step, fallback="last_lte"))
+    environmental_risk = _clone_record_list(get_environmental_risks(time_step, fallback="last_lte"))
+    risks = get_segment_risks(
+        time_step=time_step,
+        workers_override=workers,
+        sensor_fallback="last_lte",
+    )
+    risks = _clone_record_list(risks)
+
+    scenario_result = {
+        "scenario_id": scenario_id,
+        "label": scenario_id,
+        "blocked_segment": None,
+        "message": "Normal state.",
+    }
+
+    if scenario_id == "methane_spike":
+        scenario_result = _apply_methane_spike(segments, risks, gas_sensors)
+    elif scenario_id in {"collapse_s004", "collapse"}:
+        scenario_result = _apply_collapse(workers, segments, risks)
+        scenario_id = "collapse_s004"
+    elif scenario_id == "worker_at_risk":
+        scenario_result = _apply_worker_at_risk(workers, risks)
+    elif scenario_id == "show_route":
+        route_preview = get_emergency_route(
+            start_segment=workers[0].get("current_segment") if workers else "S001",
+            blocked_segment=None,
+            worker_id=workers[0].get("worker_id") if workers else None,
+            time_step=time_step,
+        )
+        scenario_result = {
+            "scenario_id": "show_route",
+            "label": "Show Route",
+            "blocked_segment": None,
+            "route_preview": route_preview,
+            "message": "Route preview mode.",
+        }
+
+    enriched_segments = _enrich_segments(segments, risks, workers, gas_sensors)
+    trapped = get_trapped_analysis(time_step=time_step, blocked_segment=scenario_result.get("blocked_segment"))
+    worker_steps = get_worker_time_steps()
+    gas_steps = get_gas_time_steps()
+
+    return {
+        "scenario_id": scenario_id,
+        "scenario": scenario_result,
+        "time_step": time_step,
+        "available_time_steps": _source_time_bounds(worker_steps, gas_steps),
+        "counts": {
+            "segments": len(enriched_segments),
+            "graph_nodes": len(graph.get("nodes", [])),
+            "graph_edges": len(graph.get("edges", [])),
+            "workers": len(workers),
+            "gas_sensors": len(gas_sensors),
+            "risks": len(risks),
+        },
+        "risk_summary": _risk_summary(risks),
+        "trapped_summary": trapped["summary"],
+        "trapped_workers": trapped["trapped_workers"],
+        "segments": enriched_segments,
+        "graph": graph,
+        "workers": workers,
+        "gas_sensors": gas_sensors,
+        "environmental_risk": environmental_risk,
+        "risks": risks,
+        "trapped": trapped,
+        "source_contract": {
+            "segment_source": "haki_lidar",
+            "worker_source": "uwb_worker_timeline",
+            "gas_source": "methane_sensor_timeline",
+            "join_key": "segment_id",
+        },
+    }
+
+
+def get_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]:
+    return build_scenario_state(scenario_id, time_step=time_step)
 
 
 def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None) -> dict[str, Any]:

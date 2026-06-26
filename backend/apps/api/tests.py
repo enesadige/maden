@@ -91,6 +91,16 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["cost_policy"], "length + geometry*0.15 + environmental*0.45 + worker*0.12 + tracking*0.05 + occupancy penalty")
         self.assertIn("worker_overlap_segments", data)
 
+    def test_emergency_route_endpoint_accepts_scenario_param(self):
+        response = self.client.get("/api/routes/emergency?worker_id=WORKER_01&time_step=27&scenario=collapse_s004")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["scenario_id"], "collapse_s004")
+        self.assertIn("scenario_state", data)
+        self.assertTrue(data["scenario_state"]["blocked_segment"])
+        self.assertTrue(data["trapped"])
+
     def test_risk_endpoint_returns_current_integrated_risk(self):
         response = self.client.get("/api/risk/segments")
 
@@ -147,6 +157,27 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(worker["current_segment"], "S047")
         s047 = next(item for item in data["segments"] if item["segment_id"] == "S047")
         self.assertIn("WORKER_01", s047["active_worker_ids"])
+
+    def test_simulation_scenario_endpoint_returns_collapse_state(self):
+        response = self.client.get("/api/simulation/scenario?scenario_id=collapse_s004&time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["scenario_id"], "collapse_s004")
+        self.assertEqual(data["scenario"]["blocked_segment"], "S047")
+        self.assertEqual(data["scenario"]["collapse"]["blocked_segment"], "S047")
+        blocked = next(item for item in data["segments"] if item["segment_id"] == "S047")
+        self.assertTrue(blocked["is_blocked"])
+
+    def test_simulation_scenario_endpoint_returns_methane_state(self):
+        response = self.client.get("/api/simulation/scenario?scenario_id=methane_spike&time_step=0")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["scenario_id"], "methane_spike")
+        self.assertEqual(data["scenario"]["scenario_id"], "methane_spike")
+        self.assertEqual(data["scenario"]["label"], "Methane Spike")
+        self.assertTrue(any(sensor.get("status") == "alarm" for sensor in data["gas_sensors"]))
 
     def test_simulation_state_holds_last_known_gas_after_gas_timeline_ends(self):
         response = self.client.get("/api/simulation/state?time_step=126")
