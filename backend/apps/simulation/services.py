@@ -4,6 +4,8 @@ from typing import Any
 
 from apps.common.ids import normalize_segment_id
 from apps.lidar.services import get_graph, get_segments
+from apps.routing.services import get_emergency_route
+from apps.scenarios.services import get_collapse_result
 from apps.risk.services import get_segment_risks
 from apps.sensors.services import get_environmental_risks, get_gas_sensors, get_gas_time_steps
 from apps.workers.services import get_worker_time_steps, get_workers_at_time_step
@@ -46,6 +48,17 @@ def _risk_summary(risks: list[dict[str, Any]]) -> dict[str, int]:
     return summary
 
 
+def _trapped_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
+    trapped = [item for item in records if item.get("trapped")]
+    return {
+        "trapped_count": len(trapped),
+        "safe_count": len(records) - len(trapped),
+        "trapped_worker_ids": [item.get("worker_id") for item in trapped],
+        "blocked_segment": records[0].get("blocked_segment") if records else None,
+        "scenario_status": "trapped" if trapped else "safe",
+    }
+
+
 def _enrich_segments(
     segments: list[dict[str, Any]],
     risks: list[dict[str, Any]],
@@ -80,6 +93,52 @@ def _enrich_segments(
     return enriched
 
 
+def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None) -> dict[str, Any]:
+    collapse = get_collapse_result()
+    scenario_blocked_segment = normalize_segment_id(blocked_segment or collapse.get("blocked_segment"))
+    workers = get_workers_at_time_step(time_step, fallback="none")
+
+    worker_records = []
+    for worker in workers:
+        worker_id = worker.get("worker_id")
+        route = get_emergency_route(
+            start_segment=worker.get("current_segment"),
+            blocked_segment=scenario_blocked_segment,
+            worker_id=worker_id,
+            time_step=time_step,
+        )
+        trapped = bool(route.get("trapped"))
+        worker_records.append(
+            {
+                "worker_id": worker_id,
+                "tag_id": worker.get("tag_id"),
+                "time_step": time_step,
+                "current_segment": worker.get("current_segment"),
+                "blocked_segment": scenario_blocked_segment,
+                "trapped": trapped,
+                "trapped_reason": route.get("reason"),
+                "emergency_status": route.get("emergency_status"),
+                "exit_reachable": route.get("exit_reachable", route.get("reachable", False)),
+                "alternative_route_available": route.get("alternative_route_available", False),
+                "route_segments": route.get("route_segments", []),
+                "route_nodes": route.get("route_nodes", []),
+                "total_cost": route.get("total_cost"),
+                "message": route.get("message"),
+                "tracking_status": worker.get("tracking_status"),
+                "position_reliability": worker.get("position_reliability"),
+            }
+        )
+
+    return {
+        "time_step": time_step,
+        "blocked_segment": scenario_blocked_segment,
+        "scenario": collapse,
+        "summary": _trapped_summary(worker_records),
+        "workers": worker_records,
+        "trapped_workers": [item for item in worker_records if item.get("trapped")],
+    }
+
+
 def get_simulation_state(time_step: int = 0) -> dict[str, Any]:
     segments = get_segments()
     graph = get_graph()
@@ -92,6 +151,7 @@ def get_simulation_state(time_step: int = 0) -> dict[str, Any]:
         sensor_fallback="last_lte",
     )
     enriched_segments = _enrich_segments(segments, risks, workers, gas_sensors)
+    trapped = get_trapped_analysis(time_step=time_step)
 
     worker_steps = get_worker_time_steps()
     gas_steps = get_gas_time_steps()
@@ -108,12 +168,15 @@ def get_simulation_state(time_step: int = 0) -> dict[str, Any]:
             "risks": len(risks),
         },
         "risk_summary": _risk_summary(risks),
+        "trapped_summary": trapped["summary"],
+        "trapped_workers": trapped["trapped_workers"],
         "segments": enriched_segments,
         "graph": graph,
         "workers": workers,
         "gas_sensors": gas_sensors,
         "environmental_risk": environmental_risk,
         "risks": risks,
+        "trapped": trapped,
         "source_contract": {
             "segment_source": "haki_lidar",
             "worker_source": "uwb_worker_timeline",

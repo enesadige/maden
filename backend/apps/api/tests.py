@@ -157,3 +157,26 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["counts"]["workers"], 2)
         self.assertEqual(data["counts"]["gas_sensors"], 3)
         self.assertTrue(all(item["time_step"] == 89 for item in data["gas_sensors"]))
+
+    def test_simulation_trapped_endpoint_returns_worker_list(self):
+        response = self.client.get("/api/simulation/trapped?time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["time_step"], 27)
+        self.assertEqual(data["summary"]["trapped_count"], 1)
+        self.assertEqual(data["summary"]["trapped_worker_ids"], ["WORKER_01"])
+        trapped = data["trapped_workers"][0]
+        self.assertTrue(trapped["trapped"])
+        self.assertEqual(trapped["worker_id"], "WORKER_01")
+        self.assertEqual(trapped["blocked_segment"], "S047")
+        self.assertEqual(trapped["trapped_reason"], "worker_segment_blocked")
+
+    def test_simulation_trapped_endpoint_can_return_safe_workers(self):
+        response = self.client.get("/api/simulation/trapped?time_step=6")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["summary"]["trapped_count"], 0)
+        self.assertEqual(data["summary"]["safe_count"], 3)
+        self.assertEqual(data["trapped_workers"], [])

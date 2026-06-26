@@ -14,6 +14,7 @@ urlpatterns = [
     path("risk/environmental", views.environmental_risk, name="environmental_risk"),
     path("gas-sensors", views.gas_sensors, name="gas_sensors"),
     path("simulation/state", views.simulation_state, name="simulation_state"),
+    path("simulation/trapped", views.simulation_trapped, name="simulation_trapped"),
     path("scenarios/collapse", views.collapse_scenario, name="collapse_scenario"),
     path("routes/emergency", views.emergency_route, name="emergency_route"),
 ]

@@ -11,7 +11,7 @@ from apps.risk.services import get_geometry_risk_records, get_segment_risks
 from apps.routing.services import get_emergency_route
 from apps.scenarios.services import get_collapse_result
 from apps.sensors.services import get_environmental_risks, get_gas_sensors
-from apps.simulation.services import get_simulation_state
+from apps.simulation.services import get_simulation_state, get_trapped_analysis
 from apps.workers.services import get_workers
 
 
@@ -73,6 +73,11 @@ def gas_sensors(request):
 @require_GET
 def simulation_state(request):
     return api_response(get_simulation_state(get_time_step(request, default=0)))
+
+
+@require_GET
+def simulation_trapped(request):
+    return api_response(get_trapped_analysis(get_time_step(request, default=0)))
 
 
 @require_GET
