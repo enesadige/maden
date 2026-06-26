@@ -34,6 +34,10 @@ GET /api/risk/segments?time_step=0
 GET /api/risk/environmental?time_step=0
 GET /api/risk/geometry
 GET /api/gas-sensors?time_step=0
+GET /api/simulation/state?time_step=0
+GET /api/simulation/scenario?scenario_id=collapse_s004&time_step=27
+GET /api/simulation/trapped?time_step=27
+GET /api/integration/status?time_step=27&scenario_id=collapse_s004
 GET /api/scenarios/collapse
 GET /api/routes/emergency?worker_id=WORKER_01&time_step=6
 ```
@@ -43,7 +47,7 @@ GET /api/routes/emergency?worker_id=WORKER_01&time_step=6
 - Haki writes LiDAR/geometric outputs under `data_processed/sample/digital_twin` and `data_processed/sample/graph`.
 - Recep writes gas/methane outputs under `data_processed/sample/sensors` and risk outputs under `data_processed/sample/risk`.
 - Huseyin writes worker/UWB outputs under `data_processed/sample/workers`.
-- Enes owns backend fusion, routing, scenario logic, and the public API contract.
+- Enes owns backend fusion, routing, scenario logic, integration status checks, and the public API contract.
 - Selim consumes only these API endpoints; no raw LAS or raw large CSV in frontend.
 
 ## Current Integrated Sources
@@ -52,6 +56,19 @@ GET /api/routes/emergency?worker_id=WORKER_01&time_step=6
 - Huseyin worker/UWB source: `data_processed/sample/workers/`
 - Recep methane/gas source: `data_processed/sample/sensors/` and `data_processed/sample/risk/environmental_risk.json`
 - Integrated risk endpoint: `GET /api/risk/segments`
+- Joined simulation state: `GET /api/simulation/state`
+- Scenario motor: `GET /api/simulation/scenario`
+- Trapped analysis: `GET /api/simulation/trapped`
+- Contract health: `GET /api/integration/status`
+
+## Backend Contract Notes
+
+- Canonical segment IDs are `S001`, `S002`, `S047`.
+- `segment_id` is the shared join key across LiDAR, gas, worker, risk, and scenario outputs.
+- `time_step=0` is the latest snapshot for worker APIs, but the simulation endpoints can also replay historical steps.
+- `GET /api/routes/emergency` accepts `worker_id`, `time_step`, `segment_id`, `blocked_segment`, and `scenario`.
+- `GET /api/simulation/scenario` is the backend-owned story/sim state generator for collapse, methane spike, worker-at-risk, and route preview flows.
+- `GET /api/integration/status` is the quick sanity endpoint for contract drift checks.
 
 ## Segment ID Rule
 
