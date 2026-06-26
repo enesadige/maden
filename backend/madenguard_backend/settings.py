@@ -66,6 +66,10 @@ MADENGUARD_DATA_ROOT = Path(
 if not MADENGUARD_DATA_ROOT.is_absolute():
     MADENGUARD_DATA_ROOT = (BASE_DIR / MADENGUARD_DATA_ROOT).resolve()
 
+STATICFILES_DIRS = [
+    MADENGUARD_DATA_ROOT / "haki_lidar",
+]
+
 MADENGUARD_CORS_ORIGINS = csv_env(
     "MADENGUARD_CORS_ORIGINS",
     "http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000",

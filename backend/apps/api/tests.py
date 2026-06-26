@@ -30,8 +30,17 @@ class ApiSmokeTests(SimpleTestCase):
 
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertIn("preview_url", data)
-        self.assertIn("downsampled_url", data)
+        self.assertEqual(data["preview_url"], "/static/pointcloud/tunnel_preview_500k.ply")
+        self.assertEqual(data["downsampled_url"], "/static/pointcloud/tunnel_downsampled.ply")
+        self.assertEqual(data["files"]["preview"]["exists"], True)
+        self.assertEqual(data["files"]["downsampled"]["exists"], True)
+
+    def test_pointcloud_static_file_is_served_by_backend(self):
+        response = self.client.get("/static/pointcloud/tunnel_preview_500k.ply")
+
+        self.assertEqual(response.status_code, 200)
+        content = b"".join(response.streaming_content)
+        self.assertTrue(content.startswith(b"ply"))
 
     def test_workers_endpoint_returns_latest_snapshots_by_default(self):
         response = self.client.get("/api/workers")

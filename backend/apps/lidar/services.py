@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 from apps.common.ids import normalize_record_ids, normalize_segment_id
-from apps.common.json_store import load_first_json, load_json
+from apps.common.json_store import data_root, load_first_json, load_json
 
 
 HAKI_SEGMENTS = "haki_lidar/segments/map_segments.json"
@@ -11,6 +13,10 @@ HAKI_METADATA = "haki_lidar/segments/segment_metadata.json"
 HAKI_GRAPH = "haki_lidar/graph/mine_graph.json"
 HAKI_GEOMETRY_RISK = "haki_lidar/risk/geometry_risk.json"
 LEGACY_SEGMENTS = "digital_twin/segments.json"
+POINTCLOUD_DIR = "haki_lidar/pointcloud"
+POINTCLOUD_STATIC_URL = "/static/pointcloud"
+POINTCLOUD_PREVIEW = "tunnel_preview_500k.ply"
+POINTCLOUD_DOWNSAMPLED = "tunnel_downsampled.ply"
 
 
 def get_segments() -> list[dict[str, Any]]:
@@ -107,13 +113,46 @@ def get_graph() -> dict[str, Any]:
     return {"nodes": nodes, "edges": edges}
 
 
+def _pointcloud_path(file_name: str) -> Path:
+    return data_root() / POINTCLOUD_DIR / file_name
+
+
+def _pointcloud_file_meta(file_name: str) -> dict[str, Any]:
+    path = _pointcloud_path(file_name)
+    if not path.exists():
+        return {"exists": False, "size_bytes": 0}
+    stat = path.stat()
+    return {
+        "exists": True,
+        "size_bytes": stat.st_size,
+        "updated_at": datetime.fromtimestamp(stat.st_mtime, timezone.utc).isoformat(),
+    }
+
+
+def _pointcloud_version(file_names: list[str]) -> str:
+    mtimes = [
+        _pointcloud_path(file_name).stat().st_mtime
+        for file_name in file_names
+        if _pointcloud_path(file_name).exists()
+    ]
+    if not mtimes:
+        return "missing"
+    return datetime.fromtimestamp(max(mtimes), timezone.utc).date().isoformat()
+
+
 def get_pointcloud_metadata() -> dict[str, Any]:
+    files = {
+        "preview": _pointcloud_file_meta(POINTCLOUD_PREVIEW),
+        "downsampled": _pointcloud_file_meta(POINTCLOUD_DOWNSAMPLED),
+    }
     return {
         "source": "haki_lidar",
-        "preview_url": "/models/tunnel_preview_500k.ply",
-        "downsampled_url": "/models/tunnel_downsampled.ply",
+        "preview_url": f"{POINTCLOUD_STATIC_URL}/{POINTCLOUD_PREVIEW}",
+        "downsampled_url": f"{POINTCLOUD_STATIC_URL}/{POINTCLOUD_DOWNSAMPLED}",
+        "version": _pointcloud_version([POINTCLOUD_PREVIEW, POINTCLOUD_DOWNSAMPLED]),
         "global_shift": load_json("haki_lidar/pointcloud/global_shift.json", default={}),
-        "note": "PLY files are served by the frontend public/models directory in local development.",
+        "files": files,
+        "note": "PLY files are served by the backend from MADENGUARD_DATA_ROOT/haki_lidar/pointcloud.",
     }
 
 

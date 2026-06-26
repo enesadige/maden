@@ -15,6 +15,13 @@ function apiUrl(path) {
   return `${API_BASE_URL}${path}`
 }
 
+function backendAssetUrl(url) {
+  if (!url || typeof url !== 'string') return url
+  if (/^(https?:)?\/\//.test(url) || url.startsWith('data:') || url.startsWith('blob:')) return url
+  if (USE_API && url.startsWith('/static/')) return apiUrl(url)
+  return url
+}
+
 function mockUrl(file) {
   return `/mock/${file}`
 }
@@ -96,5 +103,10 @@ export async function getSystemStatus() {
 }
 
 export async function getPointCloudMetadata() {
-  return fetchApiOrMock('/api/digital-twin/pointcloud', 'pointcloud_metadata.json')
+  const metadata = await fetchApiOrMock('/api/digital-twin/pointcloud', 'pointcloud_metadata.json')
+  return {
+    ...metadata,
+    preview_url: backendAssetUrl(metadata.preview_url),
+    downsampled_url: backendAssetUrl(metadata.downsampled_url)
+  }
 }
