@@ -544,3 +544,128 @@ Bu genişletme gerçek UWB konum çözümü için yazılım altyapısı sağlar;
 - NLOS/multipath outlier filtreleme
 - Solver sonucunu güvenli şekilde workers.json backend snapshot'ına opsiyonel bağlama
 - Solver error metrics dashboard gösterimi
+
+## 16. Requirement Coverage Matrix
+
+Review scope: Huseyin's UWB Worker Tracking MVP responsibilities only. Haki, Recep, Enes and Selim modules are considered only at integration boundaries.
+
+Source note: `MadenGuard_AI_ML_Kullanim_Rehberi.docx` was requested as an input, but it was not present under `C:\Users\sarib\Desktop\maden_mn` during this review. The matrix below is therefore based on this report, the current `backend/uwb_processing/` implementation, generated UWB artifacts, and backend API integration points.
+
+| Requirement | Status | Evidence | MVP classification |
+|---|---|---|---|
+| Read UWB/UTIL worker datasets | MVP complete | `dataset_reader.py` discovers and parses UTIL CSV pose/TDoA data; config-driven trial hints select worker trials. | Required MVP |
+| Produce worker positions | MVP complete | `position_extractor.py`, `coordinate_mapper.py`, and generated `worker_positions_clean.csv` contain 379 worker position rows. | Required MVP |
+| Produce worker movement over time | MVP complete | `worker_segment_timeline.json` contains 379 records across time steps 0-128. | Required MVP |
+| Dynamic worker support | MVP complete | Workers are read from `uwb_config.example.json`; current demo has 3 workers, but loops and validation are config-driven. | Required MVP |
+| Map workers onto Haki mine segments | MVP complete with quality warnings | `segment_mapper.py` maps all 379 positions; validation reports 0 unknown mapped positions, but 133 fallback records. | Required MVP |
+| Generate `workers.json` | MVP complete | Latest worker snapshot file contains 3 backend-compatible workers. | Required MVP |
+| Generate `worker_positions_clean.csv` | MVP complete | CSV has 379 rows and required position/reliability/status columns. | Required MVP |
+| Generate `worker_positions_demo.json` | MVP complete | Demo JSON includes latest workers, timeline preview, summary and warnings. | Required MVP |
+| Generate `worker_segment_timeline.json` | MVP complete | Timeline JSON includes worker, time, position, segment, reliability and tracking fields. | Required MVP |
+| Generate `worker_exposure_risk.json` | MVP complete | Exposure file includes 379 occupancy contribution records. | Required MVP |
+| Generate `current_segment` | MVP complete | Present in latest snapshots and historical timeline records. | Required MVP |
+| Generate `position_reliability` | MVP complete | Computed in timeline enrichment from signal, visibility, mapping and continuity components. | Required MVP |
+| Generate worker status | MVP complete | `status` is present in timeline, latest snapshots and exposure output. | Required MVP |
+| Anchor generation | MVP complete | `anchor_planner.py` generates 283 anchors from segment/graph geometry. | Supporting MVP output |
+| Cable generation | MVP complete | `cable_planner.py` generates 642 graph-based cable links. | Supporting MVP output |
+| Anchor-tag distances | MVP complete | `distance_matrix.py` generates 107,257 distance observations. | Supporting MVP output |
+| Backend API latest compatibility | MVP complete | `/api/workers` and `/api/workers?time_step=0` use latest snapshots from `workers.json`. | Required MVP |
+| Backend API historical replay | MVP complete after service fix | Non-zero `/api/workers?time_step=N` reads `worker_segment_timeline.json`; unknown time step falls back to latest snapshots. | Required MVP integration |
+| Generated JSON schema validity | MVP complete | `validate_outputs.py` reports `ok=true`, `error_count=0`. | Required MVP quality gate |
+| Dry-run safe pipeline writer | MVP complete | `run_pipeline.py` defaults to dry-run and writes only approved output paths with `--write`. | Required MVP safety |
+| Trapped status | Missing in UWB | UWB outputs do not compute route reachability or trapped state. | Other module / future integration |
+| Collapse awareness | Missing in UWB | UWB module does not ingest collapse scenario state for worker status. | Other module / integration |
+| LOS/NLOS classifier | Missing | Visibility is distance/graph heuristic only. | Future real-mine deployment |
+| Behavior anomaly detection | Missing | No worker behavior model, speed anomaly classifier, or rule engine exists in UWB module. | Nice-to-have / future analytics |
+| Real UWB TDoA localization | Experimental only | `uwb_position_solver.py` exists, but default config disables it and MVP uses mocap proxy positions. | Experimental, not MVP blocker |
+| Real RF propagation model | Missing | Distance matrix explicitly does not model calibrated RF propagation. | Future real-mine deployment |
+| Final gas + worker risk fusion | Missing in UWB | Exposure output is occupancy-only and intended for backend risk fusion. | Other module / future integration |
+| Dashboard visualization | Missing in UWB | No frontend/dashboard work is part of this module. | Other module / future phase |
+
+## 17. Completed Requirements
+
+- UTIL/UWB dataset reader exists and parses configured worker trial data.
+- Worker positions are produced from UTIL pose data and written to CSV/JSON artifacts.
+- Worker movement timeline is dynamic over time, not a static snapshot only.
+- Worker-to-segment mapping is implemented against Haki segment IDs.
+- Latest worker snapshots are generated for backend consumption.
+- Historical worker timeline is generated for replay and API queries.
+- `current_segment`, `position_reliability`, `tracking_status`, `status`, `visible_anchor_count`, and `tracking_risk_score` are generated.
+- Worker exposure risk output is generated as an occupancy contribution.
+- Anchor placement is generated from segment/graph geometry.
+- Cable topology is generated from anchor and graph topology.
+- JSON artifacts validate with `validate_outputs.py` and current validation returns no structural errors.
+- Backend API compatibility is satisfied for latest snapshots and historical replay.
+- Worker configuration is data-driven; the implementation is not hardcoded to exactly 3 workers.
+
+## 18. Partially Completed Requirements
+
+- Segment mapping is functionally complete, but mapping quality is limited by bounds-center geometry and approximate coordinate registration. Current validation reports 133 fallback mapping records and low mean mapping confidence.
+- Position reliability is implemented, but it is an MVP confidence estimate rather than a calibrated localization confidence model.
+- Anchor visibility and anchor-tag distance outputs are complete as engineering approximations, but they are not RF/LOS/NLOS truth.
+- Exposure risk is complete as UWB occupancy contribution, but it is not final mine risk and is not fused with gas, collapse, or geometry risk.
+- Experimental TDoA solver code exists, but it is not the default localization source and is not production-calibrated.
+
+## 19. Missing Requirements and Ownership
+
+| Missing item | Why missing | Owner | Effort | Implementation plan |
+|---|---|---|---:|---|
+| Trapped status in UWB output | Trapped state requires route reachability, exits, blocked segments and graph routing, not only worker location. | Routing/backend owner, with UWB providing worker segment input | 2-4 days for integration once routing contract is fixed | Add a routing service call that accepts `worker_id`, `time_step`, `current_segment`, blocked segments and exits; return `trapped=true/false`; optionally copy result into a joined API response, not raw UWB artifacts. |
+| Collapse awareness in UWB worker status | UWB pipeline does not consume collapse scenario state; it only emits worker location and tracking state. | Scenario/routing/backend owner, UWB integration support | 2-3 days | Define collapse event schema, join collapse blocked segment state with historical worker segment at API/service layer, add tests for worker in blocked/adjacent/safe segment. |
+| LOS/NLOS classifier | No labeled LOS/NLOS dataset, wall mesh, RF features, or classifier model is available in UWB module. | Future localization/RF owner | 1-3 weeks after data availability | Collect labeled LOS/NLOS samples, add feature extraction from signal quality/TDoA residuals/map obstruction, train/evaluate classifier, expose LOS/NLOS flag per observation. |
+| Behavior anomaly detection | MVP scope did not include anomaly analytics; no model or rules exist for abnormal movement. | Analytics/ML owner, UWB support | 3-7 days for rule-based MVP; 2-4 weeks for ML model | Start with speed/stationary/zone-entry rules over `worker_segment_timeline.json`, add thresholds to config, emit anomaly events, then evaluate ML sequence models if data is available. |
+| Real calibrated UWB localization | MVP uses UTIL mocap proxy positions; experimental solver lacks field calibration and verified measurement units. | UWB localization owner | 2-6 weeks depending on calibration data | Verify TDoA/ToF units, collect calibrated anchor coordinates, handle clock bias, validate solver against ground truth, gate output by confidence, then optionally feed solver positions into backend artifacts. |
+| Real RF propagation model | Current visibility is distance and graph based; no RF material model or mine wall model is available. | Future RF/localization owner | 3-6 weeks | Acquire mine geometry/material assumptions, implement path loss and obstruction model, validate against measured RSSI/UWB quality, replace or augment `distance_matrix.py` visibility. |
+| Final gas + worker risk fusion | UWB exposure is intentionally occupancy-only; gas and geometry risk are separate backend domains. | Risk/backend owner, UWB as input provider | 3-5 days for first fused score | Define fused risk formula, join worker exposure with gas and geometry risk by segment/time, add API output and tests. |
+| Dashboard visualization | UWB backend artifacts exist, but frontend visualization is outside this module. | Frontend/dashboard owner | 3-7 days | Add worker layer, timeline slider, anchor layer, cable layer, reliability/status colors, and API integration tests. |
+
+## 20. Known Limitations
+
+### MVP complete
+
+- The MVP uses motion-capture proxy positions from UTIL `pose_x/y/z`; this is acceptable for the assigned worker tracking demo.
+- Worker position reliability is an engineering confidence score, not certified localization accuracy.
+- Segment mapping is approximate because the available geometry is bounds/center/graph based.
+- `worker_exposure_risk` represents occupancy contribution only; it deliberately does not reduce exposure because of low tracking confidence.
+- Generated outputs are file-based artifacts under `backend/data_processed/sample`, not a streaming real-time ingestion system.
+
+### Experimental
+
+- `uwb_position_solver.py` provides an experimental TDoA solver path.
+- The solver is disabled by default with `enabled=false` and `position_source_mode=mocap_proxy`.
+- Without calibrated anchor coordinates and verified TDoA units, solver output must not be treated as real mine localization.
+- Solver fallback to mocap proxy is explicit and should not be presented as solved UWB positioning.
+
+### Future real-mine deployment
+
+- No certified UWB hardware integration exists.
+- No anchor installation survey, calibration process, or clock synchronization workflow exists.
+- No RF propagation, NLOS/multipath, material attenuation, or line-of-sight classifier exists.
+- No production safety certification, failover, monitoring, alert audit trail, or operational deployment procedure exists.
+
+## 21. Future Work
+
+### MVP hardening
+
+- Add a small generated fixture or contract test for dynamic worker counts greater than 3.
+- Add schema contract tests for every generated JSON file, not only aggregate validation.
+- Add API tests for `time_step=all` if full timeline replay is intended at the API boundary.
+- Reduce or compress `anchor_tag_distances.json`, because the file is large for normal repository use.
+- Improve coordinate registration to reduce fallback mapping and increase mapping confidence.
+
+### Experimental track
+
+- Validate UTIL TDoA measurement units before using solver output.
+- Add calibrated anchor fixture data for repeatable solver tests.
+- Add solver error thresholds and prevent low-confidence solver positions from entering backend snapshots.
+- Add solver validation reports to CI when solver mode is explicitly enabled.
+
+### Future real-mine deployment
+
+- Build anchor calibration and survey tooling.
+- Implement clock bias and synchronization correction.
+- Add LOS/NLOS and multipath outlier handling.
+- Integrate live UWB hardware ingestion.
+- Add fused gas + geometry + worker risk in the backend risk layer.
+- Add route-aware trapped detection in the routing layer.
+- Add dashboard visualization for workers, anchors, cables, timeline replay and reliability states.
