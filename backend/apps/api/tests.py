@@ -179,6 +179,20 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["scenario"]["label"], "Methane Spike")
         self.assertTrue(any(sensor.get("status") == "alarm" for sensor in data["gas_sensors"]))
 
+    def test_integration_status_endpoint_returns_contract_summary(self):
+        response = self.client.get("/api/integration/status?time_step=27&scenario_id=collapse_s004")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["time_step"], 27)
+        self.assertEqual(data["scenario_id"], "collapse_s004")
+        self.assertEqual(data["source_contract"]["join_key"], "segment_id")
+        self.assertTrue(data["checks"]["segment_contract_ok"])
+        self.assertTrue(data["checks"]["join_key_contract_ok"])
+        self.assertIn("shared_time_steps", data)
+        self.assertGreaterEqual(data["shared_time_steps"]["count"], 1)
+        self.assertIn("scenario", data)
+
     def test_simulation_state_holds_last_known_gas_after_gas_timeline_ends(self):
         response = self.client.get("/api/simulation/state?time_step=126")
 

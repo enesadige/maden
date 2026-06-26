@@ -16,6 +16,7 @@ urlpatterns = [
     path("simulation/state", views.simulation_state, name="simulation_state"),
     path("simulation/trapped", views.simulation_trapped, name="simulation_trapped"),
     path("simulation/scenario", views.simulation_scenario, name="simulation_scenario"),
+    path("integration/status", views.integration_status, name="integration_status"),
     path("scenarios/collapse", views.collapse_scenario, name="collapse_scenario"),
     path("routes/emergency", views.emergency_route, name="emergency_route"),
 ]

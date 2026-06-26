@@ -308,6 +308,56 @@ def get_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]:
     return build_scenario_state(scenario_id, time_step=time_step)
 
 
+def get_integration_status(time_step: int = 0, scenario_id: str | None = None) -> dict[str, Any]:
+    state = get_scenario_state(scenario_id, time_step=time_step) if scenario_id else get_simulation_state(time_step)
+    worker_steps = get_worker_time_steps()
+    gas_steps = get_gas_time_steps()
+    shared_steps = sorted(set(worker_steps) & set(gas_steps))
+
+    segments = state.get("segments", [])
+    workers = state.get("workers", [])
+    gas_sensors = state.get("gas_sensors", [])
+    risks = state.get("risks", [])
+
+    checks = {
+        "segment_contract_ok": all(str(segment.get("segment_id", "")).startswith("S") for segment in segments),
+        "worker_contract_ok": all(worker.get("current_segment") for worker in workers),
+        "gas_contract_ok": all(sensor.get("segment_id") for sensor in gas_sensors),
+        "risk_contract_ok": all("risk_breakdown" in risk for risk in risks),
+        "join_key_contract_ok": state.get("source_contract", {}).get("join_key") == "segment_id",
+        "time_step_contract_ok": state.get("time_step") == time_step,
+    }
+
+    warnings = []
+    if not shared_steps:
+        warnings.append("No shared worker/gas time steps available.")
+    if not checks["segment_contract_ok"]:
+        warnings.append("One or more segments do not use the canonical SXXX prefix.")
+    if not checks["join_key_contract_ok"]:
+        warnings.append("Source contract join key drift detected.")
+
+    return {
+        "time_step": time_step,
+        "scenario_id": scenario_id or "normal",
+        "shared_time_steps": {
+            "count": len(shared_steps),
+            "min": shared_steps[0] if shared_steps else None,
+            "max": shared_steps[-1] if shared_steps else None,
+            "sample": shared_steps[:5],
+        },
+        "source_contract": state.get("source_contract", {}),
+        "counts": state.get("counts", {}),
+        "checks": {
+            **checks,
+            "all_passed": all(checks.values()),
+        },
+        "warnings": warnings,
+        "scenario": state.get("scenario"),
+        "trapped_summary": state.get("trapped_summary"),
+        "risk_summary": state.get("risk_summary"),
+    }
+
+
 def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None) -> dict[str, Any]:
     collapse = get_collapse_result()
     scenario_blocked_segment = normalize_segment_id(blocked_segment or collapse.get("blocked_segment"))

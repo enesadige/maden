@@ -11,7 +11,7 @@ from apps.risk.services import get_geometry_risk_records, get_segment_risks
 from apps.routing.services import get_emergency_route
 from apps.scenarios.services import get_collapse_result
 from apps.sensors.services import get_environmental_risks, get_gas_sensors
-from apps.simulation.services import get_scenario_state, get_simulation_state, get_trapped_analysis
+from apps.simulation.services import get_integration_status, get_scenario_state, get_simulation_state, get_trapped_analysis
 from apps.workers.services import get_workers
 
 
@@ -84,6 +84,12 @@ def simulation_trapped(request):
 def simulation_scenario(request):
     scenario_id = request.GET.get("scenario_id") or request.GET.get("scenario") or "normal"
     return api_response(get_scenario_state(scenario_id, get_time_step(request, default=0)))
+
+
+@require_GET
+def integration_status(request):
+    scenario_id = request.GET.get("scenario_id") or request.GET.get("scenario")
+    return api_response(get_integration_status(get_time_step(request, default=0), scenario_id=scenario_id))
 
 
 @require_GET
