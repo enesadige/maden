@@ -1,8 +1,34 @@
-export default function RouteOverlay({ emergencyRoute }) {
+import { formatWorkerName } from '../utils/idNormalize'
+
+export default function RouteOverlay({
+  emergencyRoute,
+  workers,
+  selectedWorkerId,
+  onSelectWorker
+}) {
   if (!emergencyRoute) {
     return (
       <div className="panel">
         <h2 className="panel-title">Acil Rota</h2>
+        {workers && workers.length > 0 && selectedWorkerId && onSelectWorker && (
+          <div className="miner-worker-select" style={{ marginBottom: '12px' }}>
+            <label htmlFor="admin-worker-select" style={{ fontSize: '11px', fontWeight: '600', color: '#a0aec0', display: 'block', marginBottom: '4px' }}>
+              İşçi Seçimi
+            </label>
+            <select
+              id="admin-worker-select"
+              value={selectedWorkerId}
+              onChange={(e) => onSelectWorker(e.target.value)}
+              style={{ width: '100%', padding: '6px', background: '#2d3748', border: '1px solid #4a5568', borderRadius: '4px', color: '#fff', fontSize: '12px', cursor: 'pointer' }}
+            >
+              {workers.map((w) => (
+                <option key={w.worker_id} value={w.worker_id}>
+                  {formatWorkerName(w.worker_id, w.name)}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <p className="panel-empty">Aktif bir acil durum senaryosu yok.</p>
       </div>
     )
@@ -21,26 +47,54 @@ export default function RouteOverlay({ emergencyRoute }) {
   } = emergencyRoute
 
   const routeSegments = route_segments || route
-  const isTrapped = !exit_reachable || !alternative_route_available
+
+  const isTrapped = emergencyRoute?.trapped === true
+  const isNormalRoute = !isTrapped && exit_reachable !== false
 
   return (
     <div className="panel panel--emergency">
       <h2 className="panel-title">Acil Rota</h2>
 
+      {workers && workers.length > 0 && selectedWorkerId && onSelectWorker && (
+        <div className="miner-worker-select" style={{ marginBottom: '12px' }}>
+          <label htmlFor="admin-worker-select" style={{ fontSize: '11px', fontWeight: '600', color: '#a0aec0', display: 'block', marginBottom: '4px' }}>
+            Rota Gösterilen İşçi
+          </label>
+          <select
+            id="admin-worker-select"
+            value={selectedWorkerId}
+            onChange={(e) => onSelectWorker(e.target.value)}
+            style={{ width: '100%', padding: '6px', background: '#2d3748', border: '1px solid #4a5568', borderRadius: '4px', color: '#fff', fontSize: '12px', cursor: 'pointer' }}
+          >
+            {workers.map((w) => (
+              <option key={w.worker_id} value={w.worker_id}>
+                {formatWorkerName(w.worker_id, w.name)}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {isTrapped ? (
         <div className="route-alert-banner route-alert-banner--danger">
           Alternatif rota yok — işçi mahsur kalabilir.
         </div>
+      ) : isNormalRoute ? (
+        <div className="route-alert-banner route-alert-banner--ok" style={{ background: '#1c2d24', border: '1px solid #2f855a', color: '#48bb78' }}>
+          Aktif acil durum yok. Standart rota geçerli.
+        </div>
       ) : (
         <div className="route-alert-banner route-alert-banner--ok">
-          Güvenli çıkış rotası mevcut.
+          Güvenli acil çıkış rotası mevcut.
         </div>
       )}
 
-      <div className="panel-row">
-        <span className="panel-label">Kapalı Segment</span>
-        <span>{blocked_segment}</span>
-      </div>
+      {!isNormalRoute && (
+        <div className="panel-row">
+          <span className="panel-label">Kapalı Segment</span>
+          <span>{blocked_segment || '—'}</span>
+        </div>
+      )}
 
       <div className="panel-row">
         <span className="panel-label">Etkilenen İşçi</span>

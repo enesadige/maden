@@ -33,12 +33,18 @@ export default function GasSensorPanel({ gasSensors }) {
           </div>
           <div className="panel-row">
             <span className="panel-label">Gaz Tipi</span>
-            <span>{sensor.gas_type}</span>
+            <span>{sensor.gas_type || 'Methane'}</span>
           </div>
           <div className="panel-row">
             <span className="panel-label">Metan Değeri</span>
             <span>{sensor.methane_value} %</span>
           </div>
+          {sensor.risk_score !== undefined && (
+            <div className="panel-row">
+              <span className="panel-label">Risk Skoru</span>
+              <span>{sensor.risk_score}</span>
+            </div>
+          )}
           <div className="panel-row">
             <span className="panel-label">Durum</span>
             <span className={sensor.status === 'alarm' ? 'text-danger' : 'text-ok'}>

@@ -1,5 +1,14 @@
+import { formatWorkerName } from '../utils/idNormalize'
+
 function statusLabel(status) {
-  return status === 'at_risk' ? 'Riskte' : 'Güvende'
+  if (status === 'at_risk') return 'Riskte'
+  if (status === 'trapped') return 'Mahsur'
+  if (status === 'tracking_lost') return 'Sinyal Yok'
+  return 'Güvende'
+}
+
+function isAtRisk(status) {
+  return status === 'at_risk' || status === 'trapped'
 }
 
 export default function WorkerPanel({ workers }) {
@@ -16,10 +25,10 @@ export default function WorkerPanel({ workers }) {
     <div className="panel">
       <h2 className="panel-title">İşçi Paneli</h2>
       {workers.map((worker) => (
-        <div className={`worker-card ${worker.status === 'at_risk' ? 'worker-card--risk' : ''}`} key={worker.worker_id}>
+        <div className={`worker-card ${isAtRisk(worker.status) ? 'worker-card--risk' : ''}`} key={worker.worker_id}>
           <div className="worker-card-header">
-            <strong>{worker.name}</strong>
-            <span className={`worker-status worker-status--${worker.status}`}>{statusLabel(worker.status)}</span>
+            <strong>{formatWorkerName(worker.worker_id, worker.name)}</strong>
+            <span className={`worker-status worker-status--${isAtRisk(worker.status) ? 'at_risk' : worker.status}`}>{statusLabel(worker.status)}</span>
           </div>
           <div className="panel-row">
             <span className="panel-label">Segment</span>

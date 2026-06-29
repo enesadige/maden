@@ -27,13 +27,23 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
   }
 
   const segment = segments.find((s) => s.segment_id === risk.segment_id)
-  // Gaz sensörü varsa (senaryoya göre güncellenir) onu kullan; yoksa statik
-  // environmental_risk verisine düş, böylece Gaz Paneli ile çelişmez.
+  
+  // Extract final risk score and levels
+  const finalScore = risk.final_risk_score !== undefined ? risk.final_risk_score : risk.risk_score
+  const riskLevel = risk.risk_level || 'low'
+  const color = getRiskColor(riskLevel, segment?.is_blocked)
+
+  // Extract risk breakdown details (handles flat keys and nested objects)
+  const breakdown = risk.risk_breakdown || {}
+  const geomRiskVal = risk.geometry_risk !== undefined ? risk.geometry_risk : breakdown.geometry
+  const envRiskVal = risk.environmental_risk !== undefined ? risk.environmental_risk : breakdown.environmental
+  const workerRiskVal = risk.worker_exposure_risk !== undefined ? risk.worker_exposure_risk : breakdown.worker
+  const trackingRiskVal = risk.tracking_risk_score !== undefined ? risk.tracking_risk_score : (risk.tracking_risk !== undefined ? risk.tracking_risk : breakdown.tracking)
+
   const gasSensor = gasSensors?.find((s) => s.segment_id === risk.segment_id)
   const envRisk = environmentalRisk?.find((e) => e.segment_id === risk.segment_id)
   const geoRisk = geometryRisk?.find((g) => g.segment_id === risk.segment_id)
   const workersHere = workers.filter((w) => w.current_segment === risk.segment_id)
-  const color = getRiskColor(risk.risk_level, segment?.is_blocked)
 
   return (
     <div className="panel">
@@ -47,21 +57,45 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
 
       <div className="panel-row">
         <span className="panel-label">Risk Skoru</span>
-        <span>{risk.risk_score}</span>
+        <span>{finalScore}</span>
       </div>
 
       <div className="panel-row">
         <span className="panel-label">Risk Seviyesi</span>
         <span className="risk-badge" style={{ backgroundColor: color }}>
-          {getRiskLabel(segment?.is_blocked ? 'blocked' : risk.risk_level)}
+          {getRiskLabel(segment?.is_blocked ? 'blocked' : riskLevel)}
         </span>
       </div>
 
+      {risk.active_reasons && risk.active_reasons.length > 0 && (
+        <div className="panel-row panel-row--block">
+          <span className="panel-label">Aktif Risk Nedenleri</span>
+          <ul>
+            {risk.active_reasons.map((reason) => <li key={reason}>{reason}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {/* Detailed Risk Breakdown Section */}
       <div className="panel-row panel-row--block">
-        <span className="panel-label">Aktif Risk Nedenleri</span>
-        <ul>
-          {risk.active_reasons.map((reason) => <li key={reason}>{reason}</li>)}
-        </ul>
+        <span className="panel-label">Risk Kırılım Detayı</span>
+        <div style={{ fontSize: '12px', paddingLeft: '8px', marginTop: '4px', lineHeight: '1.6' }}>
+          {geomRiskVal !== undefined && geomRiskVal !== null && (
+            <div>• Geometri Yapısal Riski: <strong>{geomRiskVal}</strong></div>
+          )}
+          {envRiskVal !== undefined && envRiskVal !== null && (
+            <div>• Çevre/Metan Gaz Riski: <strong>{envRiskVal}</strong></div>
+          )}
+          {workerRiskVal !== undefined && workerRiskVal !== null && (
+            <div>• İşçi Yoğunluk Riski: <strong>{workerRiskVal}</strong></div>
+          )}
+          {trackingRiskVal !== undefined && trackingRiskVal !== null && (
+            <div>• Takip Güvenilirlik Riski: <strong>{trackingRiskVal}</strong></div>
+          )}
+          {breakdown.scenario_boost !== undefined && breakdown.scenario_boost !== null && (
+            <div>• Senaryo Risk Artışı: <strong>+{breakdown.scenario_boost}</strong></div>
+          )}
+        </div>
       </div>
 
       <div className="panel-row">
@@ -85,7 +119,7 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
 
       <div className="panel-row panel-row--block">
         <span className="panel-label">Önerilen Aksiyon</span>
-        <span>{risk.recommended_action || fallbackRecommendedAction(risk.risk_level, segment?.is_blocked)}</span>
+        <span>{risk.recommended_action || fallbackRecommendedAction(riskLevel, segment?.is_blocked)}</span>
       </div>
     </div>
   )

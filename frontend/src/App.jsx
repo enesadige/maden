@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Layout from './components/Layout'
 import AdminDashboard from './components/AdminDashboard'
 import MinerDashboard from './components/MinerDashboard'
@@ -10,9 +10,20 @@ import {
   getEmergencyRoute,
   getEnvironmentalRisk,
   getGeometryRisk,
-  getGasSensors
+  getGasSensors,
+  getSimulationScenario,
+  getSimulationState,
+  isApiMode
 } from './services/api'
 import { applyScenario, getFocusSegmentId } from './utils/scenarioUtils'
+
+const SCENARIO_CONFIG = {
+  normal:        { timeStep: 0 },
+  methane_spike: { timeStep: 21 },
+  collapse_s004: { timeStep: 27 },
+  worker_at_risk:{ timeStep: 23 },
+  show_route:    { timeStep: 27 }
+}
 
 export default function App() {
   const [baseData, setBaseData] = useState(null)
@@ -20,72 +31,221 @@ export default function App() {
   const [geometryRisk, setGeometryRisk] = useState([])
   const [scenarios, setScenarios] = useState([])
   const [emergencyRouteData, setEmergencyRouteData] = useState(null)
-  const [activeScenarioId, setActiveScenarioId] = useState('normal')
+  const [selectedScenario, setSelectedScenario] = useState('normal')
   const [selectedSegmentId, setSelectedSegmentId] = useState(null)
   const [viewMode, setViewMode] = useState('admin')
   const [selectedWorkerId, setSelectedWorkerId] = useState(null)
+  const [selectedTimeStep, setSelectedTimeStep] = useState(0)
+  const [committedTimeStep, setCommittedTimeStep] = useState(0)
+  const timeStepDebounceRef = useRef(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [forceMockMode, setForceMockMode] = useState(false)
 
+  const apiModeActive = isApiMode() && !forceMockMode
+
+  // 1. Fetch simulation scenario state when scenario or timeStep changes
   useEffect(() => {
     let isMounted = true
 
-    async function loadData() {
+    async function loadState() {
       try {
-        const [segments, risks, workers, gasSensors, scenarioList, envRisk, geoRisk, emergencyRoute] = await Promise.all([
-          getSegments(),
-          getRiskSegments(),
-          getWorkers(),
-          getGasSensors(),
-          getScenarios(),
-          getEnvironmentalRisk(),
-          getGeometryRisk(),
-          getEmergencyRoute('collapse_s004')
-        ])
+        setLoading(true)
+        setError(null)
+        
+        let scenarioState = null
+        let scenarioList = []
+        let envRisk = []
+        let geoRisk = []
+        let useMock = !apiModeActive
+
+        if (apiModeActive) {
+          try {
+            const [statePayload, list, env, geo] = await Promise.all([
+              getSimulationScenario({ scenarioId: selectedScenario, timeStep: selectedTimeStep }),
+              getScenarios(),
+              getEnvironmentalRisk({ timeStep: selectedTimeStep }),
+              getGeometryRisk()
+            ])
+
+            if (!statePayload || !statePayload.segments || !statePayload.workers) {
+              throw new Error("Backend response schema is missing segments or workers arrays.")
+            }
+
+            scenarioState = statePayload
+            scenarioList = list
+            envRisk = env
+            geoRisk = geo
+          } catch (apiErr) {
+            console.warn("Backend API request failed. Switching to local Mock Mode for this session.", apiErr)
+            useMock = true
+          }
+        }
+
+        if (useMock) {
+          const [segments, risks, workers, gasSensors, list, env, geo] = await Promise.all([
+            getSegments({ forceMock: true }),
+            getRiskSegments({ forceMock: true }),
+            getWorkers({ forceMock: true }),
+            getGasSensors({ forceMock: true }),
+            getScenarios(),
+            getEnvironmentalRisk({ forceMock: true }),
+            getGeometryRisk({ forceMock: true })
+          ])
+
+          scenarioState = {
+            segments,
+            risks,
+            workers,
+            gas_sensors: gasSensors,
+            trapped: { summary: { trapped_count: 0, safe_count: workers.length }, workers: [] },
+            available_time_steps: { min: 0, max: 30 }
+          }
+          scenarioList = list
+          envRisk = env
+          geoRisk = geo
+        }
 
         if (!isMounted) return
 
-        setBaseData({ segments, risks, workers, gasSensors })
+        setScenarios(scenarioList)
         setEnvironmentalRisk(envRisk)
         setGeometryRisk(geoRisk)
-        setScenarios(scenarioList)
-        setEmergencyRouteData(emergencyRoute)
-        setSelectedWorkerId(workers[0]?.worker_id || null)
+
+        const mappedData = {
+          segments: scenarioState.segments || [],
+          risks: scenarioState.risks || [],
+          workers: scenarioState.workers || [],
+          gasSensors: scenarioState.gas_sensors || scenarioState.gasSensors || [],
+          trapped: scenarioState.trapped || { summary: { trapped_count: 0, safe_count: 0 }, workers: [] },
+          availableTimeSteps: scenarioState.available_time_steps || { min: 0, max: 30 }
+        }
+        setBaseData(mappedData)
+
+        // Auto-select first worker if none or invalid
+        const workerList = scenarioState.workers || []
+        if (workerList.length > 0) {
+          const exists = workerList.some(w => w.worker_id === selectedWorkerId)
+          if (!exists) {
+            setSelectedWorkerId(workerList[0].worker_id)
+          }
+        }
       } catch (err) {
+        console.error("Dashboard critical load error:", err)
         if (isMounted) setError(err.message)
       } finally {
         if (isMounted) setLoading(false)
       }
     }
 
-    loadData()
+    loadState()
     return () => { isMounted = false }
-  }, [])
+  }, [selectedScenario, committedTimeStep, apiModeActive])
+
+  // 2. Fetch emergency route when scenario, timeStep, or selectedWorkerId changes
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadRoute() {
+      if (!selectedWorkerId) return
+      try {
+        if (apiModeActive) {
+          const route = await getEmergencyRoute({
+            workerId: selectedWorkerId,
+            timeStep: selectedTimeStep,
+            scenarioId: selectedScenario
+          })
+          if (isMounted) {
+            setEmergencyRouteData(route)
+          }
+        } else {
+          // In mock mode, fetch fallback or let scenarioUtils calculate it
+          const route = await getEmergencyRoute({ scenarioId: selectedScenario })
+          if (isMounted) {
+            setEmergencyRouteData(route)
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load emergency route', err)
+      }
+    }
+
+    loadRoute()
+    return () => { isMounted = false }
+  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
 
   const derived = useMemo(() => {
     if (!baseData) return null
-    return applyScenario(activeScenarioId, baseData, emergencyRouteData)
-  }, [baseData, activeScenarioId, emergencyRouteData])
+    if (apiModeActive) {
+      return {
+        ...baseData,
+        emergencyRoute: emergencyRouteData
+      }
+    }
+    return applyScenario(selectedScenario, baseData, emergencyRouteData)
+  }, [baseData, selectedScenario, emergencyRouteData, apiModeActive])
 
-  // Jump the Risk Panel to the segment that matters for the active scenario,
-  // so it never lingers on a stale segment (e.g. S01 during a methane alarm).
+  // Jump the Risk Panel to the segment that matters for the active scenario.
+  // Depends on emergencyRouteData too so collapse focus updates when route loads.
   useEffect(() => {
     if (!derived) return
-    const focusSegmentId = getFocusSegmentId(activeScenarioId, derived)
+    const focusSegmentId = getFocusSegmentId(selectedScenario, derived)
     if (focusSegmentId) setSelectedSegmentId(focusSegmentId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeScenarioId, baseData])
+  }, [selectedScenario, baseData, emergencyRouteData])
 
-  const activeScenarioLabel = scenarios.find((s) => s.scenario_id === activeScenarioId)?.label || activeScenarioId
+  function handleTimeStepChange(value) {
+    setSelectedTimeStep(value)
+    clearTimeout(timeStepDebounceRef.current)
+    timeStepDebounceRef.current = setTimeout(() => setCommittedTimeStep(value), 300)
+  }
+
+  function handleScenarioChange(scenarioId) {
+    setSelectedScenario(scenarioId)
+    setEmergencyRouteData(null)
+    const cfg = SCENARIO_CONFIG[scenarioId]
+    if (cfg?.timeStep !== undefined) {
+      const ts = cfg.timeStep
+      setSelectedTimeStep(ts)
+      setCommittedTimeStep(ts)
+      clearTimeout(timeStepDebounceRef.current)
+    }
+  }
+
+  const activeScenarioLabel = scenarios.find((s) => s.scenario_id === selectedScenario)?.label || selectedScenario
 
   if (loading) {
-    return <div className="full-page-message">MadenGuard AI yükleniyor...</div>
+    return (
+      <div className="full-page-message" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0b0d14', color: '#fff', height: '100vh', fontFamily: 'sans-serif' }}>
+        <div className="spinner" style={{ width: '40px', height: '40px', border: '4px solid #1a1e29', borderTopColor: '#34f5c5', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
+        <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
+        <div style={{ fontSize: '18px', fontWeight: 'bold' }}>MadenGuard AI Yükleniyor...</div>
+        <div style={{ fontSize: '12px', color: '#a0aec0', marginTop: '8px' }}>API bağlantısı kuruluyor ve dijital ikiz simülasyonu yükleniyor.</div>
+      </div>
+    )
   }
 
   if (error || !derived) {
     return (
-      <div className="full-page-message full-page-message--error">
-        Veri yüklenemedi: {error || 'Bilinmeyen hata'}
+      <div className="full-page-message full-page-message--error" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0b0d14', color: '#fff', height: '100vh', fontFamily: 'sans-serif', padding: '24px' }}>
+        <div style={{ maxWidth: '500px', background: '#1a1315', border: '1px solid #e53e3e', padding: '24px', borderRadius: '8px', textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+          <h2 style={{ color: '#e53e3e', marginTop: 0 }}>MadenGuard AI — Yükleme Hatası</h2>
+          <p style={{ fontSize: '14px', lineHeight: '1.6' }}>Veriler yüklenirken veya backend API'sine bağlanırken bir sorun oluştu: <br/><strong>{error || 'Bilinmeyen Hata'}</strong></p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '20px' }}>
+            <button 
+              onClick={() => window.location.reload()} 
+              style={{ padding: '8px 16px', background: '#e53e3e', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px' }}
+            >
+              Yeniden Dene
+            </button>
+            <button 
+              onClick={() => setForceMockMode(true)} 
+              style={{ padding: '8px 16px', background: '#2d3748', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '13px' }}
+            >
+              Mock Mode ile Başlat
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -106,11 +266,16 @@ export default function App() {
           geometryRisk={geometryRisk}
           scenarios={scenarios}
           emergencyRoute={derived.emergencyRoute}
-          selectedScenario={activeScenarioId}
-          onScenarioChange={setActiveScenarioId}
+          selectedScenario={selectedScenario}
+          onScenarioChange={handleScenarioChange}
           selectedSegmentId={selectedSegmentId}
           onSegmentSelect={setSelectedSegmentId}
           activeScenarioLabel={activeScenarioLabel}
+          selectedTimeStep={selectedTimeStep}
+          onTimeStepChange={handleTimeStepChange}
+          availableTimeSteps={baseData?.availableTimeSteps}
+          selectedWorkerId={selectedWorkerId}
+          onSelectWorker={setSelectedWorkerId}
         />
       ) : (
         <MinerDashboard

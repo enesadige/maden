@@ -5,7 +5,7 @@ import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js'
 import * as THREE from 'three'
 import { getRiskColor, WORKER_COLOR, WORKER_AT_RISK_COLOR, ROUTE_COLOR, RISK_COLORS } from '../utils/riskColors'
 import { buildConnectionLines, buildRoutePoints } from '../utils/geometryUtils'
-import { getPointCloudMetadata } from '../services/api'
+import { getPointCloudMetadata, isApiMode, apiUrl } from '../services/api'
 
 const UP = new THREE.Vector3(0, 1, 0)
 const FORWARD = new THREE.Vector3(0, 0, 1)
@@ -34,7 +34,15 @@ class ModelErrorBoundary extends Component {
 
 // ─── PLY Loader ───────────────────────────────────────────────────────────────
 
-function LidarPointCloud({ setStatus, metadata, onLoaded }) {
+function resolveUrl(url) {
+  if (!url) return url
+  if (isApiMode() && url.startsWith('/')) {
+    return apiUrl(url)
+  }
+  return url
+}
+
+function LidarPointCloud({ setStatus, metadata, onLoaded, setFailReason }) {
   const [geometry, setGeometry] = useState(null)
 
   useEffect(() => {
@@ -60,19 +68,40 @@ function LidarPointCloud({ setStatus, metadata, onLoaded }) {
       setStatus(statusStr)
     }
 
-    const tryDownsampled = () => {
-      if (metadata.downsampled_url) {
-        loader.load(metadata.downsampled_url, (geo) => onLoad(geo, 'downsampled'), undefined, () => setStatus('not_found'))
-      } else {
-        setStatus('not_found')
-      }
+    // Build ordered list of URLs to try:
+    // 1. Backend preview, 2. Backend downsampled, 3. Local preview, 4. Local downsampled
+    const LOCAL_PREVIEW = '/models/tunnel_preview_500k.ply'
+    const LOCAL_DOWNSAMPLED = '/models/tunnel_downsampled.ply'
+
+    const urlsToTry = []
+    if (metadata.preview_url) {
+      const resolved = resolveUrl(metadata.preview_url)
+      urlsToTry.push({ url: resolved, label: 'preview', source: resolved })
+    }
+    if (metadata.downsampled_url) {
+      const resolved = resolveUrl(metadata.downsampled_url)
+      urlsToTry.push({ url: resolved, label: 'downsampled', source: resolved })
+    }
+    // Always add local fallbacks if not already identical to what's above
+    if (!urlsToTry.some(u => u.url === LOCAL_PREVIEW)) {
+      urlsToTry.push({ url: LOCAL_PREVIEW, label: 'preview', source: 'local' })
+    }
+    if (!urlsToTry.some(u => u.url === LOCAL_DOWNSAMPLED)) {
+      urlsToTry.push({ url: LOCAL_DOWNSAMPLED, label: 'downsampled', source: 'local' })
     }
 
-    if (metadata.preview_url) {
-      loader.load(metadata.preview_url, (geo) => onLoad(geo, 'preview'), undefined, tryDownsampled)
-    } else {
-      tryDownsampled()
+    let idx = 0
+    function tryNext(failedUrl) {
+      if (failedUrl) console.warn('[PLY] Failed to load:', failedUrl)
+      if (idx >= urlsToTry.length) {
+        setFailReason('Backend CORS hatası ve local PLY dosyası bulunamadı')
+        setStatus('not_found')
+        return
+      }
+      const { url, label } = urlsToTry[idx++]
+      loader.load(url, (geo) => onLoad(geo, label), undefined, () => tryNext(url))
     }
+    tryNext()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metadata])
 
@@ -81,12 +110,12 @@ function LidarPointCloud({ setStatus, metadata, onLoaded }) {
   return (
     <points geometry={geometry}>
       <pointsMaterial
-        size={0.15}
+        size={0.4}
         vertexColors={hasColors}
         color={hasColors ? 0xffffff : '#34f5c5'}
         sizeAttenuation={true}
         transparent
-        opacity={hasColors ? 1.0 : 0.85}
+        opacity={hasColors ? 0.9 : 0.85}
       />
     </points>
   )
@@ -100,32 +129,37 @@ function CameraController({ bounds, cameraAction, onActionComplete }) {
 
   useEffect(() => {
     if (!bounds || !controlsRef.current || !cameraAction) return
-    const { center, radius } = bounds
+    const { center, radius, size } = bounds
+
+    // For a flat mine (large X/Z, small Y), use actual dimensions for smart positioning
+    const maxHoriz = size ? Math.max(size.x, size.z) : radius * 2
+    const vertSize = size ? size.y : radius * 0.1
+
+    camera.near = 0.1
+    camera.far = Math.max(radius * 20, 1000)
 
     if (cameraAction === 'reset' || cameraAction === 'initial') {
-      const fov = camera.fov * (Math.PI / 180)
-      const distance = Math.abs(radius / Math.sin(fov / 2)) * 1.2
-      camera.position.set(center.x + distance * 0.4, center.y + distance * 0.6, center.z + distance * 0.8)
-      camera.lookAt(center)
-      camera.updateProjectionMatrix()
-      controlsRef.current.target.copy(center)
+      // Diagonal view: see the full flat mine from above-and-to-the-side
+      const d = maxHoriz * 0.85
+      camera.position.set(center.x, center.y + d * 0.45, center.z + d)
     } else if (cameraAction === 'top') {
-      camera.position.set(center.x, center.y + radius * 2.5, center.z)
-      camera.lookAt(center)
-      camera.updateProjectionMatrix()
-      controlsRef.current.target.copy(center)
+      // Straight overhead: see the full XZ footprint
+      const d = maxHoriz * 0.9
+      camera.far = d * 3
+      camera.position.set(center.x, center.y + d, center.z)
     } else if (cameraAction === 'side') {
-      camera.position.set(center.x - radius * 2.5, center.y + radius * 0.2, center.z)
-      camera.lookAt(center)
-      camera.updateProjectionMatrix()
-      controlsRef.current.target.copy(center)
+      // Elevated side-front: see the mine width and depth at a readable angle
+      const d = maxHoriz * 0.8
+      camera.position.set(center.x + d * 0.3, center.y + vertSize * 3 + radius * 0.4, center.z - d)
     } else if (cameraAction === 'focus') {
-      camera.position.set(center.x + radius * 0.2, center.y + radius * 0.1, center.z + radius * 0.6)
-      camera.lookAt(center)
-      camera.updateProjectionMatrix()
-      controlsRef.current.target.copy(center)
+      // Closer zoom-in for detail
+      const d = maxHoriz * 0.3
+      camera.position.set(center.x, center.y + d * 0.5, center.z + d)
     }
 
+    camera.lookAt(center)
+    camera.updateProjectionMatrix()
+    controlsRef.current.target.copy(center)
     controlsRef.current.update()
     if (cameraAction !== 'initial') onActionComplete()
   }, [bounds, camera, cameraAction, onActionComplete])
@@ -303,7 +337,7 @@ function SegmentMarker({ segment, risk, isSelected, onSelect }) {
 }
 
 function WorkerMarker({ worker }) {
-  const isAtRisk = worker.status === 'at_risk'
+  const isAtRisk = worker.status === 'at_risk' || worker.status === 'trapped'
   const bodyColor = isAtRisk ? WORKER_AT_RISK_COLOR : WORKER_COLOR
   return (
     <group position={worker.position}>
@@ -454,9 +488,10 @@ export default function DigitalTwinViewer({
 }) {
   const [plyStatus, setPlyStatus] = useState('loading')
   const [plyMetadata, setPlyMetadata] = useState(null)
-  const [plyBounds, setPlyBounds] = useState({ center: new THREE.Vector3(6, -1, 8), radius: 20 })
-  const [cameraAction, setCameraAction] = useState('initial')
+  const [plyBounds, setPlyBounds] = useState(null)
+  const [cameraAction, setCameraAction] = useState(null)
   const [overlayMode, setOverlayMode] = useState('off')
+  const [plyFailReason, setPlyFailReason] = useState('')
 
   useEffect(() => {
     getPointCloudMetadata()
@@ -467,8 +502,10 @@ export default function DigitalTwinViewer({
       }))
   }, [])
 
-  const handlePlyLoaded = useCallback((sphere) => {
-    setPlyBounds({ center: sphere.center, radius: sphere.radius })
+  const handlePlyLoaded = useCallback((sphere, box) => {
+    const size = new THREE.Vector3()
+    if (box) box.getSize(size)
+    setPlyBounds({ center: sphere.center.clone(), radius: sphere.radius, size })
     setCameraAction('initial')
   }, [])
 
@@ -485,12 +522,12 @@ export default function DigitalTwinViewer({
   let statusText = 'Yükleniyor...'
   if (plyStatus === 'preview') {
     const file = plyMetadata?.preview_url?.split('/').pop() || 'tunnel_preview_500k.ply'
-    statusText = `Gerçek LiDAR: ${file}`
+    statusText = `Gerçek LiDAR point cloud yüklendi: ${file}`
   } else if (plyStatus === 'downsampled') {
     const file = plyMetadata?.downsampled_url?.split('/').pop() || 'tunnel_downsampled.ply'
-    statusText = `Gerçek LiDAR: ${file}`
+    statusText = `Gerçek LiDAR point cloud yüklendi: ${file}`
   } else if (plyStatus === 'not_found') {
-    statusText = 'LiDAR modeli bulunamadı — placeholder gösteriliyor.'
+    statusText = `LiDAR modeli yüklenemedi — ${plyFailReason || 'PLY dosyası bulunamadı'}.`
   }
 
   return (
@@ -550,14 +587,14 @@ export default function DigitalTwinViewer({
       )}
 
       {/* Three.js Canvas */}
-      <Canvas camera={{ fov: 45 }}>
-        <fog attach="fog" args={['#06080b', 10, 300]} />
+      <Canvas camera={{ fov: 45, position: [0, 120, 200], near: 0.1, far: 2000 }}>
+        <fog attach="fog" args={['#06080b', 200, 1200]} />
         <color attach="background" args={['#06080b']} />
         <ambientLight intensity={0.4} />
         <directionalLight position={[15, 20, 10]} intensity={0.9} color="#e6f2ff" />
         <pointLight position={[6, 5, 8]} intensity={0.8} color="#34f5c5" distance={40} />
 
-        <LidarPointCloud setStatus={setPlyStatus} metadata={plyMetadata} onLoaded={handlePlyLoaded} />
+        <LidarPointCloud setStatus={setPlyStatus} metadata={plyMetadata} onLoaded={handlePlyLoaded} setFailReason={setPlyFailReason} />
 
         {plyStatus === 'not_found' && <PlaceholderTunnel segments={segments} />}
 

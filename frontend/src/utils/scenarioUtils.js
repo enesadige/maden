@@ -46,7 +46,7 @@ export function applyScenario(scenarioId, baseData, emergencyRouteData) {
         s004Risk.recommended_action = 'Rota varsa tahliye ol; yoksa kurtarma talimatı bekle.'
       }
 
-      const primarySensor = gasSensorByIdMap['GAS-001'] || gasSensorByIdMap['GAS_SENSOR_01'] || gasSensors?.[0]
+      const primarySensor = gasSensorByIdMap['GAS-001']
       if (primarySensor) {
         primarySensor.methane_value = 4.8
         primarySensor.risk_score = 91
@@ -77,7 +77,7 @@ export function applyScenario(scenarioId, baseData, emergencyRouteData) {
     }
 
     case 'worker_at_risk': {
-      const worker = workerByIdMap.W001
+      const worker = workerByIdMap['WORKER_01'] || workerByIdMap.W001
       if (worker) worker.status = 'at_risk'
 
       const riskSegmentId = worker?.current_segment

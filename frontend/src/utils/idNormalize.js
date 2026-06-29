@@ -16,14 +16,27 @@ export function normalizeSegmentId(id) {
 
 export function normalizeWorkerId(id) {
   if (typeof id !== 'string') return id
-  const match = id.match(/^W(\d+)$/i)
+  const match = id.match(/^(?:WORKER[_-]?|W)(\d+)$/i)
   if (!match) return id
-  return pad('W', match[1])
+  const num = parseInt(match[1], 10)
+  return `WORKER_${num.toString().padStart(2, '0')}`
+}
+
+export function formatWorkerName(workerId, name) {
+  if (name) return name
+  if (typeof workerId !== 'string') return workerId
+  const match = workerId.match(/^(?:WORKER[_-]?|W)(\d+)$/i)
+  if (match) {
+    const num = parseInt(match[1], 10)
+    return `İşçi ${num.toString().padStart(2, '0')}`
+  }
+  return workerId
 }
 
 export function normalizeSensorId(id) {
   if (typeof id !== 'string') return id
-  const match = id.match(/^GAS[_-]?(\d+)$/i)
+  // Matches: GAS-001, GAS_001, GAS_SENSOR_01, GAS-SENSOR-01, etc.
+  const match = id.match(/^GAS[_-](?:SENSOR[_-])?(\d+)$/i)
   if (!match) return id
   return pad('GAS-', match[1])
 }
