@@ -51,6 +51,7 @@
     "S035": 90
   },
   "max_methane_risk_score": 100.0,
+  "max_environmental_risk_score": 100.0,
   "max_risk_record": {
     "time_step": 86,
     "timestamp": "2014-03-04T05:04:52",
@@ -62,7 +63,40 @@
     "methane_risk_score": 100.0,
     "anomaly_score": 1.0,
     "environmental_risk": 100.0,
+    "weighted_multi_sensor_risk": 87.32,
     "status": "critical",
+    "risk_level": "critical",
+    "measurements": {
+      "methane_value": 0.3,
+      "methane_ppm": 5581.764,
+      "co_ppm": 79.522,
+      "oxygen_percent": 17.286,
+      "temperature_c": 36.203,
+      "humidity_percent": 78.038,
+      "pressure_hpa": 1006.319
+    },
+    "component_scores": {
+      "methane_risk": 100.0,
+      "co_risk": 99.317,
+      "oxygen_risk": 100.0,
+      "temperature_risk": 58.593,
+      "humidity_risk": 15.19,
+      "pressure_risk": 16.756
+    },
+    "sensor_reliability_score": 1.0,
+    "confidence": 0.9,
+    "reliability_status": "reliable",
+    "reliability_reason": "very_high_anomaly_measurement_should_be_verified",
+    "reliability_reasons": [
+      "very_high_anomaly_measurement_should_be_verified"
+    ],
+    "environmental_risk_reason": [
+      "methane_level_elevated",
+      "co_level_elevated",
+      "oxygen_level_decreased",
+      "methane_risk_floor_applied"
+    ],
+    "environmental_risk_formula": "max(methane_risk_score, 0.40*methane_risk + 0.20*co_risk + 0.20*oxygen_risk + 0.10*temperature_risk + 0.05*humidity_risk + 0.05*pressure_risk)",
     "placement_reason": "haki_geometry_risk_or_junction_priority",
     "segment_type": "side_gallery",
     "segment_role": "secondary_route",
