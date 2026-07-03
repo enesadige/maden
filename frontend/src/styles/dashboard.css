@@ -563,7 +563,63 @@
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.legend-swatch--node {
+  border-radius: 50%;
+}
+
+.legend-swatch--blocked::before,
+.legend-swatch--blocked::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  background: #ffb3c5;
+  border-radius: 2px;
+}
+
+.legend-swatch--blocked::before {
+  transform: rotate(45deg);
+}
+
+.legend-swatch--blocked::after {
+  transform: rotate(-45deg);
+}
+
+.legend-swatch--worker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  color: #061018;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.legend-swatch--worker::after {
+  content: 'W';
+}
+
+.legend-swatch--sensor {
+  width: 0;
+  height: 0;
+  background: transparent !important;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 13px solid var(--legend-color);
+  border-radius: 0;
+}
+
+.legend-swatch--route {
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--legend-color) !important;
 }
 
 .status-bar {
@@ -791,6 +847,8 @@
   width: 100%;
   height: 100%;
   display: block;
+  position: relative;
+  z-index: 1;
   background-color: #06080B;
   background-image: 
     linear-gradient(rgba(52, 245, 197, 0.03) 1px, transparent 1px),
@@ -804,6 +862,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 2;
   background: radial-gradient(circle at center, transparent 20%, #06080B 100%);
 }
 
@@ -820,11 +879,76 @@
   font-size: 11px;
 }
 
+.mine-map-worker,
+.mine-map-sensor {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.55));
+}
+
+.mine-map-worker--selected {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
+}
+
+.mine-map-worker-glyph {
+  fill: #061018;
+  font-size: 8px;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+.mine-map-marker-label {
+  fill: #f5f7fb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #06080b;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.mine-map-route-chip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(7, 16, 21, 0.86);
+  border: 1px solid rgba(52, 245, 197, 0.45);
+  color: #dffdf5;
+  font-size: 0.78rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.mine-map-route-chip--danger {
+  border-color: rgba(227, 23, 79, 0.62);
+  color: #ffd1dc;
+}
+
+.mine-map-route-chip--danger .mine-map-route-dot {
+  background: #e3174f;
+  box-shadow: 0 0 8px rgba(227, 23, 79, 0.6);
+}
+
+.mine-map-route-dot {
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  background: #34f5c5;
+  box-shadow: 0 0 8px rgba(52, 245, 197, 0.55);
+}
+
 .mine-map-route-warning {
   position: absolute;
   top: 12px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 4;
   background: rgba(227, 23, 79, 0.88);
   color: #fff;
   padding: 8px 16px;

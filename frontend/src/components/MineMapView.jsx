@@ -1,9 +1,20 @@
 import { useMemo, useState } from 'react'
 import { getRiskColor, RISK_COLORS, WORKER_COLOR, WORKER_AT_RISK_COLOR, ROUTE_COLOR } from '../utils/riskColors'
+import { formatWorkerName } from '../utils/idNormalize'
 
 const VIEW_W = 920
 const VIEW_H = 580
 const PAD = 36
+const WORKER_OFFSETS = [
+  [-18, 22],
+  [-2, 24],
+  [14, 22],
+  [-22, 8],
+  [22, 8],
+  [-18, -10],
+  [18, -10],
+  [-4, -22],
+]
 
 function getCoord(seg, axis) {
   if (!seg.center) return 0
@@ -101,7 +112,17 @@ function buildEdges(segments) {
   return edges
 }
 
-export default function MineMapView({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, onSegmentSelect }) {
+function shortWorkerLabel(workerId) {
+  const match = String(workerId || '').match(/(\d+)$/)
+  return match ? `W${match[1].padStart(2, '0')}` : 'W'
+}
+
+function shortSensorLabel(sensorId, index) {
+  const match = String(sensorId || '').match(/(\d+)$/)
+  return match ? `G${match[1].padStart(2, '0')}` : `G${String(index + 1).padStart(2, '0')}`
+}
+
+export default function MineMapView({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, selectedWorkerId, onSegmentSelect }) {
   const [hovered, setHovered] = useState(null)
 
   const positions = useMemo(() => buildBestLayout(segments), [segments])
@@ -120,6 +141,16 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
   const isRouteSafe = !isTrapped && emergencyRoute?.exit_reachable !== false
   const blockedSeg = emergencyRoute?.blocked_segment
   const routePts = useMemo(() => route.map(id => positions[id]).filter(Boolean), [route, positions])
+  const routeWorkerId = emergencyRoute?.worker_id || emergencyRoute?.affected_workers?.[0] || selectedWorkerId
+  const workerMarkers = useMemo(() => {
+    const counters = new Map()
+    return workers.map((worker) => {
+      const segmentId = worker.current_segment || 'unknown'
+      const slot = counters.get(segmentId) || 0
+      counters.set(segmentId, slot + 1)
+      return { worker, slot }
+    })
+  }, [workers])
 
   function isImportant(seg) {
     const risk = riskMap.get(seg.segment_id)
@@ -158,51 +189,6 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
               strokeWidth={blocked ? 3 : onRoute ? 2 : 1}
               strokeDasharray={blocked ? '6 5' : undefined}
             />
-          )
-        })}
-
-        {/* Route overlay line */}
-        {routePts.length > 1 && (
-          <polyline
-            points={routePts.map(p => `${p.x},${p.y}`).join(' ')}
-            fill="none"
-            stroke={isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
-            strokeWidth={3}
-            strokeDasharray={isRouteSafe ? undefined : '10 6'}
-            markerEnd={isRouteSafe ? 'url(#mine-map-route-arrow)' : undefined}
-            opacity={0.85}
-          />
-        )}
-
-        {/* Gas sensors */}
-        {(gasSensors || []).map(sensor => {
-          const pos = positions[sensor.segment_id]
-          if (!pos) return null
-          const alarm = sensor.status === 'alarm'
-          const color = alarm ? RISK_COLORS.critical : getRiskColor(sensor.risk_level)
-          const sx = pos.x + 15, sy = pos.y - 17
-          return (
-            <g key={sensor.sensor_id}>
-              {alarm && <circle cx={sx} cy={sy} r={10} fill={color} opacity={0.3} className="map-pulse" />}
-              <line x1={sx} y1={sy + 7} x2={sx} y2={sy - 2} stroke="#7a8290" strokeWidth={1.5} />
-              <polygon points={`${sx},${sy - 9} ${sx - 5},${sy + 1} ${sx + 5},${sy + 1}`} fill={color} />
-            </g>
-          )
-        })}
-
-        {/* Workers */}
-        {workers.map((w, i) => {
-          const pos = positions[w.current_segment]
-          if (!pos) return null
-          const atRisk = w.status === 'at_risk' || w.status === 'trapped'
-          const color = atRisk ? WORKER_AT_RISK_COLOR : WORKER_COLOR
-          const wx = pos.x - 14 + (i % 3) * 9, wy = pos.y + 17
-          return (
-            <g key={w.worker_id}>
-              {atRisk && <circle cx={wx} cy={wy} r={9} fill="none" stroke={RISK_COLORS.critical} strokeWidth={1.5} opacity={0.85} className="map-pulse" />}
-              <circle cx={wx} cy={wy} r={5} fill={color} />
-              <circle cx={wx} cy={wy - 5} r={2.5} fill="#ffd23a" />
-            </g>
           )
         })}
 
@@ -256,7 +242,77 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
             </g>
           )
         })}
+
+        {/* Route overlay line */}
+        {routePts.length > 1 && (
+          <polyline
+            points={routePts.map(p => `${p.x},${p.y}`).join(' ')}
+            fill="none"
+            stroke={isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
+            strokeWidth={4}
+            strokeDasharray={isRouteSafe ? undefined : '10 6'}
+            markerEnd={isRouteSafe ? 'url(#mine-map-route-arrow)' : undefined}
+            opacity={0.9}
+          />
+        )}
+
+        {/* Gas sensors */}
+        {(gasSensors || []).map((sensor, index) => {
+          const pos = positions[sensor.segment_id]
+          if (!pos) return null
+          const alarm = sensor.status === 'alarm'
+          const color = alarm ? RISK_COLORS.critical : '#f5a623'
+          const sx = pos.x + 18, sy = pos.y - 20
+          const label = shortSensorLabel(sensor.sensor_id, index)
+          return (
+            <g key={sensor.sensor_id} className="mine-map-sensor">
+              <title>{sensor.sensor_id} — {sensor.segment_id}{sensor.risk_level ? ` [${sensor.risk_level}]` : ''}</title>
+              {alarm && <circle cx={sx} cy={sy} r={13} fill={color} opacity={0.24} className="map-pulse" />}
+              <line x1={sx} y1={sy + 11} x2={sx} y2={sy + 2} stroke="#aab2c2" strokeWidth={1.5} />
+              <polygon
+                points={`${sx},${sy - 11} ${sx - 8},${sy + 4} ${sx + 8},${sy + 4}`}
+                fill={color}
+                stroke="#111722"
+                strokeWidth={1.5}
+              />
+              <text x={sx + 10} y={sy - 5} className="mine-map-marker-label">{label}</text>
+            </g>
+          )
+        })}
+
+        {/* Workers */}
+        {workerMarkers.map(({ worker: w, slot }) => {
+          const pos = positions[w.current_segment]
+          if (!pos) return null
+          const atRisk = w.status === 'at_risk' || w.status === 'trapped'
+          const selected = w.worker_id === selectedWorkerId
+          const color = atRisk ? WORKER_AT_RISK_COLOR : WORKER_COLOR
+          const [ox, oy] = WORKER_OFFSETS[slot % WORKER_OFFSETS.length]
+          const layer = Math.floor(slot / WORKER_OFFSETS.length)
+          const wx = pos.x + ox + layer * 8
+          const wy = pos.y + oy + layer * 8
+          const label = shortWorkerLabel(w.worker_id)
+          return (
+            <g key={w.worker_id} className={`mine-map-worker${selected ? ' mine-map-worker--selected' : ''}`}>
+              <title>{formatWorkerName(w.worker_id, w.name)} — {w.current_segment} — {w.status || 'safe'}</title>
+              {selected && <circle cx={wx} cy={wy} r={15} fill="none" stroke="#ffffff" strokeWidth={2} opacity={0.95} />}
+              {atRisk && <circle cx={wx} cy={wy} r={16} fill="none" stroke={RISK_COLORS.critical} strokeWidth={2} opacity={0.85} className="map-pulse" />}
+              <circle cx={wx} cy={wy} r={9} fill={color} stroke="#061018" strokeWidth={2} />
+              <text x={wx} y={wy + 3} textAnchor="middle" className="mine-map-worker-glyph">W</text>
+              <text x={wx + 12} y={wy - 9} className="mine-map-marker-label">{label}</text>
+            </g>
+          )
+        })}
       </svg>
+
+      {routePts.length > 1 && (
+        <div className={`mine-map-route-chip ${isRouteSafe ? '' : 'mine-map-route-chip--danger'}`}>
+          <span className="mine-map-route-dot" />
+          <strong>Acil rota</strong>
+          <span>{routeWorkerId ? formatWorkerName(routeWorkerId) : 'Seçili işçi'}</span>
+          <span>{route[0]} → {route[route.length - 1]}</span>
+        </div>
+      )}
 
       {isTrapped && (
         <div className="mine-map-route-warning">Alternatif rota yok — işçi mahsur kalabilir.</div>

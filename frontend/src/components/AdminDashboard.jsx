@@ -75,6 +75,7 @@ export default function AdminDashboard({
                 gasSensors={gasSensors}
                 emergencyRoute={emergencyRoute}
                 selectedSegmentId={selectedSegmentId}
+                selectedWorkerId={selectedWorkerId}
                 onSegmentSelect={onSegmentSelect}
               />
             </div>

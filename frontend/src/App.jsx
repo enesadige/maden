@@ -27,6 +27,8 @@ const SCENARIO_CONFIG = {
   show_route:    { timeStep: 27 }
 }
 
+const ROUTE_SCENARIOS = new Set(['collapse', 'collapse_s004', 'show_route'])
+
 export default function App() {
   const [baseData, setBaseData] = useState(null)
   const [environmentalRisk, setEnvironmentalRisk] = useState([])
@@ -162,6 +164,10 @@ export default function App() {
     let isMounted = true
 
     async function loadRoute() {
+      if (!ROUTE_SCENARIOS.has(selectedScenario)) {
+        if (isMounted) setEmergencyRouteData(null)
+        return
+      }
       if (!selectedWorkerId) return
       try {
         if (apiModeActive) {
