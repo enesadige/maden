@@ -101,3 +101,46 @@ Implementation order is `core`, config loading, Haki loading, anchor planning, c
 ## Git Push Rules
 
 Commit only source, documentation, example configuration, and approved small handoff outputs. Never commit raw datasets, local configuration, LAS/LAZ files, archives, cache files or large generated artifacts.
+
+## 2026-07 Worker Count and Behavior Anomaly Update
+
+Default worker count is now 10. Worker count remains config-driven in the UWB config/pipeline layer:
+
+- If `workers` is explicitly filled, that list is used exactly as the active worker source of truth.
+- If `workers` is empty or missing and `worker_defaults.allow_auto_generate_workers=true`, `worker_defaults.default_worker_count` generates worker identities such as `WORKER_01` to `WORKER_10` with `TAG_001` to `TAG_010`.
+- Worker count can be increased or decreased by config only; no Django code change is required.
+- Django does not generate workers. Django only reads generated JSON outputs such as `backend/data_processed/sample/workers/workers.json` and `backend/data_processed/sample/workers/worker_segment_timeline.json`.
+
+Current generated result:
+
+```text
+workers count: 10
+timeline record count: 1308
+anomaly event count: 1640
+```
+
+New UWB behavior anomaly outputs:
+
+```text
+backend/data_processed/sample/workers/behavior_anomaly_events.json
+backend/data_processed/sample/workers/behavior_anomaly_summary.json
+```
+
+Allowed behavior anomaly event types:
+
+```text
+stationary_too_long
+low_position_reliability
+tracking_lost_in_risky_segment
+entered_high_risk_segment
+near_blocked_segment
+route_deviation
+```
+
+Behavior anomaly events are rule-based MVP analytics only. They are not certified safety decisions.
+
+LOS/NLOS limitation: LOS/NLOS classifier is not implemented. Current anchor visibility is heuristic and based on distance/graph visibility assumptions. A real LOS/NLOS classifier requires labeled LOS/NLOS data before it can be trained, validated, and used for safety-relevant interpretation.
+
+MVP'de UTIL pose verisi worker hareket proxy'si olarak kullanılır. Gerçek UWB TDoA solver deneysel altyapıdır; saha kalibrasyonu ve ölçüm birimi doğrulaması olmadan gerçek konum doğruluğu iddiası taşımaz.
+
+Worker trapped durumu UWB modülünde nihai olarak üretilmez. UWB modülü worker konumu, güvenilirlik, exposure ve davranış anomaly sinyalleri üretir; trapped kararı backend route/simulation katmanında verilmelidir.

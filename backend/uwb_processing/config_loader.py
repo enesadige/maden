@@ -184,41 +184,119 @@ def _validate_segment_sources(config: dict[str, Any], repo_root: Path) -> None:
     config["segment_source"] = normalized
 
 
+def _normalize_prefix(value: Any, field_name: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field_name} must be a non-empty string")
+    prefix = value.strip().upper().replace("_", "")
+    if not prefix.isalnum():
+        raise ValueError(f"{field_name} must contain only letters and numbers")
+    return prefix
+
+
+def generate_default_workers(
+    count: int,
+    worker_prefix: str = "WORKER",
+    tag_prefix: str = "TAG",
+) -> list[dict[str, str]]:
+    """Generate canonical worker/tag identities without pipeline-specific trial fields."""
+    total = _require_int(count, "worker_defaults.default_worker_count", 1)
+    worker_base = _normalize_prefix(worker_prefix, "worker_defaults.worker_id_prefix")
+    tag_base = _normalize_prefix(tag_prefix, "worker_defaults.tag_id_prefix")
+    return [
+        {
+            "worker_id": f"{worker_base}_{index:02d}",
+            "tag_id": f"{tag_base}_{index:03d}",
+        }
+        for index in range(1, total + 1)
+    ]
+
+
+def _validate_worker_defaults(config: dict[str, Any]) -> dict[str, Any]:
+    defaults = deepcopy(config.get("worker_defaults", {}))
+    if defaults is None:
+        defaults = {}
+    defaults = _require_mapping(defaults, "worker_defaults")
+    defaults.setdefault("default_worker_count", 10)
+    defaults.setdefault("worker_id_prefix", "WORKER")
+    defaults.setdefault("tag_id_prefix", "TAG")
+    defaults.setdefault("allow_auto_generate_workers", False)
+    defaults["default_worker_count"] = _require_int(
+        defaults["default_worker_count"], "worker_defaults.default_worker_count", 1
+    )
+    defaults["worker_id_prefix"] = _normalize_prefix(
+        defaults["worker_id_prefix"], "worker_defaults.worker_id_prefix"
+    )
+    defaults["tag_id_prefix"] = _normalize_prefix(
+        defaults["tag_id_prefix"], "worker_defaults.tag_id_prefix"
+    )
+    defaults["allow_auto_generate_workers"] = _require_bool(
+        defaults["allow_auto_generate_workers"],
+        "worker_defaults.allow_auto_generate_workers",
+    )
+    config["worker_defaults"] = defaults
+    return defaults
+
+
+def _workers_are_explicit(workers: Any) -> bool:
+    return isinstance(workers, list) and bool(workers)
+
+
 def _validate_workers(config: dict[str, Any]) -> None:
-    workers = config["workers"]
-    if not isinstance(workers, list) or not workers:
-        raise ValueError("workers must be a non-empty list")
+    defaults = _validate_worker_defaults(config)
+    workers = config.get("workers")
+    generated = False
+    if _workers_are_explicit(workers):
+        source_workers = workers
+    elif workers in (None, []):
+        if not defaults["allow_auto_generate_workers"]:
+            raise ValueError(
+                "workers must be non-empty unless worker_defaults.allow_auto_generate_workers is true"
+            )
+        source_workers = generate_default_workers(
+            defaults["default_worker_count"],
+            defaults["worker_id_prefix"],
+            defaults["tag_id_prefix"],
+        )
+        generated = True
+    else:
+        raise ValueError("workers must be a list when provided")
+
     allow_reuse = _require_bool(config.get("allow_trial_reuse", False), "allow_trial_reuse")
     normalized: list[dict[str, Any]] = []
     worker_ids: set[str] = set()
     tag_ids: set[str] = set()
     trial_hints: set[str] = set()
-    required = ("worker_id", "tag_id", "source_trial_hint", "time_offset_s", "start_segment")
-    for index, item in enumerate(workers):
+    explicit_required = ("worker_id", "tag_id", "source_trial_hint", "time_offset_s", "start_segment")
+    generated_required = ("worker_id", "tag_id")
+    required = generated_required if generated else explicit_required
+    for index, item in enumerate(source_workers):
         worker = deepcopy(_require_mapping(item, f"workers[{index}]"))
         _require_keys(worker, required, f"workers[{index}]")
         worker["worker_id"] = normalize_worker_id(worker["worker_id"])
         worker["tag_id"] = normalize_tag_id(worker["tag_id"])
-        worker["start_segment"] = normalize_segment_id(worker["start_segment"])
-        trial_hint = worker["source_trial_hint"]
-        if not isinstance(trial_hint, str) or not trial_hint.strip():
-            raise ValueError(f"workers[{index}].source_trial_hint must be non-empty")
-        worker["source_trial_hint"] = trial_hint.strip()
-        worker["time_offset_s"] = ensure_finite_number(
-            worker["time_offset_s"], f"workers[{index}].time_offset_s"
-        )
+        if not generated:
+            worker["start_segment"] = normalize_segment_id(worker["start_segment"])
+            trial_hint = worker["source_trial_hint"]
+            if not isinstance(trial_hint, str) or not trial_hint.strip():
+                raise ValueError(f"workers[{index}].source_trial_hint must be non-empty")
+            worker["source_trial_hint"] = trial_hint.strip()
+            worker["time_offset_s"] = ensure_finite_number(
+                worker["time_offset_s"], f"workers[{index}].time_offset_s"
+            )
         if worker["worker_id"] in worker_ids:
             raise ValueError(f"duplicate worker_id: {worker['worker_id']}")
         if worker["tag_id"] in tag_ids:
             raise ValueError(f"duplicate tag_id: {worker['tag_id']}")
-        if not allow_reuse and worker["source_trial_hint"] in trial_hints:
-            raise ValueError(f"duplicate source_trial_hint: {worker['source_trial_hint']}")
+        if not generated:
+            if not allow_reuse and worker["source_trial_hint"] in trial_hints:
+                raise ValueError(f"duplicate source_trial_hint: {worker['source_trial_hint']}")
+            trial_hints.add(worker["source_trial_hint"])
         worker_ids.add(worker["worker_id"])
         tag_ids.add(worker["tag_id"])
-        trial_hints.add(worker["source_trial_hint"])
         normalized.append(worker)
     config["workers"] = normalized
     config["worker_count"] = len(normalized)
+    config["worker_generation_mode"] = "auto_generated" if generated else "explicit"
     config["allow_trial_reuse"] = allow_reuse
 
 
@@ -437,11 +515,28 @@ def _self_check() -> None:
         resolved = Path(path)
         assert resolved.exists()
         assert is_relative_to(resolved, haki_root)
+    assert config["worker_generation_mode"] == "explicit"
+    assert config["worker_count"] == len(config["workers"])
     assert config["workers"][0]["worker_id"] == "WORKER_01"
     assert config["workers"][0]["tag_id"] == "TAG_001"
     assert config["workers"][0]["start_segment"] == "S001"
     assert abs(sum(config["reliability_weights"].values()) - 1.0) < 1e-9
     assert not is_relative_to(Path(config["output_root"]), haki_root)
+
+    base = deepcopy(config)
+    base["workers"] = []
+    base["worker_defaults"]["allow_auto_generate_workers"] = True
+    for count in (10, 2, 20):
+        candidate = deepcopy(base)
+        candidate["worker_defaults"]["default_worker_count"] = count
+        checked = validate_config(candidate, Path(config["repo_root"]))
+        assert checked["worker_generation_mode"] == "auto_generated"
+        assert checked["worker_count"] == count
+        assert checked["workers"][0] == {"worker_id": "WORKER_01", "tag_id": "TAG_001"}
+        assert checked["workers"][-1] == {
+            "worker_id": f"WORKER_{count:02d}",
+            "tag_id": f"TAG_{count:03d}",
+        }
 
 
 if __name__ == "__main__":

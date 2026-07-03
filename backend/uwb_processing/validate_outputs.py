@@ -26,6 +26,10 @@ try:
     from backend.uwb_processing.distance_matrix import DistanceMatrixResult, compute_distance_matrix
     from backend.uwb_processing.timeline_enricher import TimelineEnrichmentResult, enrich_timeline
     from backend.uwb_processing.exposure_builder import ExposureBuildResult, build_exposure
+    from backend.uwb_processing.behavior_anomaly_builder import (
+        ALLOWED_EVENT_TYPES, ALLOWED_SEVERITIES, BehaviorAnomalyBuildResult,
+        build_behavior_anomalies, validate_behavior_anomaly_result,
+    )
 except ModuleNotFoundError:
     repo_root = Path(__file__).resolve().parents[2]
     if str(repo_root) not in sys.path:
@@ -39,6 +43,10 @@ except ModuleNotFoundError:
     from backend.uwb_processing.distance_matrix import DistanceMatrixResult, compute_distance_matrix
     from backend.uwb_processing.timeline_enricher import TimelineEnrichmentResult, enrich_timeline
     from backend.uwb_processing.exposure_builder import ExposureBuildResult, build_exposure
+    from backend.uwb_processing.behavior_anomaly_builder import (
+        ALLOWED_EVENT_TYPES, ALLOWED_SEVERITIES, BehaviorAnomalyBuildResult,
+        build_behavior_anomalies, validate_behavior_anomaly_result,
+    )
 
 
 @dataclass(frozen=True)
@@ -97,6 +105,165 @@ def assert_json_serializable(name: str, obj: Any, issues: list[ValidationIssue])
     except (TypeError, ValueError, OverflowError) as exc:
         add_issue(issues, "error", "json_serialization_failed", f"{name} is not JSON serializable", error=str(exc))
 
+
+def _behavior_anomaly_config(config: dict[str, Any]) -> dict[str, Any]:
+    raw = config.get("behavior_anomaly") or {}
+    if not isinstance(raw, dict):
+        raise ValueError("behavior_anomaly must be an object when provided")
+    return raw
+
+
+def behavior_anomaly_enabled(config: dict[str, Any]) -> bool:
+    return bool(_behavior_anomaly_config(config).get("enabled", True))
+
+
+def _empty_anomaly_summary(enabled: bool = False) -> dict[str, Any]:
+    return {
+        "anomaly_event_count": 0,
+        "anomaly_event_count_by_type": {event_type: 0 for event_type in sorted(ALLOWED_EVENT_TYPES)},
+        "anomaly_warning_count": 0,
+        "anomaly_validation_ok": True,
+        "anomaly_enabled": enabled,
+    }
+
+
+def _event_record(event: Any) -> dict[str, Any]:
+    if hasattr(event, "to_dict"):
+        return dict(event.to_dict())
+    if isinstance(event, dict):
+        return dict(event)
+    return dict(to_jsonable(event))
+
+
+def _validate_behavior_anomaly_records(
+    events: list[dict[str, Any]],
+    summary: dict[str, Any] | None,
+    dataset: SegmentDataset,
+    enrichment_result: TimelineEnrichmentResult,
+    issues: list[ValidationIssue],
+) -> dict[str, Any]:
+    before_errors = sum(issue.severity == "error" for issue in issues)
+    before_warnings = sum(issue.severity == "warning" for issue in issues)
+    event_ids: set[str] = set()
+    known_workers = {record.worker_id for record in enrichment_result.enriched_timeline}
+    type_counts: Counter[str] = Counter()
+    if not events:
+        add_issue(issues, "warning", "anomaly_events_empty", "behavior anomaly validation found zero events")
+    if not dataset.blocked_segments:
+        add_issue(issues, "warning", "anomaly_no_blocked_segments", "no blocked segments exist; near_blocked_segment may be absent")
+    if not dataset.risky_segments and not dataset.geometry_risk_by_segment:
+        add_issue(issues, "warning", "anomaly_no_high_risk_segments", "no high risk segment data exists; high-risk anomaly rules may be absent")
+    for index, event in enumerate(events):
+        event_id = event.get("event_id")
+        if not isinstance(event_id, str) or not event_id.strip():
+            add_issue(issues, "error", "anomaly_event_id_missing", "behavior anomaly event_id is missing", index=index)
+        elif event_id in event_ids:
+            add_issue(issues, "error", "anomaly_event_id_duplicate", "behavior anomaly event_id is not unique", event_id=event_id)
+        else:
+            event_ids.add(event_id)
+        worker_id = event.get("worker_id")
+        if not isinstance(worker_id, str) or not worker_id.strip():
+            add_issue(issues, "error", "anomaly_worker_id_missing", "behavior anomaly worker_id is missing", event_id=event_id)
+        elif worker_id not in known_workers:
+            add_issue(issues, "error", "anomaly_worker_id_unknown", "behavior anomaly worker_id is not in enriched timeline", event_id=event_id, worker_id=worker_id)
+        event_type = event.get("event_type")
+        if event_type not in ALLOWED_EVENT_TYPES:
+            add_issue(issues, "error", "anomaly_event_type_invalid", "behavior anomaly event_type is invalid", event_id=event_id, event_type=event_type)
+        else:
+            type_counts[str(event_type)] += 1
+        severity = event.get("severity")
+        if severity not in ALLOWED_SEVERITIES:
+            add_issue(issues, "error", "anomaly_severity_invalid", "behavior anomaly severity is invalid", event_id=event_id, severity=severity)
+        score = event.get("score")
+        if not is_finite_number(score) or not 0 <= float(score) <= 100:
+            add_issue(issues, "error", "anomaly_score_invalid", "behavior anomaly score is outside [0,100]", event_id=event_id)
+        time_step = event.get("time_step")
+        if isinstance(time_step, bool) or not isinstance(time_step, int) or time_step < 0:
+            add_issue(issues, "error", "anomaly_time_step_invalid", "behavior anomaly time_step is invalid", event_id=event_id)
+        timestamp_s = event.get("timestamp_s")
+        if timestamp_s is not None and not is_finite_number(timestamp_s):
+            add_issue(issues, "error", "anomaly_timestamp_invalid", "behavior anomaly timestamp_s is invalid", event_id=event_id)
+        segment_id = event.get("segment_id")
+        if segment_id is not None and not dataset.has_segment(segment_id):
+            add_issue(issues, "error", "anomaly_segment_invalid", "behavior anomaly segment_id is unknown", event_id=event_id, segment_id=segment_id)
+    if summary is not None:
+        summary_count = summary.get("event_count")
+        if summary_count is not None and summary_count != len(events):
+            add_issue(issues, "error", "anomaly_summary_event_count_mismatch", "behavior anomaly summary event_count does not match events", expected=len(events), actual=summary_count)
+        summary_by_type = summary.get("event_count_by_type")
+        if summary_by_type is not None:
+            if not isinstance(summary_by_type, dict):
+                add_issue(issues, "error", "anomaly_summary_type_counts_invalid", "behavior anomaly summary event_count_by_type must be an object")
+            else:
+                for event_type in ALLOWED_EVENT_TYPES:
+                    if summary_by_type.get(event_type, 0) != type_counts.get(event_type, 0):
+                        add_issue(issues, "error", "anomaly_summary_type_count_mismatch", "behavior anomaly summary type count does not match events", event_type=event_type)
+    assert_json_serializable("behavior_anomaly_events", events, issues)
+    if summary is not None:
+        assert_json_serializable("behavior_anomaly_summary", summary, issues)
+    return {
+        "anomaly_event_count": len(events),
+        "anomaly_event_count_by_type": {event_type: type_counts.get(event_type, 0) for event_type in sorted(ALLOWED_EVENT_TYPES)},
+        "anomaly_warning_count": sum(issue.severity == "warning" for issue in issues) - before_warnings,
+        "anomaly_validation_ok": sum(issue.severity == "error" for issue in issues) == before_errors,
+        "anomaly_enabled": True,
+    }
+
+
+def validate_behavior_anomaly_contract(
+    config: dict[str, Any],
+    dataset: SegmentDataset,
+    enrichment_result: TimelineEnrichmentResult,
+    issues: list[ValidationIssue],
+    anomaly_result: BehaviorAnomalyBuildResult | None = None,
+) -> dict[str, Any]:
+    if not behavior_anomaly_enabled(config):
+        add_issue(issues, "warning", "anomaly_disabled", "behavior anomaly outputs are disabled; missing outputs are not a baseline blocker")
+        summary = _empty_anomaly_summary(False)
+        summary["anomaly_warning_count"] = 1
+        return summary
+    result = anomaly_result or build_behavior_anomalies(config=config, dataset=dataset, enrichment_result=enrichment_result)
+    try:
+        validate_behavior_anomaly_result(result, enrichment_result, dataset)
+    except ValueError as exc:
+        add_issue(issues, "error", "anomaly_result_invalid", "behavior anomaly builder result failed validation", error=str(exc))
+    events = [_event_record(event) for event in result.events]
+    return _validate_behavior_anomaly_records(events, result.summary, dataset, enrichment_result, issues)
+
+
+def validate_existing_behavior_anomaly_outputs(
+    config: dict[str, Any],
+    dataset: SegmentDataset,
+    enrichment_result: TimelineEnrichmentResult,
+    issues: list[ValidationIssue],
+) -> dict[str, Any] | None:
+    output_root = Path(str(config.get("output_root", "")))
+    if not output_root:
+        return None
+    events_path = output_root / "workers" / "behavior_anomaly_events.json"
+    summary_path = output_root / "workers" / "behavior_anomaly_summary.json"
+    if not events_path.exists() and not summary_path.exists():
+        return None
+    if not events_path.exists() or not summary_path.exists():
+        add_issue(issues, "error", "anomaly_output_pair_missing", "behavior anomaly output files must be present as a pair", events_path=str(events_path), summary_path=str(summary_path))
+        return _empty_anomaly_summary(behavior_anomaly_enabled(config))
+    try:
+        events_payload = json.loads(events_path.read_text(encoding="utf-8"))
+        summary_payload = json.loads(summary_path.read_text(encoding="utf-8"))
+        json.dumps(events_payload, allow_nan=False)
+        json.dumps(summary_payload, allow_nan=False)
+    except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+        add_issue(issues, "error", "anomaly_json_invalid", "behavior anomaly output JSON is malformed", error=str(exc))
+        return _empty_anomaly_summary(behavior_anomaly_enabled(config))
+    events = events_payload.get("events", events_payload)
+    if not isinstance(events, list):
+        add_issue(issues, "error", "anomaly_events_shape_invalid", "behavior anomaly events payload must be a list or contain an events list")
+        events = []
+    summary = summary_payload.get("summary", summary_payload)
+    if not isinstance(summary, dict):
+        add_issue(issues, "error", "anomaly_summary_shape_invalid", "behavior anomaly summary payload must be an object or contain a summary object")
+        summary = None
+    return _validate_behavior_anomaly_records(events, summary, dataset, enrichment_result, issues)
 
 def validate_optional_solver_generated_outputs(config: dict[str, Any], issues: list[ValidationIssue]) -> None:
     output_root = Path(str(config.get("output_root", "")))
@@ -319,7 +486,7 @@ def validate_cross_consistency(anchor_plan: AnchorPlanResult, cable_plan: CableP
     if len(set(counts)) != 1:
         add_issue(issues, "error", "cross_timeline_count_mismatch", "timeline, enrichment and exposure counts differ", counts=counts)
     if len(distance_result.observations) != counts[0] * len(anchor_plan.anchors):
-        add_issue(issues, "error", "cross_distance_count_mismatch", "distance matrix does not equal timeline × anchors")
+        add_issue(issues, "error", "cross_distance_count_mismatch", "distance matrix does not equal timeline times anchors")
     enriched_workers = {record.worker_id for record in enrichment_result.enriched_timeline}
     exposure_workers = {record.worker_id for record in exposure_result.exposure_records}
     if len(enrichment_result.latest_workers) != len(enriched_workers) or exposure_workers != enriched_workers:
@@ -343,9 +510,10 @@ def validate_cross_consistency(anchor_plan: AnchorPlanResult, cable_plan: CableP
         add_issue(issues, "warning", "mean_reliability_low", "mean enriched position reliability is low", value=round(mean_reliability, 4))
 
 
-def build_validation_summary(issues: tuple[ValidationIssue, ...], anchor_plan: AnchorPlanResult, cable_plan: CablePlanResult, timeline_result: TimelineBuildResult, distance_result: DistanceMatrixResult, enrichment_result: TimelineEnrichmentResult, exposure_result: ExposureBuildResult, dataset: SegmentDataset) -> dict[str, Any]:
+def build_validation_summary(issues: tuple[ValidationIssue, ...], anchor_plan: AnchorPlanResult, cable_plan: CablePlanResult, timeline_result: TimelineBuildResult, distance_result: DistanceMatrixResult, enrichment_result: TimelineEnrichmentResult, exposure_result: ExposureBuildResult, dataset: SegmentDataset, anomaly_summary: dict[str, Any] | None = None) -> dict[str, Any]:
     error_count = sum(issue.severity == "error" for issue in issues)
     warning_messages = [issue.message for issue in issues if issue.severity == "warning"]
+    anomaly_summary = _empty_anomaly_summary(False) if anomaly_summary is None else anomaly_summary
     return {
         "ok": error_count == 0,
         "error_count": error_count,
@@ -360,12 +528,13 @@ def build_validation_summary(issues: tuple[ValidationIssue, ...], anchor_plan: A
         "segments_with_worker_exposure": len(exposure_result.segment_summaries),
         "records_with_no_tracking": sum(record.tracking_status == "no_tracking" for record in enrichment_result.enriched_timeline),
         "fallback_record_count": sum(record.mapping_method in {"continuity_fallback", "start_segment_seed"} for record in enrichment_result.enriched_timeline),
+        **anomaly_summary,
         "ready_for_pipeline_write": error_count == 0,
         "warnings": warning_messages,
     }
 
 
-def validate_all_outputs(config: dict | None = None, dataset: SegmentDataset | None = None, anchor_plan: AnchorPlanResult | None = None, cable_plan: CablePlanResult | None = None, timeline_result: TimelineBuildResult | None = None, distance_result: DistanceMatrixResult | None = None, enrichment_result: TimelineEnrichmentResult | None = None, exposure_result: ExposureBuildResult | None = None) -> OutputValidationResult:
+def validate_all_outputs(config: dict | None = None, dataset: SegmentDataset | None = None, anchor_plan: AnchorPlanResult | None = None, cable_plan: CablePlanResult | None = None, timeline_result: TimelineBuildResult | None = None, distance_result: DistanceMatrixResult | None = None, enrichment_result: TimelineEnrichmentResult | None = None, exposure_result: ExposureBuildResult | None = None, anomaly_result: BehaviorAnomalyBuildResult | None = None) -> OutputValidationResult:
     config = load_config() if config is None else config
     dataset = load_segment_dataset(config) if dataset is None else dataset
     anchor_plan = plan_anchors(dataset=dataset, config=config) if anchor_plan is None else anchor_plan
@@ -382,9 +551,13 @@ def validate_all_outputs(config: dict | None = None, dataset: SegmentDataset | N
     validate_enriched_timeline_contract(enrichment_result, timeline_result, distance_result, dataset, issues)
     validate_exposure_contract(exposure_result, enrichment_result, dataset, issues)
     validate_cross_consistency(anchor_plan, cable_plan, timeline_result, distance_result, enrichment_result, exposure_result, dataset, issues)
+    anomaly_summary = validate_behavior_anomaly_contract(config, dataset, enrichment_result, issues, anomaly_result)
+    file_anomaly_summary = validate_existing_behavior_anomaly_outputs(config, dataset, enrichment_result, issues)
+    if file_anomaly_summary is not None:
+        anomaly_summary = file_anomaly_summary
     validate_optional_solver_generated_outputs(config, issues)
     issue_tuple = tuple(issues)
-    summary = build_validation_summary(issue_tuple, anchor_plan, cable_plan, timeline_result, distance_result, enrichment_result, exposure_result, dataset)
+    summary = build_validation_summary(issue_tuple, anchor_plan, cable_plan, timeline_result, distance_result, enrichment_result, exposure_result, dataset, anomaly_summary)
     return OutputValidationResult(summary["ok"], summary["error_count"], summary["warning_count"], summary["info_count"], issue_tuple, summary)
 
 
@@ -397,6 +570,7 @@ def _self_check() -> None:
     assert result.summary["ready_for_pipeline_write"] is True
     assert result.summary["timeline_record_count"] == result.summary["enriched_timeline_record_count"] == result.summary["exposure_record_count"]
     assert result.summary["distance_observation_count"] == result.summary["timeline_record_count"] * result.summary["anchor_count"]
+    assert "anomaly_validation_ok" in result.summary
 
 
 if __name__ == "__main__":

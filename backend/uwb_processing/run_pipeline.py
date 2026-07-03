@@ -25,6 +25,7 @@ try:
     from backend.uwb_processing.distance_matrix import compute_distance_matrix
     from backend.uwb_processing.timeline_enricher import enrich_timeline
     from backend.uwb_processing.exposure_builder import build_exposure
+    from backend.uwb_processing.behavior_anomaly_builder import build_behavior_anomalies
     from backend.uwb_processing.validate_outputs import validate_all_outputs
     from backend.uwb_processing.uwb_position_solver import solve_worker_positions_from_tdoa
 except ModuleNotFoundError:
@@ -40,6 +41,7 @@ except ModuleNotFoundError:
     from backend.uwb_processing.distance_matrix import compute_distance_matrix
     from backend.uwb_processing.timeline_enricher import enrich_timeline
     from backend.uwb_processing.exposure_builder import build_exposure
+    from backend.uwb_processing.behavior_anomaly_builder import build_behavior_anomalies
     from backend.uwb_processing.validate_outputs import validate_all_outputs
     from backend.uwb_processing.uwb_position_solver import solve_worker_positions_from_tdoa
 
@@ -88,6 +90,7 @@ class PipelineArtifacts:
     distance_result: Any
     enrichment_result: Any
     exposure_result: Any
+    anomaly_result: Any | None
     validation_result: Any
 
 
@@ -144,6 +147,20 @@ def solver_outputs_enabled(config: dict[str, Any]) -> bool:
     return bool(solver.get("enabled", False) and solver.get("write_solver_outputs", False))
 
 
+def behavior_anomaly_enabled(config: dict[str, Any]) -> bool:
+    anomaly = config.get("behavior_anomaly") or {}
+    if not isinstance(anomaly, dict):
+        raise ValueError("behavior_anomaly must be an object when provided")
+    return bool(anomaly.get("enabled", True))
+
+
+def behavior_anomaly_outputs_enabled(config: dict[str, Any]) -> bool:
+    anomaly = config.get("behavior_anomaly") or {}
+    if not isinstance(anomaly, dict):
+        raise ValueError("behavior_anomaly must be an object when provided")
+    return behavior_anomaly_enabled(config) and bool(anomaly.get("write_outputs", True))
+
+
 def approved_output_paths(output_root: Path, config: dict[str, Any] | None = None) -> dict[str, Path]:
     paths = {
         "workers_json": output_root / "workers" / "workers.json",
@@ -161,6 +178,11 @@ def approved_output_paths(output_root: Path, config: dict[str, Any] | None = Non
         "uwb_pipeline_manifest_json": output_root / "uwb" / "uwb_pipeline_manifest.json",
         "uwb_validation_summary_json": output_root / "uwb" / "uwb_validation_summary.json",
     }
+    if config is not None and behavior_anomaly_outputs_enabled(config):
+        paths.update({
+            "behavior_anomaly_events_json": output_root / "workers" / "behavior_anomaly_events.json",
+            "behavior_anomaly_summary_json": output_root / "workers" / "behavior_anomaly_summary.json",
+        })
     if config is not None and solver_outputs_enabled(config):
         paths.update({
             "uwb_position_estimates_json": output_root / "uwb" / "uwb_position_estimates.json",
@@ -180,6 +202,8 @@ def ensure_safe_output_path(path: Path, output_root: Path) -> None:
     approved.update({
         (resolved_root / "uwb" / "uwb_position_estimates.json").resolve(),
         (resolved_root / "uwb" / "uwb_solver_validation.json").resolve(),
+        (resolved_root / "workers" / "behavior_anomaly_events.json").resolve(),
+        (resolved_root / "workers" / "behavior_anomaly_summary.json").resolve(),
     })
     if resolved_path not in approved:
         raise ValueError(f"output path is not approved: {resolved_path}")
@@ -224,6 +248,15 @@ def build_pipeline_artifacts() -> PipelineArtifacts:
         distance_result=distance_result,
         config=config,
     )
+    anomaly_result = (
+        build_behavior_anomalies(
+            config=config,
+            dataset=dataset,
+            enrichment_result=enrichment_result,
+        )
+        if behavior_anomaly_enabled(config)
+        else None
+    )
     exposure_result = build_exposure(
         enrichment_result=enrichment_result,
         dataset=dataset,
@@ -248,6 +281,7 @@ def build_pipeline_artifacts() -> PipelineArtifacts:
         distance_result=distance_result,
         enrichment_result=enrichment_result,
         exposure_result=exposure_result,
+        anomaly_result=anomaly_result,
         validation_result=validation_result,
     )
 
@@ -416,6 +450,7 @@ def build_uwb_extraction_summary(artifacts: PipelineArtifacts) -> dict[str, Any]
         "distance": artifacts.distance_result.to_summary(),
         "enrichment": artifacts.enrichment_result.to_summary(),
         "exposure": artifacts.exposure_result.to_summary(),
+        "behavior_anomaly": artifacts.anomaly_result.to_summary() if artifacts.anomaly_result else {"enabled": False},
         "validation": artifacts.validation_result.to_summary(),
         "limitations": LIMITATIONS,
     }
@@ -437,6 +472,9 @@ def build_pipeline_manifest(artifacts: PipelineArtifacts, written_files: list[st
             "distance_observation_count": len(artifacts.distance_result.observations),
             "exposure_record_count": len(artifacts.exposure_result.exposure_records),
             "latest_worker_count": len(artifacts.enrichment_result.latest_workers),
+            "anomaly_event_count": len(artifacts.anomaly_result.events) if artifacts.anomaly_result else 0,
+            "anomaly_event_count_by_type": artifacts.anomaly_result.summary.get("event_count_by_type", {}) if artifacts.anomaly_result else {},
+            "anomaly_warning_count": len(artifacts.anomaly_result.warnings) if artifacts.anomaly_result else 0,
         },
         "limitations": LIMITATIONS,
         "validation": artifacts.validation_result.to_summary(),
@@ -482,6 +520,10 @@ def build_output_payloads(artifacts: PipelineArtifacts, output_root: Path) -> di
         "anchor_tag_distances_json": build_anchor_tag_distances(artifacts.distance_result),
         "anchor_tag_distance_summary_json": build_anchor_tag_distance_summary(artifacts.distance_result),
         "worker_exposure_risk_json": build_worker_exposure_risk(artifacts.exposure_result),
+        **({
+            "behavior_anomaly_events_json": artifacts.anomaly_result.to_events_payload(),
+            "behavior_anomaly_summary_json": artifacts.anomaly_result.to_summary_payload(),
+        } if artifacts.anomaly_result and behavior_anomaly_outputs_enabled(artifacts.config) else {}),
         "uwb_pipeline_manifest_json": build_pipeline_manifest(artifacts, [], True),
         "uwb_validation_summary_json": artifacts.validation_result.to_summary(),
     }

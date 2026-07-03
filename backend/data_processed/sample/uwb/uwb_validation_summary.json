@@ -1,19 +1,31 @@
 {
   "ok": true,
   "error_count": 0,
-  "warning_count": 9,
+  "warning_count": 7,
   "info_count": 1,
   "segment_count": 143,
   "anchor_count": 283,
   "cable_link_count": 642,
-  "timeline_record_count": 379,
-  "distance_observation_count": 107257,
-  "enriched_timeline_record_count": 379,
-  "exposure_record_count": 379,
-  "latest_worker_count": 3,
-  "segments_with_worker_exposure": 88,
-  "records_with_no_tracking": 185,
-  "fallback_record_count": 133,
+  "timeline_record_count": 1308,
+  "distance_observation_count": 370164,
+  "enriched_timeline_record_count": 1308,
+  "exposure_record_count": 1308,
+  "latest_worker_count": 10,
+  "segments_with_worker_exposure": 96,
+  "records_with_no_tracking": 205,
+  "fallback_record_count": 58,
+  "anomaly_event_count": 1640,
+  "anomaly_event_count_by_type": {
+    "entered_high_risk_segment": 969,
+    "low_position_reliability": 205,
+    "near_blocked_segment": 0,
+    "route_deviation": 261,
+    "stationary_too_long": 0,
+    "tracking_lost_in_risky_segment": 205
+  },
+  "anomaly_warning_count": 1,
+  "anomaly_validation_ok": true,
+  "anomaly_enabled": true,
   "ready_for_pipeline_write": true,
   "warnings": [
     "some segments are below target anchor coverage",
@@ -21,9 +33,7 @@
     "no_tracking records are retained for safety debugging",
     "fallback segment mapping is present",
     "worker exposure is occupancy contribution only and not fused risk",
-    "fallback mapping ratio is high",
-    "no_tracking ratio is high",
     "mean mapping confidence is low",
-    "mean enriched position reliability is low"
+    "no blocked segments exist; near_blocked_segment may be absent"
   ]
 }

@@ -669,3 +669,48 @@ Source note: `MadenGuard_AI_ML_Kullanim_Rehberi.docx` was requested as an input,
 - Add fused gas + geometry + worker risk in the backend risk layer.
 - Add route-aware trapped detection in the routing layer.
 - Add dashboard visualization for workers, anchors, cables, timeline replay and reliability states.
+
+## 22. Worker Count and Behavior Anomaly Update
+
+Default worker count is now 10.
+
+Worker count is config-driven in the UWB config/pipeline layer:
+
+- If `workers` is explicitly filled, config_loader.py uses exactly that list.
+- If `workers` is empty or missing and `worker_defaults.allow_auto_generate_workers=true`, `worker_defaults.default_worker_count` generates workers.
+- Worker count can be increased or decreased by config only.
+- Django does not generate workers. Django only reads generated JSON outputs such as `backend/data_processed/sample/workers/workers.json` and `backend/data_processed/sample/workers/worker_segment_timeline.json`, then returns whatever workers exist in those files.
+
+Current generated result:
+
+| Metric | Value |
+|---|---:|
+| Workers count | 10 |
+| Timeline record count | 1308 |
+| Anomaly event count | 1640 |
+
+New behavior anomaly outputs:
+
+```text
+backend/data_processed/sample/workers/behavior_anomaly_events.json
+backend/data_processed/sample/workers/behavior_anomaly_summary.json
+```
+
+Behavior anomaly event types:
+
+```text
+stationary_too_long
+low_position_reliability
+tracking_lost_in_risky_segment
+entered_high_risk_segment
+near_blocked_segment
+route_deviation
+```
+
+These behavior anomaly events are rule-based MVP analytics only. They are not certified safety decisions.
+
+LOS/NLOS limitation: LOS/NLOS classifier is not implemented. Current anchor visibility is heuristic and based on distance/graph visibility assumptions. A real LOS/NLOS classifier requires labeled LOS/NLOS data before it can be trained, validated, and used for safety-relevant interpretation.
+
+MVP'de UTIL pose verisi worker hareket proxy'si olarak kullanılır. Gerçek UWB TDoA solver deneysel altyapıdır; saha kalibrasyonu ve ölçüm birimi doğrulaması olmadan gerçek konum doğruluğu iddiası taşımaz.
+
+Worker trapped durumu UWB modülünde nihai olarak üretilmez. UWB modülü worker konumu, güvenilirlik, exposure ve davranış anomaly sinyalleri üretir; trapped kararı backend route/simulation katmanında verilmelidir.
