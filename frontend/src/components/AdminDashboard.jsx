@@ -4,6 +4,7 @@ import MineMapView from './MineMapView'
 import RiskPanel from './RiskPanel'
 import WorkerPanel from './WorkerPanel'
 import GasSensorPanel from './GasSensorPanel'
+import WorkerAnomalyPanel from './WorkerAnomalyPanel'
 import ScenarioControls from './ScenarioControls'
 import RouteOverlay from './RouteOverlay'
 import SegmentLegend from './SegmentLegend'
@@ -16,6 +17,8 @@ export default function AdminDashboard({
   gasSensors,
   environmentalRisk,
   geometryRisk,
+  workerAnomalies,
+  workerAnomalySummary,
   scenarios,
   emergencyRoute,
   selectedScenario,
@@ -101,7 +104,12 @@ export default function AdminDashboard({
             geometryRisk={geometryRisk}
             selectedSegmentId={selectedSegmentId}
           />
-          <WorkerPanel workers={workers} />
+          <WorkerPanel workers={workers} anomalies={workerAnomalies} />
+          <WorkerAnomalyPanel
+            anomalies={workerAnomalies}
+            summary={workerAnomalySummary}
+            selectedWorkerId={selectedWorkerId}
+          />
           <GasSensorPanel gasSensors={gasSensors} />
           <RouteOverlay
             emergencyRoute={emergencyRoute}

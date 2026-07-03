@@ -12,6 +12,13 @@ function fallbackRecommendedAction(riskLevel, isBlocked) {
   return actions[riskLevel] || 'Risk verisi yetersiz, manuel kontrol gerekir.'
 }
 
+function formatNumber(value, suffix = '') {
+  if (value === undefined || value === null || value === '') return '—'
+  const number = Number(value)
+  if (!Number.isFinite(number)) return `${value}${suffix}`
+  return `${Number.isInteger(number) ? number : number.toFixed(2)}${suffix}`
+}
+
 export default function RiskPanel({ segments, risks, workers, gasSensors, environmentalRisk, geometryRisk, selectedSegmentId }) {
   const risk = selectedSegmentId
     ? risks.find((r) => r.segment_id === selectedSegmentId)
@@ -44,6 +51,15 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
   const envRisk = environmentalRisk?.find((e) => e.segment_id === risk.segment_id)
   const geoRisk = geometryRisk?.find((g) => g.segment_id === risk.segment_id)
   const workersHere = workers.filter((w) => w.current_segment === risk.segment_id)
+  const measurements = risk.environmental_measurements || gasSensor?.measurements || envRisk?.measurements || {}
+  const componentScores = risk.environmental_component_scores || gasSensor?.component_scores || envRisk?.component_scores || {}
+  const environmentalReasons = risk.environmental_risk_reason || gasSensor?.environmental_risk_reason || envRisk?.environmental_risk_reason || []
+  const sensorConfidence = risk.sensor_confidence ?? gasSensor?.confidence ?? envRisk?.confidence
+  const sensorReliability = risk.reliability_status || gasSensor?.reliability_status || envRisk?.reliability_status
+  const behaviorEventCount = risk.behavior_event_count || 0
+  const criticalBehaviorEventCount = risk.critical_behavior_event_count || 0
+  const behaviorEventTypes = risk.behavior_anomaly_event_types || []
+  const behaviorWorkerIds = risk.behavior_anomaly_worker_ids || []
 
   return (
     <div className="panel">
@@ -92,17 +108,66 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
           {trackingRiskVal !== undefined && trackingRiskVal !== null && (
             <div>• Takip Güvenilirlik Riski: <strong>{trackingRiskVal}</strong></div>
           )}
+          {risk.worker_behavior_anomaly_score > 0 && (
+            <div>• Davranış Anomali Skoru: <strong>{risk.worker_behavior_anomaly_score}</strong></div>
+          )}
           {breakdown.scenario_boost !== undefined && breakdown.scenario_boost !== null && (
             <div>• Senaryo Risk Artışı: <strong>+{breakdown.scenario_boost}</strong></div>
           )}
         </div>
       </div>
 
+      {(Object.keys(measurements).length > 0 || Object.keys(componentScores).length > 0) && (
+        <div className="panel-row panel-row--block">
+          <span className="panel-label">Çoklu Sensör Detayı</span>
+          <div className="metric-grid">
+            <span>CH4: <strong>{formatNumber(measurements.methane_ppm, ' ppm')}</strong></span>
+            <span>CO: <strong>{formatNumber(measurements.co_ppm, ' ppm')}</strong></span>
+            <span>O2: <strong>{formatNumber(measurements.oxygen_percent, '%')}</strong></span>
+            <span>Sıcaklık: <strong>{formatNumber(measurements.temperature_c, '°C')}</strong></span>
+            <span>Nem: <strong>{formatNumber(measurements.humidity_percent, '%')}</strong></span>
+            <span>Basınç: <strong>{formatNumber(measurements.pressure_hpa, ' hPa')}</strong></span>
+          </div>
+          <div className="metric-grid metric-grid--scores">
+            <span>Metan: <strong>{formatNumber(componentScores.methane_risk)}</strong></span>
+            <span>CO: <strong>{formatNumber(componentScores.co_risk)}</strong></span>
+            <span>O2: <strong>{formatNumber(componentScores.oxygen_risk)}</strong></span>
+            <span>Isı: <strong>{formatNumber(componentScores.temperature_risk)}</strong></span>
+            <span>Nem: <strong>{formatNumber(componentScores.humidity_risk)}</strong></span>
+            <span>Basınç: <strong>{formatNumber(componentScores.pressure_risk)}</strong></span>
+          </div>
+          <div className="panel-hint">
+            Weighted skor {formatNumber(risk.weighted_multi_sensor_risk || gasSensor?.weighted_multi_sensor_risk || envRisk?.weighted_multi_sensor_risk)}
+            {sensorConfidence !== undefined && ` · Güven ${formatNumber(sensorConfidence * 100, '%')}`}
+            {sensorReliability && ` · ${sensorReliability}`}
+          </div>
+          {environmentalReasons.length > 0 && (
+            <ul>
+              {environmentalReasons.slice(0, 3).map((reason) => <li key={reason}>{reason}</li>)}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {behaviorEventCount > 0 && (
+        <div className="panel-row panel-row--block">
+          <span className="panel-label">UWB Davranış Uyarısı</span>
+          <div>
+            <strong className={criticalBehaviorEventCount > 0 ? 'text-danger' : undefined}>
+              {behaviorEventCount} event
+            </strong>
+            {criticalBehaviorEventCount > 0 && ` · ${criticalBehaviorEventCount} kritik`}
+          </div>
+          {behaviorEventTypes.length > 0 && <span>{behaviorEventTypes.join(', ')}</span>}
+          {behaviorWorkerIds.length > 0 && <span>İşçiler: {behaviorWorkerIds.join(', ')}</span>}
+        </div>
+      )}
+
       <div className="panel-row">
         <span className="panel-label">Gaz/Metan Riski</span>
         <span className={gasSensor?.status === 'alarm' ? 'text-danger' : undefined}>
           {gasSensor
-            ? `${gasSensor.methane_value}% (skor ${gasSensor.risk_score})${gasSensor.status === 'alarm' ? ' — ALARM' : ''}`
+            ? `${formatNumber(measurements.methane_ppm || gasSensor.methane_value, measurements.methane_ppm ? ' ppm' : '%')} (skor ${gasSensor.risk_score})${gasSensor.status === 'alarm' ? ' — ALARM' : ''}`
             : (envRisk ? `${envRisk.methane_ppm} ppm (skor ${envRisk.gas_risk_score})` : 'Veri yok')}
         </span>
       </div>

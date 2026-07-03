@@ -13,6 +13,8 @@ import {
   getGasSensors,
   getSimulationScenario,
   getSimulationState,
+  getWorkerAnomalies,
+  getWorkerAnomalySummary,
   isApiMode
 } from './services/api'
 import { applyScenario, getFocusSegmentId } from './utils/scenarioUtils'
@@ -29,6 +31,8 @@ export default function App() {
   const [baseData, setBaseData] = useState(null)
   const [environmentalRisk, setEnvironmentalRisk] = useState([])
   const [geometryRisk, setGeometryRisk] = useState([])
+  const [workerAnomalies, setWorkerAnomalies] = useState([])
+  const [workerAnomalySummary, setWorkerAnomalySummary] = useState(null)
   const [scenarios, setScenarios] = useState([])
   const [emergencyRouteData, setEmergencyRouteData] = useState(null)
   const [selectedScenario, setSelectedScenario] = useState('normal')
@@ -57,15 +61,20 @@ export default function App() {
         let scenarioList = []
         let envRisk = []
         let geoRisk = []
+        let anomalyEvents = []
+        let anomalySummary = null
         let useMock = !apiModeActive
+        const requestTimeStep = committedTimeStep
 
         if (apiModeActive) {
           try {
-            const [statePayload, list, env, geo] = await Promise.all([
-              getSimulationScenario({ scenarioId: selectedScenario, timeStep: selectedTimeStep }),
+            const [statePayload, list, env, geo, anomalies, anomalySummaryPayload] = await Promise.all([
+              getSimulationScenario({ scenarioId: selectedScenario, timeStep: requestTimeStep, workerId: selectedWorkerId }),
               getScenarios(),
-              getEnvironmentalRisk({ timeStep: selectedTimeStep }),
-              getGeometryRisk()
+              getEnvironmentalRisk({ timeStep: requestTimeStep }),
+              getGeometryRisk(),
+              getWorkerAnomalies({ timeStep: requestTimeStep, workerId: selectedWorkerId }),
+              getWorkerAnomalySummary()
             ])
 
             if (!statePayload || !statePayload.segments || !statePayload.workers) {
@@ -76,6 +85,8 @@ export default function App() {
             scenarioList = list
             envRisk = env
             geoRisk = geo
+            anomalyEvents = anomalies
+            anomalySummary = anomalySummaryPayload
           } catch (apiErr) {
             console.warn("Backend API request failed. Switching to local Mock Mode for this session.", apiErr)
             useMock = true
@@ -104,6 +115,8 @@ export default function App() {
           scenarioList = list
           envRisk = env
           geoRisk = geo
+          anomalyEvents = []
+          anomalySummary = { source: 'uwb_behavior_anomaly', summary: { event_count: 0 }, warnings: [] }
         }
 
         if (!isMounted) return
@@ -111,6 +124,8 @@ export default function App() {
         setScenarios(scenarioList)
         setEnvironmentalRisk(envRisk)
         setGeometryRisk(geoRisk)
+        setWorkerAnomalies(anomalyEvents)
+        setWorkerAnomalySummary(anomalySummary)
 
         const mappedData = {
           segments: scenarioState.segments || [],
@@ -140,7 +155,7 @@ export default function App() {
 
     loadState()
     return () => { isMounted = false }
-  }, [selectedScenario, committedTimeStep, apiModeActive])
+  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
 
   // 2. Fetch emergency route when scenario, timeStep, or selectedWorkerId changes
   useEffect(() => {
@@ -152,7 +167,7 @@ export default function App() {
         if (apiModeActive) {
           const route = await getEmergencyRoute({
             workerId: selectedWorkerId,
-            timeStep: selectedTimeStep,
+            timeStep: committedTimeStep,
             scenarioId: selectedScenario
           })
           if (isMounted) {
@@ -264,6 +279,8 @@ export default function App() {
           gasSensors={derived.gasSensors}
           environmentalRisk={environmentalRisk}
           geometryRisk={geometryRisk}
+          workerAnomalies={workerAnomalies}
+          workerAnomalySummary={workerAnomalySummary}
           scenarios={scenarios}
           emergencyRoute={derived.emergencyRoute}
           selectedScenario={selectedScenario}

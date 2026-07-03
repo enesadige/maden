@@ -117,6 +117,40 @@ export async function getEmergencyRoute(params = {}) {
   return fetchApiOrMock(`/api/routes/emergency${query}`, 'emergency_route.json', forceMock)
 }
 
+export async function getWorkerAnomalies(params = {}) {
+  const { workerId, timeStep, eventType, severity, forceMock } = params
+  if (!USE_API || forceMock) return []
+
+  const args = []
+  if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
+  if (timeStep !== undefined && timeStep !== '') args.push(`time_step=${encodeURIComponent(timeStep)}`)
+  if (eventType) args.push(`event_type=${encodeURIComponent(eventType)}`)
+  if (severity) args.push(`severity=${encodeURIComponent(severity)}`)
+  const query = args.length > 0 ? `?${args.join('&')}` : ''
+
+  try {
+    const data = await fetchJson(apiUrl(`/api/workers/anomalies${query}`), 4000)
+    return normalizeApiPayload(data)
+  } catch (err) {
+    console.warn('Worker anomaly API request failed.', err)
+    return []
+  }
+}
+
+export async function getWorkerAnomalySummary(params = {}) {
+  if (!USE_API || params.forceMock) {
+    return { source: 'uwb_behavior_anomaly', summary: { event_count: 0 }, warnings: [] }
+  }
+
+  try {
+    const data = await fetchJson(apiUrl('/api/workers/anomalies/summary'), 4000)
+    return normalizeApiPayload(data)
+  } catch (err) {
+    console.warn('Worker anomaly summary API request failed.', err)
+    return { source: 'uwb_behavior_anomaly', summary: { event_count: 0 }, warnings: [] }
+  }
+}
+
 export async function getGasSensors(params = {}) {
   const { timeStep, forceMock } = params
   const query = timeStep !== undefined && timeStep !== '' ? `?time_step=${timeStep}` : ''
@@ -140,12 +174,13 @@ export async function getSimulationState(params = {}) {
 const _simCache = new Map()
 
 export async function getSimulationScenario(params = {}) {
-  const { scenarioId, timeStep, forceMock } = params
+  const { scenarioId, timeStep, workerId, forceMock } = params
   const args = []
-  if (scenarioId) args.push(`scenario_id=${scenarioId}`)
-  if (timeStep !== undefined) args.push(`time_step=${timeStep}`)
+  if (scenarioId) args.push(`scenario_id=${encodeURIComponent(scenarioId)}`)
+  if (timeStep !== undefined) args.push(`time_step=${encodeURIComponent(timeStep)}`)
+  if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
   const query = args.length > 0 ? `?${args.join('&')}` : ''
-  const cacheKey = `${scenarioId}_${timeStep}`
+  const cacheKey = `${scenarioId}_${timeStep}_${workerId || 'none'}`
   if (!forceMock && _simCache.has(cacheKey)) return _simCache.get(cacheKey)
   const result = await fetchApiOrMock(`/api/simulation/scenario${query}`, 'segments.json', forceMock)
   if (!forceMock) _simCache.set(cacheKey, result)
@@ -159,11 +194,11 @@ export async function getTrappedState(params = {}) {
 }
 
 export async function getIntegrationStatus(params = {}) {
-  const { timeStep, scenarioId } = params
+  const { timeStep, scenarioId, workerId } = params
   const args = []
-  if (timeStep !== undefined) args.push(`time_step=${timeStep}`)
-  if (scenarioId) args.push(`scenario_id=${scenarioId}`)
+  if (timeStep !== undefined) args.push(`time_step=${encodeURIComponent(timeStep)}`)
+  if (scenarioId) args.push(`scenario_id=${encodeURIComponent(scenarioId)}`)
+  if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
   const query = args.length > 0 ? `?${args.join('&')}` : ''
   return fetchApiOrMock(`/api/integration/status${query}`, 'system_status.json')
 }
-

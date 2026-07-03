@@ -403,6 +403,11 @@
   margin: 8px 0 0;
 }
 
+.panel-warning-text {
+  color: #f5a623;
+  font-weight: 600;
+}
+
 .text-ok {
   color: #3ddc84;
 }
@@ -461,6 +466,56 @@
 .worker-status--safe {
   background: #3ddc84;
   color: #0c0e13;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+  font-size: 0.78rem;
+  color: #c7cedb;
+}
+
+.metric-grid span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.metric-grid--scores {
+  margin-top: 4px;
+  color: #aab2c2;
+}
+
+.anomaly-list {
+  display: grid;
+  gap: 8px;
+}
+
+.anomaly-card {
+  border: 1px solid #2a2f3a;
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.anomaly-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8rem;
+}
+
+.anomaly-card-meta {
+  color: #8a92a6;
+  font-size: 0.74rem;
+  margin-top: 3px;
+}
+
+.anomaly-card-reason {
+  color: #c7cedb;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  margin-top: 5px;
 }
 
 .scenario-controls {
