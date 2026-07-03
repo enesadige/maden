@@ -21,7 +21,10 @@ def get_gas_sensors(time_step: int | None = 0, fallback: str = "first") -> list[
     sensors = []
     for item in selected:
         sensor = normalize_record_ids(item)
-        sensor["risk_score"] = sensor.get("methane_risk_score", sensor.get("risk_score", 0.0))
+        sensor["risk_score"] = sensor.get(
+            "environmental_risk",
+            sensor.get("methane_risk_score", sensor.get("risk_score", 0.0)),
+        )
         sensor["risk_level"] = _risk_level_from_sensor(sensor)
         sensor.setdefault("gas_type", "methane")
         sensors.append(sensor)
@@ -34,9 +37,13 @@ def get_environmental_risks(time_step: int | None = 0, fallback: str = "first") 
     risks = []
     for item in selected:
         risk = normalize_record_ids(item)
+        measurements = risk.get("measurements") if isinstance(risk.get("measurements"), dict) else {}
         risk["risk_score"] = risk.get("environmental_risk", risk.get("methane_risk_score", 0.0))
         risk["gas_risk_score"] = risk["risk_score"]
-        risk["methane_ppm"] = risk.get("methane_value", 0.0)
+        risk["methane_ppm"] = measurements.get("methane_ppm", risk.get("methane_value", 0.0))
+        for key in ("co_ppm", "oxygen_percent", "temperature_c", "humidity_percent", "pressure_hpa"):
+            if key in measurements:
+                risk[key] = measurements[key]
         risks.append(risk)
     return risks
 

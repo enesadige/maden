@@ -30,6 +30,11 @@ class ApiSmokeTests(SimpleTestCase):
     def _expected_worker_pairs(cls, records):
         return [(item["worker_id"], item.get("current_segment")) for item in records]
 
+    @classmethod
+    def _anomaly_events(cls):
+        payload = cls._load_json("workers/behavior_anomaly_events.json")
+        return payload.get("events", [])
+
     def test_health_endpoint(self):
         response = self.client.get("/api/health")
 
@@ -142,6 +147,15 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertIn("trapped", data)
         self.assertIn("route_segments", data)
 
+    def test_emergency_route_endpoint_defaults_to_available_worker(self):
+        expected_worker = self._timeline_workers(27)[0]
+        response = self.client.get("/api/routes/emergency?time_step=27&blocked_segment=S999")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["worker_id"], expected_worker["worker_id"])
+        self.assertEqual(data["start_segment"], expected_worker["current_segment"])
+
     def test_risk_endpoint_returns_current_integrated_risk(self):
         response = self.client.get("/api/risk/segments")
 
@@ -159,6 +173,31 @@ class ApiSmokeTests(SimpleTestCase):
             places=3,
         )
 
+    def test_risk_endpoint_includes_multisensor_environmental_details(self):
+        response = self.client.get("/api/risk/segments?time_step=0")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        sensor_segment = next(item for item in data if item["active_sensor_ids"])
+        self.assertIn("environmental_measurements", sensor_segment)
+        self.assertIn("environmental_component_scores", sensor_segment)
+        self.assertIn("weighted_multi_sensor_risk", sensor_segment)
+        self.assertIn("sensor_confidence", sensor_segment)
+        self.assertIn("environmental_detail", sensor_segment["risk_breakdown"])
+        self.assertIn("methane_ppm", sensor_segment["environmental_measurements"])
+        self.assertIn("co_risk", sensor_segment["environmental_component_scores"])
+
+    def test_risk_endpoint_includes_worker_behavior_anomaly_summary(self):
+        first_event = self._anomaly_events()[0]
+        response = self.client.get(f"/api/risk/segments?time_step={first_event['time_step']}")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        segment = next(item for item in data if item["segment_id"] == first_event["segment_id"])
+        self.assertGreaterEqual(segment["behavior_event_count"], 1)
+        self.assertIn(first_event["event_type"], segment["behavior_anomaly_event_types"])
+        self.assertIn("behavior_anomaly", segment["risk_breakdown"])
+
     def test_gas_sensors_endpoint_returns_recep_records(self):
         response = self.client.get("/api/gas-sensors?time_step=0")
 
@@ -167,6 +206,29 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(len(data), 3)
         self.assertIn("risk_score", data[0])
         self.assertIn("gas_type", data[0])
+        self.assertEqual(data[0]["risk_score"], data[0]["environmental_risk"])
+        self.assertIn("component_scores", data[0])
+
+    def test_worker_anomalies_endpoint_filters_events(self):
+        first_event = self._anomaly_events()[0]
+        response = self.client.get(
+            f"/api/workers/anomalies?worker_id={first_event['worker_id']}&time_step={first_event['time_step']}&event_type={first_event['event_type']}"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertGreaterEqual(len(data), 1)
+        self.assertTrue(all(item["worker_id"] == first_event["worker_id"] for item in data))
+        self.assertTrue(all(item["time_step"] == first_event["time_step"] for item in data))
+        self.assertTrue(all(item["event_type"] == first_event["event_type"] for item in data))
+
+    def test_worker_anomaly_summary_endpoint(self):
+        response = self.client.get("/api/workers/anomalies/summary")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["source"], "uwb_behavior_anomaly")
+        self.assertEqual(data["summary"]["event_count"], len(self._anomaly_events()))
 
     def test_simulation_state_returns_joined_initial_state(self):
         time_step = 0
@@ -227,6 +289,16 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["scenario"]["scenario_id"], "methane_spike")
         self.assertEqual(data["scenario"]["label"], "Methane Spike")
         self.assertTrue(any(sensor.get("status") == "alarm" for sensor in data["gas_sensors"]))
+
+    def test_simulation_scenario_worker_at_risk_accepts_selected_worker(self):
+        selected_worker_id = "WORKER_05"
+        response = self.client.get(f"/api/simulation/scenario?scenario_id=worker_at_risk&time_step=27&worker_id={selected_worker_id}")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["scenario"]["worker_id"], selected_worker_id)
+        worker = next(item for item in data["workers"] if item["worker_id"] == selected_worker_id)
+        self.assertEqual(worker["status"], "at_risk")
 
     def test_integration_status_endpoint_returns_contract_summary(self):
         response = self.client.get("/api/integration/status?time_step=27&scenario_id=collapse_s004")

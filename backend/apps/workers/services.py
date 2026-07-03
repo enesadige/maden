@@ -57,3 +57,58 @@ def get_workers(time_step: int | None = 0) -> list[dict[str, Any]]:
     if workers:
         return workers
     return _latest_workers()
+
+
+def _behavior_anomaly_payload() -> dict[str, Any]:
+    raw = load_json("workers/behavior_anomaly_events.json", default={})
+    if isinstance(raw, dict):
+        return raw
+    if isinstance(raw, list):
+        return {
+            "source": "uwb_behavior_anomaly",
+            "mvp_rule_based": True,
+            "events": raw,
+            "summary": {},
+            "warnings": [],
+        }
+    return {
+        "source": "uwb_behavior_anomaly",
+        "mvp_rule_based": True,
+        "events": [],
+        "summary": {},
+        "warnings": [],
+    }
+
+
+def get_worker_anomalies(
+    time_step: int | None = None,
+    worker_id: str | None = None,
+    event_type: str | None = None,
+    severity: str | None = None,
+) -> list[dict[str, Any]]:
+    payload = _behavior_anomaly_payload()
+    events = payload.get("events", [])
+    if not isinstance(events, list):
+        return []
+
+    normalized_events = [normalize_record_ids(item) for item in events if isinstance(item, dict)]
+    if time_step is not None:
+        normalized_events = [item for item in normalized_events if item.get("time_step") == time_step]
+    if worker_id:
+        normalized_events = [item for item in normalized_events if item.get("worker_id") == worker_id]
+    if event_type:
+        normalized_events = [item for item in normalized_events if item.get("event_type") == event_type]
+    if severity:
+        normalized_events = [item for item in normalized_events if item.get("severity") == severity]
+    return normalized_events
+
+
+def get_worker_anomaly_summary() -> dict[str, Any]:
+    payload = _behavior_anomaly_payload()
+    summary = payload.get("summary", {})
+    return {
+        "source": payload.get("source", "uwb_behavior_anomaly"),
+        "mvp_rule_based": payload.get("mvp_rule_based", True),
+        "summary": summary if isinstance(summary, dict) else {},
+        "warnings": payload.get("warnings", []),
+    }

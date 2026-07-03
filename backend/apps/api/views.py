@@ -12,7 +12,7 @@ from apps.routing.services import get_emergency_route
 from apps.scenarios.services import get_collapse_result
 from apps.sensors.services import get_environmental_risks, get_gas_sensors
 from apps.simulation.services import get_integration_status, get_scenario_state, get_simulation_state, get_trapped_analysis
-from apps.workers.services import get_workers
+from apps.workers.services import get_worker_anomalies, get_worker_anomaly_summary, get_workers
 
 
 @require_GET
@@ -51,6 +51,24 @@ def workers(request):
 
 
 @require_GET
+def worker_anomalies(request):
+    time_step = get_time_step(request, default=None)
+    return api_response(
+        get_worker_anomalies(
+            time_step=time_step,
+            worker_id=request.GET.get("worker_id"),
+            event_type=request.GET.get("event_type"),
+            severity=request.GET.get("severity"),
+        )
+    )
+
+
+@require_GET
+def worker_anomaly_summary(request):
+    return api_response(get_worker_anomaly_summary())
+
+
+@require_GET
 def risk_segments(request):
     return api_response(get_segment_risks(get_time_step(request)))
 
@@ -83,13 +101,15 @@ def simulation_trapped(request):
 @require_GET
 def simulation_scenario(request):
     scenario_id = request.GET.get("scenario_id") or request.GET.get("scenario") or "normal"
-    return api_response(get_scenario_state(scenario_id, get_time_step(request, default=0)))
+    worker_id = request.GET.get("worker_id")
+    return api_response(get_scenario_state(scenario_id, get_time_step(request, default=0), worker_id=worker_id))
 
 
 @require_GET
 def integration_status(request):
     scenario_id = request.GET.get("scenario_id") or request.GET.get("scenario")
-    return api_response(get_integration_status(get_time_step(request, default=0), scenario_id=scenario_id))
+    worker_id = request.GET.get("worker_id")
+    return api_response(get_integration_status(get_time_step(request, default=0), scenario_id=scenario_id, worker_id=worker_id))
 
 
 @require_GET
@@ -100,21 +120,30 @@ def collapse_scenario(request):
 @require_GET
 def emergency_route(request):
     time_step = get_time_step(request)
-    worker_id = request.GET.get("worker_id", "WORKER_01")
+    requested_worker_id = request.GET.get("worker_id")
+    worker_id = requested_worker_id
     exit_node = request.GET.get("exit_node", "3")
     scenario_id = request.GET.get("scenario")
 
     collapse = get_collapse_result()
-    scenario_state = get_scenario_state(scenario_id, time_step) if scenario_id else None
-    scenario_blocked_segment = scenario_state.get("scenario", {}).get("blocked_segment") if scenario_state else None
-    blocked_segment = request.GET.get("blocked_segment") or scenario_blocked_segment or collapse.get("blocked_segment")
-
     start_segment = request.GET.get("segment_id")
     if not start_segment:
-        matching_workers = [item for item in get_workers(time_step) if item.get("worker_id") == worker_id]
-        if not matching_workers:
-            return error_response("worker_not_found", status=404, worker_id=worker_id, time_step=time_step)
-        start_segment = matching_workers[0].get("current_segment")
+        workers_at_time = get_workers(time_step)
+        if requested_worker_id:
+            matching_workers = [item for item in workers_at_time if item.get("worker_id") == requested_worker_id]
+            if not matching_workers:
+                return error_response("worker_not_found", status=404, worker_id=requested_worker_id, time_step=time_step)
+            selected_worker = matching_workers[0]
+        else:
+            if not workers_at_time:
+                return error_response("worker_not_found", status=404, worker_id=None, time_step=time_step)
+            selected_worker = workers_at_time[0]
+        worker_id = selected_worker.get("worker_id")
+        start_segment = selected_worker.get("current_segment")
+
+    scenario_state = get_scenario_state(scenario_id, time_step, worker_id=worker_id) if scenario_id else None
+    scenario_blocked_segment = scenario_state.get("scenario", {}).get("blocked_segment") if scenario_state else None
+    blocked_segment = request.GET.get("blocked_segment") or scenario_blocked_segment or collapse.get("blocked_segment")
 
     route = get_emergency_route(
         start_segment=normalize_segment_id(start_segment),
@@ -124,7 +153,7 @@ def emergency_route(request):
         time_step=time_step,
     )
     route["worker_id"] = worker_id
-    route["affected_workers"] = [worker_id]
+    route["affected_workers"] = [worker_id] if worker_id else []
     route["time_step"] = time_step
     if scenario_state:
         route["scenario_id"] = scenario_state.get("scenario_id")

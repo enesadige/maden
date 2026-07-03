@@ -6,7 +6,7 @@ from apps.common.ids import normalize_record_ids, normalize_segment_id
 from apps.common.json_store import filter_time_step, load_json
 from apps.lidar.services import get_geometry_risks, get_segments
 from apps.sensors.services import get_environmental_risks
-from apps.workers.services import get_workers
+from apps.workers.services import get_worker_anomalies, get_workers
 
 
 RISK_WEIGHTS = {
@@ -81,6 +81,62 @@ def _environmental_by_segment(time_step: int | None, fallback: str = "first") ->
     return grouped
 
 
+def _environmental_detail(record: dict[str, Any]) -> dict[str, Any]:
+    if not record:
+        return {}
+    return {
+        "sensor_id": record.get("sensor_id"),
+        "source_column": record.get("source_column"),
+        "timestamp": record.get("timestamp"),
+        "methane_value": record.get("methane_value"),
+        "methane_risk_score": record.get("methane_risk_score"),
+        "anomaly_score": record.get("anomaly_score"),
+        "weighted_multi_sensor_risk": record.get("weighted_multi_sensor_risk"),
+        "measurements": record.get("measurements", {}),
+        "component_scores": record.get("component_scores", {}),
+        "sensor_reliability_score": record.get("sensor_reliability_score"),
+        "confidence": record.get("confidence"),
+        "reliability_status": record.get("reliability_status"),
+        "reliability_reason": record.get("reliability_reason"),
+        "reliability_reasons": record.get("reliability_reasons", []),
+        "environmental_risk_reason": record.get("environmental_risk_reason", []),
+        "environmental_risk_formula": record.get("environmental_risk_formula"),
+    }
+
+
+def _behavior_anomalies_by_segment(time_step: int | None) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, dict[str, Any]] = {}
+    for event in get_worker_anomalies(time_step=time_step):
+        segment_id = event.get("segment_id")
+        if not segment_id:
+            continue
+        bucket = grouped.setdefault(
+            segment_id,
+            {
+                "behavior_anomaly_score": 0.0,
+                "behavior_event_count": 0,
+                "critical_behavior_event_count": 0,
+                "behavior_anomaly_event_types": set(),
+                "behavior_anomaly_worker_ids": set(),
+            },
+        )
+        score = float(event.get("score", 0.0) or 0.0)
+        bucket["behavior_anomaly_score"] = max(bucket["behavior_anomaly_score"], score)
+        bucket["behavior_event_count"] += 1
+        if event.get("severity") == "critical":
+            bucket["critical_behavior_event_count"] += 1
+        if event.get("event_type"):
+            bucket["behavior_anomaly_event_types"].add(event["event_type"])
+        if event.get("worker_id"):
+            bucket["behavior_anomaly_worker_ids"].add(event["worker_id"])
+
+    for bucket in grouped.values():
+        bucket["behavior_anomaly_score"] = round(bucket["behavior_anomaly_score"], 3)
+        bucket["behavior_anomaly_event_types"] = sorted(bucket["behavior_anomaly_event_types"])
+        bucket["behavior_anomaly_worker_ids"] = sorted(bucket["behavior_anomaly_worker_ids"])
+    return grouped
+
+
 def _worker_exposure_from_workers(workers: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     grouped: dict[str, dict[str, Any]] = {}
     for worker in workers:
@@ -145,6 +201,7 @@ def get_segment_risks(
     geometry = {item["segment_id"]: item for item in get_geometry_risks()}
     environmental = _environmental_by_segment(time_step, fallback=sensor_fallback)
     worker_exposure = _worker_exposure_by_segment(time_step, workers_override=workers_override)
+    behavior_anomalies = _behavior_anomalies_by_segment(time_step)
 
     risks = []
     for segment in segments:
@@ -152,6 +209,7 @@ def get_segment_risks(
         geo = geometry.get(segment_id, {})
         env = environmental.get(segment_id, {})
         worker = worker_exposure.get(segment_id, {})
+        behavior = behavior_anomalies.get(segment_id, {})
 
         geometry_risk = float(geo.get("geometry_risk", segment.get("geometry_risk", 0.0)) or 0.0)
         environmental_risk = float(env.get("risk_score", env.get("environmental_risk", 0.0)) or 0.0)
@@ -164,6 +222,11 @@ def get_segment_risks(
             worker_risk=worker_risk,
             tracking_risk=tracking_risk,
         )
+        env_detail = _environmental_detail(env)
+        if env_detail:
+            breakdown["environmental_detail"] = env_detail
+        if behavior:
+            breakdown["behavior_anomaly"] = dict(behavior)
         final_score = breakdown["total"]
         level = _risk_level(final_score)
         active_reasons = []
@@ -171,10 +234,15 @@ def get_segment_risks(
             active_reasons.extend(geo["reasons"][:3])
         if environmental_risk > 0:
             active_reasons.append(f"Methane/environmental risk {environmental_risk:.1f}")
+            for reason in (env.get("environmental_risk_reason") or [])[:3]:
+                if reason not in active_reasons:
+                    active_reasons.append(str(reason))
         if worker_risk > 0:
             active_reasons.append("Worker occupancy in segment")
         if tracking_risk > 0:
             active_reasons.append(f"Tracking reliability risk {tracking_risk:.1f}")
+        if behavior.get("critical_behavior_event_count", 0) > 0:
+            active_reasons.append(f"Critical worker behavior anomaly x{behavior['critical_behavior_event_count']}")
         if not active_reasons:
             active_reasons.append("No active anomaly")
 
@@ -190,9 +258,24 @@ def get_segment_risks(
             "lidar_geometry_risk": geometry_risk,
             "environmental_risk": environmental_risk,
             "methane_risk_score": environmental_risk,
+            "weighted_multi_sensor_risk": env.get("weighted_multi_sensor_risk"),
+            "environmental_measurements": env.get("measurements", {}),
+            "environmental_component_scores": env.get("component_scores", {}),
+            "sensor_reliability_score": env.get("sensor_reliability_score"),
+            "sensor_confidence": env.get("confidence"),
+            "reliability_status": env.get("reliability_status"),
+            "reliability_reason": env.get("reliability_reason"),
+            "reliability_reasons": env.get("reliability_reasons", []),
+            "environmental_risk_reason": env.get("environmental_risk_reason", []),
+            "environmental_risk_formula": env.get("environmental_risk_formula"),
             "worker_exposure_risk": worker_risk,
             "worker_exposure_score": worker_risk,
             "tracking_risk_score": tracking_risk,
+            "worker_behavior_anomaly_score": behavior.get("behavior_anomaly_score", 0.0),
+            "behavior_event_count": behavior.get("behavior_event_count", 0),
+            "critical_behavior_event_count": behavior.get("critical_behavior_event_count", 0),
+            "behavior_anomaly_event_types": behavior.get("behavior_anomaly_event_types", []),
+            "behavior_anomaly_worker_ids": behavior.get("behavior_anomaly_worker_ids", []),
             "route_blockage_risk": 0.0,
             "active_worker_ids": worker.get("active_worker_ids", []),
             "active_sensor_ids": [env["sensor_id"]] if env.get("sensor_id") else [],

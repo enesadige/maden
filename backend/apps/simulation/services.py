@@ -73,6 +73,14 @@ def _clone_record_list(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [_clone_record(record) for record in records]
 
 
+def _select_worker(workers: list[dict[str, Any]], worker_id: str | None = None) -> dict[str, Any] | None:
+    if worker_id:
+        selected = next((item for item in workers if item.get("worker_id") == worker_id), None)
+        if selected:
+            return selected
+    return workers[0] if workers else None
+
+
 def _enrich_segments(
     segments: list[dict[str, Any]],
     risks: list[dict[str, Any]],
@@ -158,9 +166,12 @@ def _apply_methane_spike(segments: list[dict[str, Any]], risks: list[dict[str, A
     }
 
 
-def _apply_worker_at_risk(workers: list[dict[str, Any]], risks: list[dict[str, Any]]) -> dict[str, Any]:
-    workers_by_id = {item.get("worker_id"): item for item in workers}
-    target_worker = workers_by_id.get("WORKER_01") or (workers[0] if workers else None)
+def _apply_worker_at_risk(
+    workers: list[dict[str, Any]],
+    risks: list[dict[str, Any]],
+    worker_id: str | None = None,
+) -> dict[str, Any]:
+    target_worker = _select_worker(workers, worker_id)
     if target_worker:
         target_worker["status"] = "at_risk"
         target_worker.setdefault("scenario_flags", [])
@@ -224,7 +235,7 @@ def _apply_collapse(workers: list[dict[str, Any]], segments: list[dict[str, Any]
     }
 
 
-def build_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]:
+def build_scenario_state(scenario_id: str, time_step: int = 0, worker_id: str | None = None) -> dict[str, Any]:
     scenario_id = str(scenario_id or "normal")
     segments = _clone_record_list(get_segments())
     graph = get_graph()
@@ -251,12 +262,13 @@ def build_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]
         scenario_result = _apply_collapse(workers, segments, risks)
         scenario_id = "collapse_s004"
     elif scenario_id == "worker_at_risk":
-        scenario_result = _apply_worker_at_risk(workers, risks)
+        scenario_result = _apply_worker_at_risk(workers, risks, worker_id=worker_id)
     elif scenario_id == "show_route":
+        route_worker = _select_worker(workers, worker_id)
         route_preview = get_emergency_route(
-            start_segment=workers[0].get("current_segment") if workers else "S001",
+            start_segment=route_worker.get("current_segment") if route_worker else "S001",
             blocked_segment=None,
-            worker_id=workers[0].get("worker_id") if workers else None,
+            worker_id=route_worker.get("worker_id") if route_worker else None,
             time_step=time_step,
         )
         scenario_result = {
@@ -304,12 +316,12 @@ def build_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]
     }
 
 
-def get_scenario_state(scenario_id: str, time_step: int = 0) -> dict[str, Any]:
-    return build_scenario_state(scenario_id, time_step=time_step)
+def get_scenario_state(scenario_id: str, time_step: int = 0, worker_id: str | None = None) -> dict[str, Any]:
+    return build_scenario_state(scenario_id, time_step=time_step, worker_id=worker_id)
 
 
-def get_integration_status(time_step: int = 0, scenario_id: str | None = None) -> dict[str, Any]:
-    state = get_scenario_state(scenario_id, time_step=time_step) if scenario_id else get_simulation_state(time_step)
+def get_integration_status(time_step: int = 0, scenario_id: str | None = None, worker_id: str | None = None) -> dict[str, Any]:
+    state = get_scenario_state(scenario_id, time_step=time_step, worker_id=worker_id) if scenario_id else get_simulation_state(time_step)
     worker_steps = get_worker_time_steps()
     gas_steps = get_gas_time_steps()
     shared_steps = sorted(set(worker_steps) & set(gas_steps))
