@@ -308,6 +308,37 @@
   pointer-events: none;
 }
 
+.demo-worker-chip,
+.demo-sensor-chip {
+  min-width: 28px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: #061018;
+  border-radius: 999px;
+  padding: 4px 7px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.demo-worker-chip {
+  background: #2da8ff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.demo-worker-chip--selected {
+  background: #ffffff;
+  color: #0b0d14;
+}
+
+.demo-sensor-chip {
+  background: #f5a623;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
 .segment-label {
   font-size: 11px;
   color: #e6e8ee;

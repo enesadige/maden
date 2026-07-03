@@ -40,6 +40,7 @@ export default function App() {
   const [selectedScenario, setSelectedScenario] = useState('normal')
   const [selectedSegmentId, setSelectedSegmentId] = useState(null)
   const [viewMode, setViewMode] = useState('admin')
+  const [adminViewTab, setAdminViewTab] = useState('map')
   const [selectedWorkerId, setSelectedWorkerId] = useState(null)
   const [selectedTimeStep, setSelectedTimeStep] = useState(0)
   const [committedTimeStep, setCommittedTimeStep] = useState(0)
@@ -235,7 +236,7 @@ export default function App() {
 
   const activeScenarioLabel = scenarios.find((s) => s.scenario_id === selectedScenario)?.label || selectedScenario
 
-  if (loading) {
+  if (loading && !baseData) {
     return (
       <div className="full-page-message" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0b0d14', color: '#fff', height: '100vh', fontFamily: 'sans-serif' }}>
         <div className="spinner" style={{ width: '40px', height: '40px', border: '4px solid #1a1e29', borderTopColor: '#34f5c5', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
@@ -299,6 +300,8 @@ export default function App() {
           availableTimeSteps={baseData?.availableTimeSteps}
           selectedWorkerId={selectedWorkerId}
           onSelectWorker={setSelectedWorkerId}
+          viewTab={adminViewTab}
+          onViewTabChange={setAdminViewTab}
         />
       ) : (
         <MinerDashboard

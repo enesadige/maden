@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DigitalTwinViewer from './DigitalTwinViewer'
 import MineMapView from './MineMapView'
 import RiskPanel from './RiskPanel'
@@ -31,13 +31,19 @@ export default function AdminDashboard({
   onTimeStepChange,
   availableTimeSteps,
   selectedWorkerId,
-  onSelectWorker
+  onSelectWorker,
+  viewTab,
+  onViewTabChange
 }) {
-  const [viewTab, setViewTab] = useState('map')
-  const [has3dOpened, setHas3dOpened] = useState(false)
+  const activeViewTab = viewTab || 'map'
+  const [has3dOpened, setHas3dOpened] = useState(activeViewTab === '3d')
+
+  useEffect(() => {
+    if (activeViewTab === '3d') setHas3dOpened(true)
+  }, [activeViewTab])
 
   function handleTabChange(tab) {
-    setViewTab(tab)
+    onViewTabChange?.(tab)
     if (tab === '3d') setHas3dOpened(true)
   }
   const criticalCount = risks.filter((r) => r.risk_level === 'critical').length
@@ -52,14 +58,14 @@ export default function AdminDashboard({
           <div className="viewer-tabs">
             <button
               type="button"
-              className={`viewer-tab${viewTab === 'map' ? ' viewer-tab--active' : ''}`}
+              className={`viewer-tab${activeViewTab === 'map' ? ' viewer-tab--active' : ''}`}
               onClick={() => handleTabChange('map')}
             >
               Harita Görünümü
             </button>
             <button
               type="button"
-              className={`viewer-tab${viewTab === '3d' ? ' viewer-tab--active' : ''}`}
+              className={`viewer-tab${activeViewTab === '3d' ? ' viewer-tab--active' : ''}`}
               onClick={() => handleTabChange('3d')}
             >
               3B LiDAR Görünümü
@@ -67,7 +73,7 @@ export default function AdminDashboard({
           </div>
 
           <div className="viewer-stage" style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: viewTab === 'map' ? 'block' : 'none', flex: 1, position: 'relative' }}>
+            <div style={{ display: activeViewTab === 'map' ? 'block' : 'none', flex: 1, position: 'relative' }}>
               <MineMapView
                 segments={segments}
                 risks={risks}
@@ -79,7 +85,7 @@ export default function AdminDashboard({
                 onSegmentSelect={onSegmentSelect}
               />
             </div>
-            <div style={{ display: viewTab === '3d' ? 'block' : 'none', flex: 1, position: 'relative' }}>
+            <div style={{ display: activeViewTab === '3d' ? 'block' : 'none', flex: 1, position: 'relative' }}>
               {has3dOpened && (
                 <DigitalTwinViewer
                   segments={segments}
@@ -88,6 +94,7 @@ export default function AdminDashboard({
                   gasSensors={gasSensors}
                   emergencyRoute={emergencyRoute}
                   selectedSegmentId={selectedSegmentId}
+                  selectedWorkerId={selectedWorkerId}
                   onSegmentSelect={onSegmentSelect}
                 />
               )}

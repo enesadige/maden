@@ -18,6 +18,124 @@ const SHORT_LABELS = {
   S005: 'Derin Tünel'
 }
 
+const AXIS_KEYS = ['x', 'y', 'z']
+const WORKER_OVERLAY_OFFSETS = [
+  [-1.8, 0, 2.2],
+  [0, 0, 2.5],
+  [1.8, 0, 2.2],
+  [-2.4, 0, 0.4],
+  [2.4, 0, 0.4],
+  [-1.8, 0, -1.6],
+  [1.8, 0, -1.6],
+  [0, 0, -2.4]
+]
+
+function pointToArray(point) {
+  if (Array.isArray(point)) return [Number(point[0]) || 0, Number(point[1]) || 0, Number(point[2]) || 0]
+  if (point && typeof point === 'object') return [Number(point.x) || 0, Number(point.y) || 0, Number(point.z) || 0]
+  return [0, 0, 0]
+}
+
+function getPointBounds(points) {
+  const min = [Infinity, Infinity, Infinity]
+  const max = [-Infinity, -Infinity, -Infinity]
+  for (const point of points) {
+    const arr = pointToArray(point)
+    for (let i = 0; i < 3; i++) {
+      min[i] = Math.min(min[i], arr[i])
+      max[i] = Math.max(max[i], arr[i])
+    }
+  }
+  const size = min.map((value, index) => Math.max(max[index] - value, 0.0001))
+  const center = min.map((value, index) => value + size[index] / 2)
+  return { min, max, size, center }
+}
+
+function largestAxes(size, count = 2) {
+  return [0, 1, 2].sort((a, b) => size[b] - size[a]).slice(0, count)
+}
+
+function createPlyOverlayTransform(segments, plyBounds) {
+  if (!plyBounds?.min || !plyBounds?.max || !segments?.length) return null
+  const centers = segments.map(segment => segment.center).filter(Boolean)
+  if (!centers.length) return null
+
+  const source = getPointBounds(centers)
+  const [sourceAxisA, sourceAxisB] = largestAxes(source.size, 2)
+  const sourceVerticalAxis = [0, 1, 2].find(axis => axis !== sourceAxisA && axis !== sourceAxisB) ?? 2
+
+  const targetMin = [plyBounds.min.x, plyBounds.min.y, plyBounds.min.z]
+  const targetMax = [plyBounds.max.x, plyBounds.max.y, plyBounds.max.z]
+  const targetSize = [plyBounds.size.x, plyBounds.size.y, plyBounds.size.z]
+  const targetPaddingX = targetSize[0] * 0.06
+  const targetPaddingZ = targetSize[2] * 0.06
+  const targetY = targetMax[1] + Math.max(targetSize[1] * 0.16, 1.8)
+  const verticalRange = Math.max(targetSize[1] * 0.18, 2.5)
+
+  function mapAxis(value, sourceAxis, targetAxis, padding = 0) {
+    const normalized = (value - source.min[sourceAxis]) / source.size[sourceAxis]
+    return targetMin[targetAxis] + padding + normalized * Math.max(targetSize[targetAxis] - padding * 2, 0.0001)
+  }
+
+  return (point, extraY = 0) => {
+    const arr = pointToArray(point)
+    const verticalOffset = ((arr[sourceVerticalAxis] - source.center[sourceVerticalAxis]) / source.size[sourceVerticalAxis]) * verticalRange
+    return [
+      mapAxis(arr[sourceAxisA], sourceAxisA, 0, targetPaddingX),
+      targetY + verticalOffset + extraY,
+      mapAxis(arr[sourceAxisB], sourceAxisB, 2, targetPaddingZ)
+    ]
+  }
+}
+
+function transformSegmentsForPly(segments, transformPoint) {
+  if (!transformPoint) return segments
+  return segments.map(segment => ({ ...segment, center: transformPoint(segment.center) }))
+}
+
+function buildSegmentMap(segments) {
+  const map = {}
+  for (const segment of segments) map[segment.segment_id] = segment
+  return map
+}
+
+function buildWorkerOverlayData(workers, sourceSegments, transformPoint) {
+  if (!transformPoint) return workers
+  const sourceMap = buildSegmentMap(sourceSegments)
+  const slotBySegment = new Map()
+  return workers.map(worker => {
+    const segment = sourceMap[worker.current_segment]
+    const basePoint = segment?.center || worker.position
+    const slot = slotBySegment.get(worker.current_segment) || 0
+    slotBySegment.set(worker.current_segment, slot + 1)
+    const offset = WORKER_OVERLAY_OFFSETS[slot % WORKER_OVERLAY_OFFSETS.length]
+    const position = transformPoint(basePoint, 1.8).map((value, index) => value + offset[index])
+    return { ...worker, position }
+  })
+}
+
+function buildSensorOverlayData(gasSensors, sourceSegments, transformPoint) {
+  if (!transformPoint) return gasSensors || []
+  const sourceMap = buildSegmentMap(sourceSegments)
+  return (gasSensors || []).map((sensor, index) => {
+    const segment = sourceMap[sensor.segment_id]
+    const basePoint = segment?.center || sensor.position
+    const side = index % 2 === 0 ? 1 : -1
+    const position = transformPoint(basePoint, 2.5)
+    return { ...sensor, position: [position[0] + side * 2.6, position[1], position[2] - 2.4] }
+  })
+}
+
+function shortWorkerLabel(workerId) {
+  const match = String(workerId || '').match(/(\d+)$/)
+  return match ? `W${match[1].padStart(2, '0')}` : 'W'
+}
+
+function shortSensorLabel(sensorId, index) {
+  const match = String(sensorId || '').match(/(\d+)$/)
+  return match ? `G${match[1].padStart(2, '0')}` : `G${String(index + 1).padStart(2, '0')}`
+}
+
 // ─── Error Boundary ───────────────────────────────────────────────────────────
 
 class ModelErrorBoundary extends Component {
@@ -400,7 +518,7 @@ function EmergencyRouteLine({ emergencyRoute, segments }) {
 
 // ─── Demo Overlay (shown when PLY loaded + mode = 'demo') ─────────────────────
 
-function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, onSelect }) {
+function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, selectedWorkerId, onSelect }) {
   const riskBySegment = useMemo(() => {
     const map = {}
     for (const risk of risks) map[risk.segment_id] = risk
@@ -426,14 +544,16 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
         const risk = riskBySegment[seg.segment_id]
         const color = getRiskColor(risk?.risk_level, seg.is_blocked)
         const isSelected = selectedSegmentId === seg.segment_id
+        const isRouteSegment = routeIds.includes(seg.segment_id)
         return (
           <group key={seg.segment_id} position={seg.center}>
             <mesh onClick={e => { e.stopPropagation(); onSelect(seg.segment_id) }}>
-              <sphereGeometry args={[isSelected ? 0.13 : 0.07, 10, 10]} />
-              <meshBasicMaterial color={color} transparent opacity={isSelected ? 0.7 : 0.4} />
+              <sphereGeometry args={[isSelected ? 0.42 : isRouteSegment ? 0.28 : 0.18, 16, 16]} />
+              <meshBasicMaterial color={color} transparent opacity={isSelected || isRouteSegment || seg.is_blocked ? 0.95 : 0.7} />
             </mesh>
+            {seg.is_blocked && <><BlockedMark /><DebrisField /></>}
             {isSelected && (
-              <Html distanceFactor={18} position={[0, 0.55, 0]}>
+              <Html distanceFactor={18} position={[0, 1.35, 0]}>
                 <div className="demo-label-chip">{seg.segment_id}</div>
               </Html>
             )}
@@ -441,23 +561,52 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
         )
       })}
 
-      {workers.map(w => (
-        <mesh key={w.worker_id} position={w.position}>
-          <sphereGeometry args={[0.08, 8, 8]} />
-          <meshBasicMaterial
-            color={w.status === 'at_risk' ? WORKER_AT_RISK_COLOR : WORKER_COLOR}
-            transparent opacity={0.5}
-          />
-        </mesh>
-      ))}
+      {workers.map(w => {
+        const isAtRisk = w.status === 'at_risk' || w.status === 'trapped'
+        const selected = w.worker_id === selectedWorkerId
+        const color = isAtRisk ? WORKER_AT_RISK_COLOR : WORKER_COLOR
+        return (
+          <group key={w.worker_id} position={w.position}>
+            {selected && (
+              <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[0.78, 1.02, 28]} />
+                <meshBasicMaterial color="#ffffff" transparent opacity={0.8} side={THREE.DoubleSide} />
+              </mesh>
+            )}
+            {isAtRisk && <WorkerHelmetGlow color={RISK_COLORS.critical} />}
+            <mesh position={[0, 0.2, 0]}>
+              <sphereGeometry args={[0.52, 16, 16]} />
+              <meshBasicMaterial color={color} />
+            </mesh>
+            <mesh position={[0, 0.78, 0]}>
+              <sphereGeometry args={[0.28, 14, 14]} />
+              <meshBasicMaterial color="#ffd23a" />
+            </mesh>
+            <Html distanceFactor={18} position={[0, 1.45, 0]}>
+              <div className={`demo-worker-chip${selected ? ' demo-worker-chip--selected' : ''}`}>
+                {shortWorkerLabel(w.worker_id)}
+              </div>
+            </Html>
+          </group>
+        )
+      })}
 
-      {(gasSensors || []).map(sensor => {
+      {(gasSensors || []).map((sensor, index) => {
         const color = sensor.status === 'alarm' ? RISK_COLORS.critical : getRiskColor(sensor.risk_level)
         return (
-          <mesh key={sensor.sensor_id} position={sensor.position} rotation={[0, 0, Math.PI / 4]}>
-            <octahedronGeometry args={[0.09, 0]} />
-            <meshBasicMaterial color={color} transparent opacity={0.5} />
-          </mesh>
+          <group key={sensor.sensor_id} position={sensor.position}>
+            <mesh position={[0, -0.45, 0]}>
+              <cylinderGeometry args={[0.08, 0.08, 0.9, 8]} />
+              <meshBasicMaterial color="#8a92a6" />
+            </mesh>
+            <mesh rotation={[0, 0, Math.PI / 4]}>
+              <octahedronGeometry args={[0.48, 0]} />
+              <meshBasicMaterial color={color} transparent opacity={0.95} />
+            </mesh>
+            <Html distanceFactor={18} position={[0, 0.95, 0]}>
+              <div className="demo-sensor-chip">{shortSensorLabel(sensor.sensor_id, index)}</div>
+            </Html>
+          </group>
         )
       })}
 
@@ -465,7 +614,7 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
         <Line
           points={routePts.map(p => [p[0], p[1] + 0.2, p[2]])}
           color={isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
-          lineWidth={1.5}
+          lineWidth={5}
           dashed={!isRouteSafe}
           dashSize={0.5}
           gapSize={0.4}
@@ -484,13 +633,14 @@ export default function DigitalTwinViewer({
   gasSensors,
   emergencyRoute,
   onSegmentSelect,
-  selectedSegmentId
+  selectedSegmentId,
+  selectedWorkerId
 }) {
   const [plyStatus, setPlyStatus] = useState('loading')
   const [plyMetadata, setPlyMetadata] = useState(null)
   const [plyBounds, setPlyBounds] = useState(null)
   const [cameraAction, setCameraAction] = useState(null)
-  const [overlayMode, setOverlayMode] = useState('off')
+  const [overlayMode, setOverlayMode] = useState('demo')
   const [plyFailReason, setPlyFailReason] = useState('')
 
   useEffect(() => {
@@ -505,7 +655,13 @@ export default function DigitalTwinViewer({
   const handlePlyLoaded = useCallback((sphere, box) => {
     const size = new THREE.Vector3()
     if (box) box.getSize(size)
-    setPlyBounds({ center: sphere.center.clone(), radius: sphere.radius, size })
+    setPlyBounds({
+      center: sphere.center.clone(),
+      radius: sphere.radius,
+      size,
+      min: box?.min.clone(),
+      max: box?.max.clone()
+    })
     setCameraAction('initial')
   }, [])
 
@@ -518,6 +674,22 @@ export default function DigitalTwinViewer({
   const isRealPlyLoaded = plyStatus === 'preview' || plyStatus === 'downsampled'
   const showFullOverlays = !isRealPlyLoaded
   const showDemoOverlay = isRealPlyLoaded && overlayMode === 'demo'
+  const plyOverlayTransform = useMemo(
+    () => createPlyOverlayTransform(segments, plyBounds),
+    [segments, plyBounds]
+  )
+  const plyOverlaySegments = useMemo(
+    () => transformSegmentsForPly(segments, plyOverlayTransform),
+    [segments, plyOverlayTransform]
+  )
+  const plyOverlayWorkers = useMemo(
+    () => buildWorkerOverlayData(workers, segments, plyOverlayTransform),
+    [workers, segments, plyOverlayTransform]
+  )
+  const plyOverlayGasSensors = useMemo(
+    () => buildSensorOverlayData(gasSensors, segments, plyOverlayTransform),
+    [gasSensors, segments, plyOverlayTransform]
+  )
 
   let statusText = 'Yükleniyor...'
   if (plyStatus === 'preview') {
@@ -544,7 +716,7 @@ export default function DigitalTwinViewer({
       {/* Demo overlay warning strip */}
       {isRealPlyLoaded && overlayMode === 'demo' && (
         <div className="overlay-demo-warning">
-          Demo overlay: segment koordinatları LiDAR ile birebir hizalı değildir.
+          Demo overlay: segment, işçi, sensör ve rota LiDAR üstüne yaklaşık hizalanmıştır.
         </div>
       )}
 
@@ -581,7 +753,7 @@ export default function DigitalTwinViewer({
         <div className="ply-info-note">
           {overlayMode === 'off'
             ? '3B overlay kapalı — risk/worker/gaz detayları için Harita Görünümü\'nü kullanın.'
-            : 'PLY: gerçek LiDAR tarama. Güvenilir segment/risk/worker verileri Harita Görünümü\'nde. 3B overlay Haki koordinat frame\'i hazır olunca hizalanacak.'
+            : 'PLY üstünde segment ağı, işçi, gaz sensörü, göçük ve acil rota katmanları yaklaşık hizalama ile gösteriliyor.'
           }
         </div>
       )}
@@ -618,12 +790,13 @@ export default function DigitalTwinViewer({
 
         {showDemoOverlay && (
           <DemoOverlayLayer
-            segments={segments}
+            segments={plyOverlaySegments}
             risks={risks}
-            workers={workers}
-            gasSensors={gasSensors}
+            workers={plyOverlayWorkers}
+            gasSensors={plyOverlayGasSensors}
             emergencyRoute={emergencyRoute}
             selectedSegmentId={selectedSegmentId}
+            selectedWorkerId={selectedWorkerId}
             onSelect={onSegmentSelect}
           />
         )}
