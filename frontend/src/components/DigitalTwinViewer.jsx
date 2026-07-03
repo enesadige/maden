@@ -69,8 +69,8 @@ function createPlyOverlayTransform(segments, plyBounds) {
   const targetSize = [plyBounds.size.x, plyBounds.size.y, plyBounds.size.z]
   const targetPaddingX = targetSize[0] * 0.06
   const targetPaddingZ = targetSize[2] * 0.06
-  const targetY = targetMax[1] + Math.max(targetSize[1] * 0.16, 1.8)
-  const verticalRange = Math.max(targetSize[1] * 0.18, 2.5)
+  const targetY = targetMax[1] + Math.max(targetSize[1] * 0.035, 0.45)
+  const verticalRange = Math.max(targetSize[1] * 0.08, 0.8)
 
   function mapAxis(value, sourceAxis, targetAxis, padding = 0) {
     const normalized = (value - source.min[sourceAxis]) / source.size[sourceAxis]
@@ -109,7 +109,7 @@ function buildWorkerOverlayData(workers, sourceSegments, transformPoint) {
     const slot = slotBySegment.get(worker.current_segment) || 0
     slotBySegment.set(worker.current_segment, slot + 1)
     const offset = WORKER_OVERLAY_OFFSETS[slot % WORKER_OVERLAY_OFFSETS.length]
-    const position = transformPoint(basePoint, 1.8).map((value, index) => value + offset[index])
+    const position = transformPoint(basePoint, 0.9).map((value, index) => value + offset[index])
     return { ...worker, position }
   })
 }
@@ -121,7 +121,7 @@ function buildSensorOverlayData(gasSensors, sourceSegments, transformPoint) {
     const segment = sourceMap[sensor.segment_id]
     const basePoint = segment?.center || sensor.position
     const side = index % 2 === 0 ? 1 : -1
-    const position = transformPoint(basePoint, 2.5)
+    const position = transformPoint(basePoint, 1.1)
     return { ...sensor, position: [position[0] + side * 2.6, position[1], position[2] - 2.4] }
   })
 }
@@ -612,7 +612,7 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
 
       {routePts.length > 1 && (
         <Line
-          points={routePts.map(p => [p[0], p[1] + 0.2, p[2]])}
+          points={routePts.map(p => [p[0], p[1] + 0.08, p[2]])}
           color={isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
           lineWidth={5}
           dashed={!isRouteSafe}

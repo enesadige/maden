@@ -949,8 +949,8 @@
   padding: 8px 12px;
   border-radius: 8px;
   background: rgba(7, 16, 21, 0.86);
-  border: 1px solid rgba(52, 245, 197, 0.45);
-  color: #dffdf5;
+  border: 1px solid rgba(255, 228, 94, 0.58);
+  color: #fff6b8;
   font-size: 0.78rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(8px);
@@ -970,8 +970,8 @@
   width: 22px;
   height: 4px;
   border-radius: 999px;
-  background: #34f5c5;
-  box-shadow: 0 0 8px rgba(52, 245, 197, 0.55);
+  background: #ffe45e;
+  box-shadow: 0 0 8px rgba(255, 228, 94, 0.65);
 }
 
 .mine-map-route-warning {

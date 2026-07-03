@@ -9,7 +9,7 @@ export const RISK_COLORS = {
 
 export const WORKER_COLOR = '#3aa0ff'
 export const WORKER_AT_RISK_COLOR = '#ffd23a'
-export const ROUTE_COLOR = '#34f5c5'
+export const ROUTE_COLOR = '#ffe45e'
 
 export function getRiskColor(riskLevel, isBlocked) {
   if (isBlocked) return RISK_COLORS.blocked
