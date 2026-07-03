@@ -753,7 +753,7 @@
 
 .miner-card {
   width: 100%;
-  max-width: 460px;
+  max-width: 620px;
   background: rgba(22, 26, 35, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
@@ -866,6 +866,138 @@
   color: #5a6170;
   margin: 0 2px;
   font-size: 0.78rem;
+}
+
+.miner-route-visual {
+  width: 100%;
+  border: 1px solid rgba(255, 228, 94, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(255, 228, 94, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 228, 94, 0.045) 1px, transparent 1px),
+    rgba(8, 11, 17, 0.78);
+  background-size: 24px 24px;
+  overflow: hidden;
+}
+
+.miner-route-svg {
+  display: block;
+  width: 100%;
+  min-height: 190px;
+}
+
+.miner-route-line {
+  fill: none;
+  stroke: #ffe45e;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(255, 228, 94, 0.45));
+}
+
+.miner-route-line--completed {
+  stroke: rgba(122, 130, 144, 0.8);
+  stroke-width: 4;
+  stroke-dasharray: 7 6;
+  filter: none;
+}
+
+.miner-route-bg-edge {
+  stroke: rgba(92, 105, 126, 0.24);
+  stroke-width: 1.2;
+}
+
+.miner-route-bg-edge--route {
+  stroke: rgba(255, 228, 94, 0.26);
+  stroke-width: 2;
+}
+
+.miner-route-context-node {
+  fill: rgba(122, 130, 144, 0.45);
+}
+
+.miner-route-context-node--route {
+  fill: rgba(255, 228, 94, 0.72);
+}
+
+.miner-route-node {
+  fill: #2a3240;
+  stroke: rgba(255, 255, 255, 0.26);
+  stroke-width: 2;
+}
+
+.miner-route-node--current {
+  fill: #3aa0ff;
+  stroke: #ffffff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 7px rgba(58, 160, 255, 0.75));
+}
+
+.miner-route-node--exit {
+  fill: #3ddc84;
+  stroke: #d8ffe8;
+  stroke-width: 2.5;
+}
+
+.miner-route-node--blocked {
+  fill: #e3174f;
+  stroke: #ffd1dc;
+  stroke-width: 2.5;
+}
+
+.miner-route-node-label {
+  fill: #f6f8fb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #06080b;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.miner-route-current-segment {
+  fill: #dcecff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: #06080b;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.miner-route-summary,
+.miner-route-text-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+  color: #cdd3df;
+  font-size: 0.82rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(6, 8, 11, 0.5);
+}
+
+.miner-route-text-summary {
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+  border-top: none;
+  background: transparent;
+}
+
+.miner-route-details {
+  width: 100%;
+  color: #aab2c2;
+  font-size: 0.82rem;
+}
+
+.miner-route-details summary {
+  cursor: pointer;
+  color: #ffe45e;
+  font-weight: 700;
+  margin: 4px 0 8px;
 }
 
 .mine-map-wrapper {

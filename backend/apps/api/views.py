@@ -143,7 +143,8 @@ def emergency_route(request):
 
     scenario_state = get_scenario_state(scenario_id, time_step, worker_id=worker_id) if scenario_id else None
     scenario_blocked_segment = scenario_state.get("scenario", {}).get("blocked_segment") if scenario_state else None
-    blocked_segment = request.GET.get("blocked_segment") or scenario_blocked_segment or collapse.get("blocked_segment")
+    collapse_default_blocked = collapse.get("blocked_segment") if scenario_id in {"collapse", "collapse_s004"} else None
+    blocked_segment = request.GET.get("blocked_segment") or scenario_blocked_segment or collapse_default_blocked
 
     route = get_emergency_route(
         start_segment=normalize_segment_id(start_segment),

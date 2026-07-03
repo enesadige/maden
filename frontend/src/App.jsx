@@ -37,6 +37,7 @@ export default function App() {
   const [workerAnomalySummary, setWorkerAnomalySummary] = useState(null)
   const [scenarios, setScenarios] = useState([])
   const [emergencyRouteData, setEmergencyRouteData] = useState(null)
+  const [minerRouteData, setMinerRouteData] = useState(null)
   const [selectedScenario, setSelectedScenario] = useState('normal')
   const [selectedSegmentId, setSelectedSegmentId] = useState(null)
   const [viewMode, setViewMode] = useState('admin')
@@ -157,6 +158,36 @@ export default function App() {
     }
 
     loadState()
+    return () => { isMounted = false }
+  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
+
+  // 3. Keep a worker-specific exit route for the miner view even when admin map route overlay is hidden.
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadMinerRoute() {
+      if (!selectedWorkerId) {
+        if (isMounted) setMinerRouteData(null)
+        return
+      }
+
+      try {
+        if (isMounted) setMinerRouteData(null)
+        const routeParams = {
+          workerId: selectedWorkerId,
+          timeStep: committedTimeStep,
+          scenarioId: ROUTE_SCENARIOS.has(selectedScenario) ? selectedScenario : undefined,
+          forceMock: !apiModeActive
+        }
+        const route = await getEmergencyRoute(routeParams)
+        if (isMounted) setMinerRouteData(route)
+      } catch (err) {
+        console.warn('Failed to load miner route', err)
+        if (isMounted) setMinerRouteData(null)
+      }
+    }
+
+    loadMinerRoute()
     return () => { isMounted = false }
   }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
 
@@ -311,7 +342,7 @@ export default function App() {
           segments={derived.segments}
           risks={derived.risks}
           gasSensors={derived.gasSensors}
-          emergencyRoute={derived.emergencyRoute}
+          emergencyRoute={minerRouteData || derived.emergencyRoute}
         />
       )}
     </Layout>

@@ -147,6 +147,15 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertIn("trapped", data)
         self.assertIn("route_segments", data)
 
+    def test_emergency_route_without_scenario_uses_standard_route(self):
+        response = self.client.get("/api/routes/emergency?worker_id=WORKER_01&time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data["reachable"])
+        self.assertIsNone(data["blocked_segment"])
+        self.assertNotIn("scenario_state", data)
+
     def test_emergency_route_endpoint_defaults_to_available_worker(self):
         expected_worker = self._timeline_workers(27)[0]
         response = self.client.get("/api/routes/emergency?time_step=27&blocked_segment=S999")
