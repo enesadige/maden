@@ -122,8 +122,8 @@ export async function getEmergencyRoute(params = {}) {
     const data = await fetchJson(apiUrl(`/api/routes/emergency${query}`), 4000)
     return normalizeApiPayload(data)
   } catch (err) {
-    console.warn('Emergency route API request failed, falling back to scenario-aware mock route.', err)
-    return getMockEmergencyRoute(params)
+    console.warn('Emergency route API request failed.', err)
+    throw err
   }
 }
 
