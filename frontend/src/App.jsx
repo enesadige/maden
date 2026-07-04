@@ -284,17 +284,27 @@ export default function App() {
   }, [selectedScenario, baseData, emergencyRouteData])
 
   function handleTimeStepChange(value) {
+    setIsTimePlaying(false)
+    clearInterval(timeStepPlaybackRef.current)
+    timeStepPlaybackRef.current = null
     setSelectedTimeStep(value)
     clearTimeout(timeStepDebounceRef.current)
-    timeStepDebounceRef.current = setTimeout(() => setCommittedTimeStep(value), 300)
+    setCommittedTimeStep(value)
   }
 
   function handleToggleTimePlayback() {
     clearTimeout(timeStepDebounceRef.current)
-    setIsTimePlaying((playing) => !playing)
+    setIsTimePlaying((playing) => {
+      if (playing) {
+        clearInterval(timeStepPlaybackRef.current)
+        timeStepPlaybackRef.current = null
+      }
+      return !playing
+    })
   }
 
   function handleScenarioChange(scenarioId) {
+    setIsTimePlaying(false)
     setSelectedScenario(scenarioId)
     setEmergencyRouteData(null)
     if (scenarioId === 'worker_at_risk') {
