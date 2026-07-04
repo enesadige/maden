@@ -1146,8 +1146,10 @@
   position: absolute;
   z-index: 6;
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   align-items: center;
+  justify-content: flex-end;
   background: rgba(6, 8, 11, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 7px;
@@ -1158,11 +1160,13 @@
 .route-map-control-bar {
   top: 8px;
   right: 8px;
+  max-width: min(300px, calc(100% - 16px));
 }
 
 .map-control-bar {
   top: 12px;
   right: 12px;
+  max-width: min(390px, calc(100% - 24px));
 }
 
 .route-map-control-bar button,
@@ -1190,6 +1194,14 @@
   display: block;
   width: 100%;
   min-height: 190px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.miner-route-svg:active,
+.mine-map-svg:active {
+  cursor: grabbing;
 }
 
 .miner-route-line {
@@ -1332,6 +1344,9 @@
   display: block;
   position: relative;
   z-index: 1;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
   background-color: #06080B;
   background-image: 
     linear-gradient(rgba(52, 245, 197, 0.03) 1px, transparent 1px),

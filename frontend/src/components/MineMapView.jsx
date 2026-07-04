@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { getRiskColor, RISK_COLORS, WORKER_COLOR, WORKER_AT_RISK_COLOR, ROUTE_COLOR } from '../utils/riskColors'
 import { formatWorkerName } from '../utils/idNormalize'
 
@@ -137,6 +137,7 @@ function clampViewBox(box) {
 export default function MineMapView({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, selectedWorkerId, onSegmentSelect }) {
   const [hovered, setHovered] = useState(null)
   const [viewBox, setViewBox] = useState(FULL_VIEW_BOX)
+  const panDragRef = useRef(null)
 
   const positions = useMemo(() => buildBestLayout(segments), [segments])
   const edges = useMemo(() => buildEdges(segments), [segments])
@@ -182,6 +183,14 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
     })
   }
 
+  function panMap(deltaX, deltaY) {
+    setViewBox((box) => clampViewBox({
+      ...box,
+      x: box.x + deltaX,
+      y: box.y + deltaY
+    }))
+  }
+
   function focusMap(segmentId) {
     const point = segmentId ? positions[segmentId] : null
     if (!point) return
@@ -205,6 +214,40 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
     zoomMap(event.deltaY < 0 ? 0.82 : 1.22)
   }
 
+  function handlePointerDown(event) {
+    if (event.button !== undefined && event.button !== 0) return
+    const interactiveTarget = event.target.closest?.('.mine-map-node, .mine-map-worker, .mine-map-sensor')
+    if (interactiveTarget) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    panDragRef.current = {
+      pointerId: event.pointerId,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      startBox: viewBox,
+      rect
+    }
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+  }
+
+  function handlePointerMove(event) {
+    const drag = panDragRef.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+    const dx = (event.clientX - drag.clientX) * drag.startBox.width / drag.rect.width
+    const dy = (event.clientY - drag.clientY) * drag.startBox.height / drag.rect.height
+    setViewBox(clampViewBox({
+      ...drag.startBox,
+      x: drag.startBox.x - dx,
+      y: drag.startBox.y - dy
+    }))
+  }
+
+  function handlePointerUp(event) {
+    if (panDragRef.current?.pointerId === event.pointerId) {
+      panDragRef.current = null
+      event.currentTarget.releasePointerCapture?.(event.pointerId)
+    }
+  }
+
   function isImportant(seg) {
     const risk = riskMap.get(seg.segment_id)
     return seg.segment_id === selectedSegmentId
@@ -224,6 +267,10 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
       <div className="map-control-bar">
         <button type="button" onClick={() => zoomMap(0.72)} title="Yaklaştır">+</button>
         <button type="button" onClick={() => zoomMap(1.28)} title="Uzaklaştır">−</button>
+        <button type="button" onClick={() => panMap(-viewBox.width * 0.18, 0)} title="Sola kaydır">←</button>
+        <button type="button" onClick={() => panMap(0, -viewBox.height * 0.18)} title="Yukarı kaydır">↑</button>
+        <button type="button" onClick={() => panMap(0, viewBox.height * 0.18)} title="Aşağı kaydır">↓</button>
+        <button type="button" onClick={() => panMap(viewBox.width * 0.18, 0)} title="Sağa kaydır">→</button>
         <button type="button" onClick={focusActiveTarget} title="Seçili işçi/segmente odaklan">Odak</button>
         <button type="button" onClick={() => setViewBox(FULL_VIEW_BOX)} title="Haritayı sıfırla">Reset</button>
       </div>
@@ -232,6 +279,10 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
         className="mine-map-svg"
         preserveAspectRatio="xMidYMid meet"
         onWheel={handleWheel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
       >
         <defs>
           <marker id="mine-map-route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">

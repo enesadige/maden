@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getRiskColor, getRiskLabel } from '../utils/riskColors'
 import { formatWorkerName } from '../utils/idNormalize'
 
@@ -226,6 +226,7 @@ function clampRouteViewBox(box) {
 
 function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exitSegment }) {
   const [viewBox, setViewBox] = useState(ROUTE_FULL_VIEW_BOX)
+  const panDragRef = useRef(null)
   const positionMap = buildMiniMapPositions(segments)
   const positions = route.map((segmentId) => positionMap.get(segmentId)).filter(Boolean)
 
@@ -257,6 +258,14 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
     })
   }
 
+  function panRoute(deltaX, deltaY) {
+    setViewBox((box) => clampRouteViewBox({
+      ...box,
+      x: box.x + deltaX,
+      y: box.y + deltaY
+    }))
+  }
+
   function focusRoutePoint(point = currentPoint) {
     if (!point) return
     const width = ROUTE_MAP_W * 0.34
@@ -274,6 +283,38 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
     zoomRoute(event.deltaY < 0 ? 0.82 : 1.22)
   }
 
+  function handlePointerDown(event) {
+    if (event.button !== undefined && event.button !== 0) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    panDragRef.current = {
+      pointerId: event.pointerId,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      startBox: viewBox,
+      rect
+    }
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+  }
+
+  function handlePointerMove(event) {
+    const drag = panDragRef.current
+    if (!drag || drag.pointerId !== event.pointerId) return
+    const dx = (event.clientX - drag.clientX) * drag.startBox.width / drag.rect.width
+    const dy = (event.clientY - drag.clientY) * drag.startBox.height / drag.rect.height
+    setViewBox(clampRouteViewBox({
+      ...drag.startBox,
+      x: drag.startBox.x - dx,
+      y: drag.startBox.y - dy
+    }))
+  }
+
+  function handlePointerUp(event) {
+    if (panDragRef.current?.pointerId === event.pointerId) {
+      panDragRef.current = null
+      event.currentTarget.releasePointerCapture?.(event.pointerId)
+    }
+  }
+
   if (positionMap.size < 2 || positions.length < 2) return null
 
   return (
@@ -281,6 +322,10 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
       <div className="route-map-control-bar">
         <button type="button" onClick={() => zoomRoute(0.72)} title="Yaklaştır">+</button>
         <button type="button" onClick={() => zoomRoute(1.28)} title="Uzaklaştır">−</button>
+        <button type="button" onClick={() => panRoute(-viewBox.width * 0.2, 0)} title="Sola kaydır">←</button>
+        <button type="button" onClick={() => panRoute(0, -viewBox.height * 0.2)} title="Yukarı kaydır">↑</button>
+        <button type="button" onClick={() => panRoute(0, viewBox.height * 0.2)} title="Aşağı kaydır">↓</button>
+        <button type="button" onClick={() => panRoute(viewBox.width * 0.2, 0)} title="Sağa kaydır">→</button>
         <button type="button" onClick={() => focusRoutePoint()} title="Mevcut konuma odaklan">Sen</button>
         <button type="button" onClick={() => setViewBox(ROUTE_FULL_VIEW_BOX)} title="Haritayı sıfırla">Reset</button>
       </div>
@@ -290,6 +335,10 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
         role="img"
         aria-label="Dinamik çıkış rotası"
         onWheel={handleWheel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
       >
         <defs>
           <marker id="miner-route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
