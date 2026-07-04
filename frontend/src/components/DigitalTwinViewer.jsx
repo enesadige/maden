@@ -19,6 +19,9 @@ const SHORT_LABELS = {
 }
 
 const AXIS_KEYS = ['x', 'y', 'z']
+const LIDAR_SEGMENT_NODE_COLOR = '#2f80ff'
+const LIDAR_SEGMENT_NODE_SELECTED = '#75b7ff'
+const LIDAR_SEGMENT_EDGE_COLOR = '#1b5ec9'
 const WORKER_OVERLAY_OFFSETS = [
   [-1.8, 0, 2.2],
   [0, 0, 2.5],
@@ -423,7 +426,7 @@ function WorkerHelmetGlow({ color }) {
 
 function SegmentMarker({ segment, risk, isSelected, onSelect }) {
   const isBlocked = segment.is_blocked
-  const color = getRiskColor(risk?.risk_level, segment.is_blocked)
+  const color = isSelected ? LIDAR_SEGMENT_NODE_SELECTED : LIDAR_SEGMENT_NODE_COLOR
   const isCritical = !isBlocked && risk?.risk_level === 'critical'
   const isHigh = !isBlocked && risk?.risk_level === 'high'
   const haloColor = isCritical ? RISK_COLORS.critical : isHigh ? RISK_COLORS.high : null
@@ -499,7 +502,7 @@ function ConnectionLines({ segments }) {
   return (
     <group>
       {lines.map(line => (
-        <Line key={line.key} points={[line.from, line.to]} color="#4a5160" lineWidth={1.2} />
+        <Line key={line.key} points={[line.from, line.to]} color={LIDAR_SEGMENT_EDGE_COLOR} lineWidth={1.2} />
       ))}
     </group>
   )
@@ -557,19 +560,19 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
   return (
     <group>
       {connLines.map(line => (
-        <Line key={line.key} points={[line.from, line.to]} color="#1a2030" lineWidth={0.6} />
+        <Line key={line.key} points={[line.from, line.to]} color={LIDAR_SEGMENT_EDGE_COLOR} lineWidth={0.85} />
       ))}
 
       {segments.map(seg => {
         const risk = riskBySegment[seg.segment_id]
-        const color = getRiskColor(risk?.risk_level, seg.is_blocked)
         const isSelected = selectedSegmentId === seg.segment_id
         const isRouteSegment = routeIds.includes(seg.segment_id)
+        const color = isSelected ? LIDAR_SEGMENT_NODE_SELECTED : LIDAR_SEGMENT_NODE_COLOR
         return (
           <group key={seg.segment_id} position={seg.center}>
             <mesh onClick={e => { e.stopPropagation(); onSelect(seg.segment_id) }}>
               <sphereGeometry args={[isSelected ? 0.42 : isRouteSegment ? 0.28 : 0.18, 16, 16]} />
-              <meshBasicMaterial color={color} transparent opacity={isSelected || isRouteSegment || seg.is_blocked ? 0.95 : 0.7} />
+              <meshBasicMaterial color={color} transparent opacity={isSelected || isRouteSegment || seg.is_blocked ? 0.98 : 0.82} />
             </mesh>
             {seg.is_blocked && <><BlockedMark /><DebrisField /></>}
             {isSelected && (
