@@ -51,11 +51,16 @@ export default function App() {
   const timeStepPlaybackRef = useRef(null)
   const isStateLoadingRef = useRef(false)
   const stateLoadIdRef = useRef(0)
+  const baseDataRef = useRef(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [forceMockMode, setForceMockMode] = useState(false)
 
   const apiModeActive = isApiMode() && !forceMockMode
+
+  useEffect(() => {
+    baseDataRef.current = baseData
+  }, [baseData])
 
   // 1. Fetch simulation scenario state when scenario or timeStep changes
   useEffect(() => {
@@ -103,9 +108,12 @@ export default function App() {
             anomalyEvents = anomalies
             anomalySummary = anomalySummaryPayload
           } catch (apiErr) {
-            console.warn("Backend API request failed. Switching to local Mock Mode for this session.", apiErr)
+            console.warn("Backend API request failed.", apiErr)
+            if (baseDataRef.current) {
+              throw apiErr
+            }
+            console.warn("No API data is loaded yet. Falling back to local Mock Mode for initial render.")
             useMock = true
-            if (!forceMockMode) setForceMockMode(true)
           }
         }
 
@@ -164,7 +172,8 @@ export default function App() {
         }
       } catch (err) {
         console.error("Dashboard critical load error:", err)
-        if (isMounted) setError(err.message)
+        if (isMounted && !baseDataRef.current) setError(err.message)
+        if (isMounted && baseDataRef.current) setError(null)
       } finally {
         if (loadId === stateLoadIdRef.current) {
           isStateLoadingRef.current = false
@@ -418,6 +427,7 @@ export default function App() {
           selectedScenario={selectedScenario}
           activeScenarioLabel={activeScenarioLabel}
           scenario={baseData?.scenario}
+          selectedTimeStep={selectedTimeStep}
         />
       )}
     </Layout>

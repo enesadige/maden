@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getRiskColor, RISK_COLORS, WORKER_COLOR, WORKER_AT_RISK_COLOR, ROUTE_COLOR } from '../utils/riskColors'
 import { formatWorkerName } from '../utils/idNormalize'
 
 const VIEW_W = 920
 const VIEW_H = 580
 const PAD = 36
+const FULL_VIEW_BOX = { x: 0, y: 0, width: VIEW_W, height: VIEW_H }
 const WORKER_OFFSETS = [
   [0, 0],
   [-9, 8],
@@ -122,8 +123,20 @@ function shortSensorLabel(sensorId, index) {
   return match ? `G${match[1].padStart(2, '0')}` : `G${String(index + 1).padStart(2, '0')}`
 }
 
+function clampViewBox(box) {
+  const width = Math.min(Math.max(box.width, VIEW_W * 0.12), VIEW_W)
+  const height = Math.min(Math.max(box.height, VIEW_H * 0.12), VIEW_H)
+  return {
+    x: Math.min(Math.max(box.x, 0), VIEW_W - width),
+    y: Math.min(Math.max(box.y, 0), VIEW_H - height),
+    width,
+    height
+  }
+}
+
 export default function MineMapView({ segments, risks, workers, gasSensors, emergencyRoute, selectedSegmentId, selectedWorkerId, onSegmentSelect }) {
   const [hovered, setHovered] = useState(null)
+  const [viewBox, setViewBox] = useState(FULL_VIEW_BOX)
 
   const positions = useMemo(() => buildBestLayout(segments), [segments])
   const edges = useMemo(() => buildEdges(segments), [segments])
@@ -152,6 +165,46 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
     })
   }, [workers])
 
+  useEffect(() => {
+    setViewBox(FULL_VIEW_BOX)
+  }, [segments.length])
+
+  function zoomMap(factor) {
+    setViewBox((box) => {
+      const width = box.width * factor
+      const height = box.height * factor
+      return clampViewBox({
+        x: box.x + (box.width - width) / 2,
+        y: box.y + (box.height - height) / 2,
+        width,
+        height
+      })
+    })
+  }
+
+  function focusMap(segmentId) {
+    const point = segmentId ? positions[segmentId] : null
+    if (!point) return
+    const width = VIEW_W * 0.28
+    const height = VIEW_H * 0.28
+    setViewBox(clampViewBox({
+      x: point.x - width / 2,
+      y: point.y - height / 2,
+      width,
+      height
+    }))
+  }
+
+  function focusActiveTarget() {
+    const selectedWorker = workers.find((worker) => worker.worker_id === selectedWorkerId)
+    focusMap(selectedWorker?.current_segment || selectedSegmentId || route[0] || segments[0]?.segment_id)
+  }
+
+  function handleWheel(event) {
+    event.preventDefault()
+    zoomMap(event.deltaY < 0 ? 0.82 : 1.22)
+  }
+
   function isImportant(seg) {
     const risk = riskMap.get(seg.segment_id)
     return seg.segment_id === selectedSegmentId
@@ -168,7 +221,18 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
 
   return (
     <div className="mine-map-wrapper">
-      <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="mine-map-svg" preserveAspectRatio="xMidYMid meet">
+      <div className="map-control-bar">
+        <button type="button" onClick={() => zoomMap(0.72)} title="Yaklaştır">+</button>
+        <button type="button" onClick={() => zoomMap(1.28)} title="Uzaklaştır">−</button>
+        <button type="button" onClick={focusActiveTarget} title="Seçili işçi/segmente odaklan">Odak</button>
+        <button type="button" onClick={() => setViewBox(FULL_VIEW_BOX)} title="Haritayı sıfırla">Reset</button>
+      </div>
+      <svg
+        viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+        className="mine-map-svg"
+        preserveAspectRatio="xMidYMid meet"
+        onWheel={handleWheel}
+      >
         <defs>
           <marker id="mine-map-route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill={ROUTE_COLOR} />
@@ -327,6 +391,7 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
           <strong>Acil rota</strong>
           <span>{routeWorkerId ? formatWorkerName(routeWorkerId) : 'Seçili işçi'}</span>
           <span>{route[0]} → {route[route.length - 1]}</span>
+          {emergencyRoute?.time_step !== undefined && <span>t={emergencyRoute.time_step}</span>}
         </div>
       )}
 

@@ -1129,6 +1129,7 @@
 }
 
 .miner-route-visual {
+  position: relative;
   width: 100%;
   border: 1px solid rgba(255, 228, 94, 0.22);
   border-radius: 8px;
@@ -1138,6 +1139,51 @@
     rgba(8, 11, 17, 0.78);
   background-size: 24px 24px;
   overflow: hidden;
+}
+
+.route-map-control-bar,
+.map-control-bar {
+  position: absolute;
+  z-index: 6;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  background: rgba(6, 8, 11, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  padding: 5px;
+  backdrop-filter: blur(8px);
+}
+
+.route-map-control-bar {
+  top: 8px;
+  right: 8px;
+}
+
+.map-control-bar {
+  top: 12px;
+  right: 12px;
+}
+
+.route-map-control-bar button,
+.map-control-bar button {
+  min-width: 30px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid #2a3342;
+  border-radius: 5px;
+  background: #151b26;
+  color: #e6e8ee;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.route-map-control-bar button:hover,
+.map-control-bar button:hover {
+  border-color: #34f5c5;
+  color: #34f5c5;
 }
 
 .miner-route-svg {

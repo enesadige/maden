@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react'
 import { getRiskColor, getRiskLabel } from '../utils/riskColors'
 import { formatWorkerName } from '../utils/idNormalize'
 
 const ROUTE_MAP_W = 420
 const ROUTE_MAP_H = 210
 const ROUTE_MAP_PAD = 28
+const ROUTE_FULL_VIEW_BOX = { x: 0, y: 0, width: ROUTE_MAP_W, height: ROUTE_MAP_H }
 
 const EMERGENCY_SCENARIOS = new Set(['collapse', 'collapse_s004', 'methane_spike', 'worker_at_risk'])
 
@@ -211,10 +213,21 @@ function buildMiniMapEdges(segments, positionMap) {
   return edges
 }
 
+function clampRouteViewBox(box) {
+  const width = Math.min(Math.max(box.width, ROUTE_MAP_W * 0.18), ROUTE_MAP_W)
+  const height = Math.min(Math.max(box.height, ROUTE_MAP_H * 0.18), ROUTE_MAP_H)
+  return {
+    x: Math.min(Math.max(box.x, 0), ROUTE_MAP_W - width),
+    y: Math.min(Math.max(box.y, 0), ROUTE_MAP_H - height),
+    width,
+    height
+  }
+}
+
 function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exitSegment }) {
+  const [viewBox, setViewBox] = useState(ROUTE_FULL_VIEW_BOX)
   const positionMap = buildMiniMapPositions(segments)
   const positions = route.map((segmentId) => positionMap.get(segmentId)).filter(Boolean)
-  if (positionMap.size < 2 || positions.length < 2) return null
 
   const routeSet = new Set(route)
   const allEdges = buildMiniMapEdges(segments, positionMap)
@@ -227,9 +240,57 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
   const remainingPoints = currentIndex >= 0 ? positions.slice(currentIndex) : positions
   const currentOffRoute = currentSegment && currentIndex < 0 && standaloneCurrentPoint
 
+  useEffect(() => {
+    setViewBox(ROUTE_FULL_VIEW_BOX)
+  }, [route.join('|'), currentSegment])
+
+  function zoomRoute(factor) {
+    setViewBox((box) => {
+      const width = box.width * factor
+      const height = box.height * factor
+      return clampRouteViewBox({
+        x: box.x + (box.width - width) / 2,
+        y: box.y + (box.height - height) / 2,
+        width,
+        height
+      })
+    })
+  }
+
+  function focusRoutePoint(point = currentPoint) {
+    if (!point) return
+    const width = ROUTE_MAP_W * 0.34
+    const height = ROUTE_MAP_H * 0.34
+    setViewBox(clampRouteViewBox({
+      x: point.x - width / 2,
+      y: point.y - height / 2,
+      width,
+      height
+    }))
+  }
+
+  function handleWheel(event) {
+    event.preventDefault()
+    zoomRoute(event.deltaY < 0 ? 0.82 : 1.22)
+  }
+
+  if (positionMap.size < 2 || positions.length < 2) return null
+
   return (
     <div className="miner-route-visual">
-      <svg viewBox={`0 0 ${ROUTE_MAP_W} ${ROUTE_MAP_H}`} className="miner-route-svg" role="img" aria-label="Dinamik çıkış rotası">
+      <div className="route-map-control-bar">
+        <button type="button" onClick={() => zoomRoute(0.72)} title="Yaklaştır">+</button>
+        <button type="button" onClick={() => zoomRoute(1.28)} title="Uzaklaştır">−</button>
+        <button type="button" onClick={() => focusRoutePoint()} title="Mevcut konuma odaklan">Sen</button>
+        <button type="button" onClick={() => setViewBox(ROUTE_FULL_VIEW_BOX)} title="Haritayı sıfırla">Reset</button>
+      </div>
+      <svg
+        viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+        className="miner-route-svg"
+        role="img"
+        aria-label="Dinamik çıkış rotası"
+        onWheel={handleWheel}
+      >
         <defs>
           <marker id="miner-route-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#ffe45e" />
@@ -346,7 +407,8 @@ export default function MinerDashboard({
   emergencyRoute,
   selectedScenario,
   activeScenarioLabel,
-  scenario
+  scenario,
+  selectedTimeStep
 }) {
   const selectedWorker = workers.find((w) => w.worker_id === selectedWorkerId) || workers[0]
 
@@ -395,6 +457,7 @@ export default function MinerDashboard({
   const emergencyRouteSegments = activeRoute?.route_segments || activeRoute?.route
   const routeStart = emergencyRouteSegments?.[0]
   const routeExit = activeRoute?.exit_segment || emergencyRouteSegments?.[emergencyRouteSegments.length - 1]
+  const routeTimeStep = activeRoute?.time_step ?? selectedTimeStep
   const currentRouteIndex = emergencyRouteSegments?.indexOf(selectedWorker.current_segment) ?? -1
   const remainingRouteCount = currentRouteIndex >= 0 && emergencyRouteSegments
     ? Math.max(emergencyRouteSegments.length - currentRouteIndex - 1, 0)
@@ -509,6 +572,7 @@ export default function MinerDashboard({
               exitSegment={routeExit}
             />
             <div className="miner-route-text-summary">
+              <span>Rota zamanı: <strong>{routeTimeStep !== undefined ? `t=${routeTimeStep}` : 'Bilinmiyor'}</strong></span>
               <span>Başlangıç: <strong>{routeStart}</strong></span>
               <span>Mevcut konum: <strong>{selectedWorker.current_segment}</strong></span>
               <span>Çıkış: <strong>{routeExit}</strong></span>
