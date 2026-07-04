@@ -19,9 +19,6 @@ const SHORT_LABELS = {
 }
 
 const AXIS_KEYS = ['x', 'y', 'z']
-const LIDAR_SEGMENT_NODE_COLOR = '#2f80ff'
-const LIDAR_SEGMENT_NODE_SELECTED = '#75b7ff'
-const LIDAR_SEGMENT_EDGE_COLOR = '#1b5ec9'
 const DEFAULT_OVERLAY_ALIGNMENT = {
   scaleX: 1.16,
   scaleZ: 1.16,
@@ -445,7 +442,7 @@ function WorkerHelmetGlow({ color }) {
 
 function SegmentMarker({ segment, risk, isSelected, onSelect }) {
   const isBlocked = segment.is_blocked
-  const color = isSelected ? LIDAR_SEGMENT_NODE_SELECTED : LIDAR_SEGMENT_NODE_COLOR
+  const color = getRiskColor(risk?.risk_level, segment.is_blocked)
   const isCritical = !isBlocked && risk?.risk_level === 'critical'
   const isHigh = !isBlocked && risk?.risk_level === 'high'
   const haloColor = isCritical ? RISK_COLORS.critical : isHigh ? RISK_COLORS.high : null
@@ -521,7 +518,7 @@ function ConnectionLines({ segments }) {
   return (
     <group>
       {lines.map(line => (
-        <Line key={line.key} points={[line.from, line.to]} color={LIDAR_SEGMENT_EDGE_COLOR} lineWidth={1.2} />
+        <Line key={line.key} points={[line.from, line.to]} color="#4a5160" lineWidth={1.2} />
       ))}
     </group>
   )
@@ -715,7 +712,6 @@ export default function DigitalTwinViewer({
   const [plyBounds, setPlyBounds] = useState(null)
   const [cameraAction, setCameraAction] = useState(null)
   const [overlayMode, setOverlayMode] = useState('demo')
-  const [overlayAlignment, setOverlayAlignment] = useState(DEFAULT_OVERLAY_ALIGNMENT)
   const [plyFailReason, setPlyFailReason] = useState('')
 
   useEffect(() => {
@@ -750,8 +746,8 @@ export default function DigitalTwinViewer({
   const showFullOverlays = !isRealPlyLoaded
   const showDemoOverlay = isRealPlyLoaded && overlayMode === 'demo'
   const plyOverlayTransform = useMemo(
-    () => createPlyOverlayTransform(segments, plyBounds, overlayAlignment),
-    [segments, plyBounds, overlayAlignment]
+    () => createPlyOverlayTransform(segments, plyBounds),
+    [segments, plyBounds]
   )
   const plyOverlaySegments = useMemo(
     () => transformSegmentsForPly(segments, plyOverlayTransform),
@@ -775,29 +771,6 @@ export default function DigitalTwinViewer({
     statusText = `Gerçek LiDAR point cloud yüklendi: ${file}`
   } else if (plyStatus === 'not_found') {
     statusText = `LiDAR modeli yüklenemedi — ${plyFailReason || 'PLY dosyası bulunamadı'}.`
-  }
-
-  function nudgeOverlay(patch) {
-    setOverlayAlignment((current) => ({
-      ...current,
-      ...patch
-    }))
-  }
-
-  function moveOverlay(deltaX, deltaZ) {
-    setOverlayAlignment((current) => ({
-      ...current,
-      offsetX: Number((current.offsetX + deltaX).toFixed(2)),
-      offsetZ: Number((current.offsetZ + deltaZ).toFixed(2))
-    }))
-  }
-
-  function scaleOverlay(delta) {
-    setOverlayAlignment((current) => ({
-      ...current,
-      scaleX: Number(Math.max(0.7, Math.min(1.5, current.scaleX + delta)).toFixed(2)),
-      scaleZ: Number(Math.max(0.7, Math.min(1.5, current.scaleZ + delta)).toFixed(2))
-    }))
   }
 
   return (
@@ -845,25 +818,6 @@ export default function DigitalTwinViewer({
           </div>
         )}
 
-        {showDemoOverlay && (
-          <div className="overlay-align-panel">
-            <span className="overlay-toggle-label">Overlay Hizala:</span>
-            <div className="overlay-align-row">
-              <button onClick={() => scaleOverlay(-0.03)} title="Mavi ağı küçült">Ölçek −</button>
-              <button onClick={() => scaleOverlay(0.03)} title="Mavi ağı büyüt">Ölçek +</button>
-              <button onClick={() => setOverlayAlignment(DEFAULT_OVERLAY_ALIGNMENT)} title="Varsayılan hizalamaya dön">Reset</button>
-            </div>
-            <div className="overlay-align-row">
-              <button onClick={() => moveOverlay(0, -1)} title="Yukarı kaydır">↑</button>
-              <button onClick={() => moveOverlay(-1, 0)} title="Sola kaydır">←</button>
-              <button onClick={() => moveOverlay(1, 0)} title="Sağa kaydır">→</button>
-              <button onClick={() => moveOverlay(0, 1)} title="Aşağı kaydır">↓</button>
-            </div>
-            <div className="overlay-align-readout">
-              S {overlayAlignment.scaleX.toFixed(2)} · X {overlayAlignment.offsetX.toFixed(1)} · Z {overlayAlignment.offsetZ.toFixed(1)}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Bottom info: PLY/Map relation or off-mode note */}
