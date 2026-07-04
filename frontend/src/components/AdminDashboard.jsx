@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import DigitalTwinViewer from './DigitalTwinViewer'
 import MineMapView from './MineMapView'
 import RiskPanel from './RiskPanel'
@@ -39,6 +39,7 @@ export default function AdminDashboard({
 }) {
   const activeViewTab = viewTab || 'map'
   const [has3dOpened, setHas3dOpened] = useState(activeViewTab === '3d')
+  const [sidePanelTab, setSidePanelTab] = useState('risk')
 
   useEffect(() => {
     if (activeViewTab === '3d') setHas3dOpened(true)
@@ -49,6 +50,50 @@ export default function AdminDashboard({
     if (tab === '3d') setHas3dOpened(true)
   }
   const criticalCount = risks.filter((r) => r.risk_level === 'critical').length
+  const highRiskCount = risks.filter((r) => r.risk_level === 'critical' || r.risk_level === 'high').length
+  const gasAlarmCount = gasSensors.filter((sensor) => {
+    const status = String(sensor.status || sensor.risk_level || '').toLowerCase()
+    return status === 'alarm' || status === 'critical' || status === 'high'
+  }).length
+  const routeBadge = emergencyRoute?.trapped ? '!' : (emergencyRoute?.route_segments?.length || emergencyRoute?.route?.length ? 'OK' : null)
+
+  const sideTabs = useMemo(() => ([
+    {
+      id: 'risk',
+      label: 'Risk',
+      helper: `${highRiskCount} yüksek`,
+      badge: criticalCount > 0 ? criticalCount : null,
+      tone: criticalCount > 0 ? 'danger' : (highRiskCount > 0 ? 'warning' : 'ok')
+    },
+    {
+      id: 'workers',
+      label: 'İşçi',
+      helper: `${workers.length} kayıt`,
+      badge: workers.length || null,
+      tone: 'neutral'
+    },
+    {
+      id: 'anomalies',
+      label: 'UWB',
+      helper: `${workerAnomalies.length} uyarı`,
+      badge: workerAnomalies.length || null,
+      tone: workerAnomalies.length > 0 ? 'warning' : 'ok'
+    },
+    {
+      id: 'gas',
+      label: 'Gaz',
+      helper: `${gasSensors.length} sensör`,
+      badge: gasAlarmCount > 0 ? gasAlarmCount : null,
+      tone: gasAlarmCount > 0 ? 'danger' : 'ok'
+    },
+    {
+      id: 'route',
+      label: 'Rota',
+      helper: emergencyRoute?.trapped ? 'mahsur' : (routeBadge ? 'hazır' : 'normal'),
+      badge: routeBadge,
+      tone: emergencyRoute?.trapped ? 'danger' : 'ok'
+    }
+  ]), [criticalCount, emergencyRoute, gasAlarmCount, gasSensors.length, highRiskCount, workerAnomalies.length, workers.length])
 
   const minStep = availableTimeSteps?.min !== undefined ? availableTimeSteps.min : 0
   const maxStep = availableTimeSteps?.max !== undefined ? availableTimeSteps.max : 30
@@ -105,28 +150,53 @@ export default function AdminDashboard({
         </section>
 
         <aside className="layout-side">
-          <RiskPanel
-            segments={segments}
-            risks={risks}
-            workers={workers}
-            gasSensors={gasSensors}
-            environmentalRisk={environmentalRisk}
-            geometryRisk={geometryRisk}
-            selectedSegmentId={selectedSegmentId}
-          />
-          <WorkerPanel workers={workers} anomalies={workerAnomalies} />
-          <WorkerAnomalyPanel
-            anomalies={workerAnomalies}
-            summary={workerAnomalySummary}
-            selectedWorkerId={selectedWorkerId}
-          />
-          <GasSensorPanel gasSensors={gasSensors} />
-          <RouteOverlay
-            emergencyRoute={emergencyRoute}
-            workers={workers}
-            selectedWorkerId={selectedWorkerId}
-            onSelectWorker={onSelectWorker}
-          />
+          <div className="side-panel-tabs" role="tablist" aria-label="Yönetim paneli sekmeleri">
+            {sideTabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={sidePanelTab === tab.id}
+                className={`side-panel-tab side-panel-tab--${tab.tone}${sidePanelTab === tab.id ? ' side-panel-tab--active' : ''}`}
+                onClick={() => setSidePanelTab(tab.id)}
+              >
+                <span className="side-panel-tab-label">{tab.label}</span>
+                <span className="side-panel-tab-helper">{tab.helper}</span>
+                {tab.badge !== null && <span className="side-panel-tab-badge">{tab.badge}</span>}
+              </button>
+            ))}
+          </div>
+
+          <div className="side-panel-content">
+            {sidePanelTab === 'risk' && (
+              <RiskPanel
+                segments={segments}
+                risks={risks}
+                workers={workers}
+                gasSensors={gasSensors}
+                environmentalRisk={environmentalRisk}
+                geometryRisk={geometryRisk}
+                selectedSegmentId={selectedSegmentId}
+              />
+            )}
+            {sidePanelTab === 'workers' && <WorkerPanel workers={workers} anomalies={workerAnomalies} />}
+            {sidePanelTab === 'anomalies' && (
+              <WorkerAnomalyPanel
+                anomalies={workerAnomalies}
+                summary={workerAnomalySummary}
+                selectedWorkerId={selectedWorkerId}
+              />
+            )}
+            {sidePanelTab === 'gas' && <GasSensorPanel gasSensors={gasSensors} />}
+            {sidePanelTab === 'route' && (
+              <RouteOverlay
+                emergencyRoute={emergencyRoute}
+                workers={workers}
+                selectedWorkerId={selectedWorkerId}
+                onSelectWorker={onSelectWorker}
+              />
+            )}
+          </div>
         </aside>
       </div>
 

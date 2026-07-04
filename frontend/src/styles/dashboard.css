@@ -153,7 +153,93 @@
   border-left: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
+}
+
+.side-panel-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  padding-bottom: 8px;
+  background: linear-gradient(180deg, #0b0d14 0%, rgba(11, 13, 20, 0.92) 100%);
+}
+
+.side-panel-tab {
+  position: relative;
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px 6px;
+  background: #121722;
+  border: 1px solid #242b38;
+  border-radius: 8px;
+  color: #c7cedb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.side-panel-tab:hover {
+  border-color: #3d4658;
+  background: #171d2a;
+}
+
+.side-panel-tab--active {
+  background: #1c2432;
+  border-color: #34f5c5;
+  color: #f4f7fb;
+  box-shadow: 0 0 0 1px rgba(52, 245, 197, 0.16);
+}
+
+.side-panel-tab-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.side-panel-tab-helper {
+  font-size: 0.62rem;
+  color: #8a92a6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.side-panel-tab-badge {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #34f5c5;
+  color: #061018;
+  font-size: 0.64rem;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0b0d14;
+}
+
+.side-panel-tab--danger .side-panel-tab-badge {
+  background: #ff5630;
+  color: #fff;
+}
+
+.side-panel-tab--warning .side-panel-tab-badge {
+  background: #ffd23a;
+  color: #0c0e13;
+}
+
+.side-panel-content {
+  min-height: 0;
 }
 
 .layout-bottom {
@@ -403,6 +489,153 @@
   color: #8a92a6;
   font-size: 0.78rem;
   margin: 0 0 10px;
+}
+
+.risk-summary-card {
+  border: 1px solid #252c39;
+  background: #111722;
+  border-radius: 8px;
+  padding: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.risk-summary-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.risk-summary-head > div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.risk-summary-head strong {
+  color: #f4f7fb;
+  font-size: 0.98rem;
+  overflow-wrap: anywhere;
+}
+
+.risk-segment-id {
+  color: #8a92a6;
+  font-size: 0.75rem;
+}
+
+.risk-score-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.risk-score-big {
+  color: #f4f7fb;
+  font-size: 2.1rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.risk-score-copy {
+  color: #8a92a6;
+  font-size: 0.76rem;
+}
+
+.risk-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.risk-chip {
+  max-width: 100%;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #202837;
+  color: #d9dfeb;
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+}
+
+.risk-chip--muted {
+  color: #8a92a6;
+}
+
+.risk-action-card {
+  margin-top: 10px;
+  border: 1px solid rgba(52, 245, 197, 0.22);
+  background: rgba(52, 245, 197, 0.07);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+}
+
+.risk-action-card strong {
+  color: #edfef9;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.risk-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.risk-metric {
+  border: 1px solid #242b38;
+  background: #101620;
+  border-radius: 8px;
+  padding: 9px 10px;
+  display: grid;
+  gap: 3px;
+}
+
+.risk-metric span {
+  color: #8a92a6;
+  font-size: 0.72rem;
+}
+
+.risk-metric strong {
+  color: #e6e8ee;
+  font-size: 0.94rem;
+}
+
+.risk-details {
+  border-top: 1px solid #1c1f27;
+  padding: 8px 0;
+  font-size: 0.82rem;
+}
+
+.risk-details:last-child {
+  padding-bottom: 0;
+}
+
+.risk-details summary {
+  cursor: pointer;
+  color: #c7cedb;
+  font-weight: 700;
+  list-style-position: outside;
+}
+
+.risk-details[open] summary {
+  margin-bottom: 8px;
+  color: #f4f7fb;
+}
+
+.risk-details p {
+  margin: 6px 0 0;
+  color: #aab2c2;
+  line-height: 1.45;
+}
+
+.risk-details ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: #aab2c2;
 }
 
 .panel-row {
@@ -1186,5 +1419,15 @@
     max-height: 50vh;
     border-left: none;
     border-top: 1px solid #20242f;
+  }
+
+  .side-panel-tabs {
+    grid-template-columns: repeat(5, minmax(72px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .side-panel-tab {
+    min-height: 52px;
   }
 }

@@ -60,66 +60,76 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
   const criticalBehaviorEventCount = risk.critical_behavior_event_count || 0
   const behaviorEventTypes = risk.behavior_anomaly_event_types || []
   const behaviorWorkerIds = risk.behavior_anomaly_worker_ids || []
+  const activeReasons = Array.isArray(risk.active_reasons) ? risk.active_reasons : []
+  const recommendedAction = risk.recommended_action || fallbackRecommendedAction(riskLevel, segment?.is_blocked)
+  const weightedMultiSensorRisk = risk.weighted_multi_sensor_risk || gasSensor?.weighted_multi_sensor_risk || envRisk?.weighted_multi_sensor_risk
 
   return (
     <div className="panel">
       <h2 className="panel-title">Risk Paneli</h2>
       {!selectedSegmentId && <p className="panel-hint">Segment seçilmedi — en kritik segment gösteriliyor.</p>}
 
-      <div className="panel-row">
-        <span className="panel-label">Segment</span>
-        <span>{segment?.name || risk.segment_id} ({risk.segment_id})</span>
-      </div>
-
-      <div className="panel-row">
-        <span className="panel-label">Risk Skoru</span>
-        <span>{finalScore}</span>
-      </div>
-
-      <div className="panel-row">
-        <span className="panel-label">Risk Seviyesi</span>
-        <span className="risk-badge" style={{ backgroundColor: color }}>
-          {getRiskLabel(segment?.is_blocked ? 'blocked' : riskLevel)}
-        </span>
-      </div>
-
-      {risk.active_reasons && risk.active_reasons.length > 0 && (
-        <div className="panel-row panel-row--block">
-          <span className="panel-label">Aktif Risk Nedenleri</span>
-          <ul>
-            {risk.active_reasons.map((reason) => <li key={reason}>{reason}</li>)}
-          </ul>
+      <div className="risk-summary-card">
+        <div className="risk-summary-head">
+          <div>
+            <span className="panel-label">Segment</span>
+            <strong>{segment?.name || risk.segment_id}</strong>
+            <span className="risk-segment-id">{risk.segment_id}</span>
+          </div>
+          <span className="risk-badge" style={{ backgroundColor: color }}>
+            {getRiskLabel(segment?.is_blocked ? 'blocked' : riskLevel)}
+          </span>
         </div>
-      )}
 
-      {/* Detailed Risk Breakdown Section */}
-      <div className="panel-row panel-row--block">
-        <span className="panel-label">Risk Kırılım Detayı</span>
-        <div style={{ fontSize: '12px', paddingLeft: '8px', marginTop: '4px', lineHeight: '1.6' }}>
-          {geomRiskVal !== undefined && geomRiskVal !== null && (
-            <div>• Geometri Yapısal Riski: <strong>{geomRiskVal}</strong></div>
-          )}
-          {envRiskVal !== undefined && envRiskVal !== null && (
-            <div>• Çevre/Metan Gaz Riski: <strong>{envRiskVal}</strong></div>
-          )}
-          {workerRiskVal !== undefined && workerRiskVal !== null && (
-            <div>• İşçi Yoğunluk Riski: <strong>{workerRiskVal}</strong></div>
-          )}
-          {trackingRiskVal !== undefined && trackingRiskVal !== null && (
-            <div>• Takip Güvenilirlik Riski: <strong>{trackingRiskVal}</strong></div>
-          )}
-          {risk.worker_behavior_anomaly_score > 0 && (
-            <div>• Davranış Anomali Skoru: <strong>{risk.worker_behavior_anomaly_score}</strong></div>
-          )}
-          {breakdown.scenario_boost !== undefined && breakdown.scenario_boost !== null && (
-            <div>• Senaryo Risk Artışı: <strong>+{breakdown.scenario_boost}</strong></div>
-          )}
+        <div className="risk-score-line">
+          <span className="risk-score-big">{formatNumber(finalScore)}</span>
+          <span className="risk-score-copy">AI risk skoru</span>
         </div>
+
+        {activeReasons.length > 0 ? (
+          <div className="risk-chip-list" aria-label="Aktif risk nedenleri">
+            {activeReasons.slice(0, 4).map((reason) => (
+              <span className="risk-chip" key={reason}>{reason}</span>
+            ))}
+            {activeReasons.length > 4 && <span className="risk-chip risk-chip--muted">+{activeReasons.length - 4}</span>}
+          </div>
+        ) : (
+          <p className="panel-empty">Aktif risk nedeni yok.</p>
+        )}
+      </div>
+
+      <div className="risk-action-card">
+        <span className="panel-label">Önerilen aksiyon</span>
+        <strong>{recommendedAction}</strong>
+      </div>
+
+      <div className="risk-metric-grid">
+        <div className="risk-metric">
+          <span>Geometri</span>
+          <strong>{formatNumber(geomRiskVal)}</strong>
+        </div>
+        <div className="risk-metric">
+          <span>Çevre</span>
+          <strong>{formatNumber(envRiskVal)}</strong>
+        </div>
+        <div className="risk-metric">
+          <span>İşçi</span>
+          <strong>{formatNumber(workerRiskVal)}</strong>
+        </div>
+        <div className="risk-metric">
+          <span>Takip</span>
+          <strong>{formatNumber(trackingRiskVal)}</strong>
+        </div>
+      </div>
+
+      <div className="panel-row">
+        <span className="panel-label">Segmentte işçi</span>
+        <span>{workersHere.length > 0 ? workersHere.map((w) => w.worker_id).join(', ') : 'Yok'}</span>
       </div>
 
       {(Object.keys(measurements).length > 0 || Object.keys(componentScores).length > 0) && (
-        <div className="panel-row panel-row--block">
-          <span className="panel-label">Çoklu Sensör Detayı</span>
+        <details className="risk-details">
+          <summary>Çevresel sensör detayları</summary>
           <div className="metric-grid">
             <span>CH4: <strong>{formatNumber(measurements.methane_ppm, ' ppm')}</strong></span>
             <span>CO: <strong>{formatNumber(measurements.co_ppm, ' ppm')}</strong></span>
@@ -136,56 +146,60 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
             <span>Nem: <strong>{formatNumber(componentScores.humidity_risk)}</strong></span>
             <span>Basınç: <strong>{formatNumber(componentScores.pressure_risk)}</strong></span>
           </div>
-          <div className="panel-hint">
-            Weighted skor {formatNumber(risk.weighted_multi_sensor_risk || gasSensor?.weighted_multi_sensor_risk || envRisk?.weighted_multi_sensor_risk)}
+          <p className="panel-hint">
+            Weighted skor {formatNumber(weightedMultiSensorRisk)}
             {sensorConfidence !== undefined && ` · Güven ${formatNumber(sensorConfidence * 100, '%')}`}
             {sensorReliability && ` · ${sensorReliability}`}
-          </div>
+          </p>
           {environmentalReasons.length > 0 && (
             <ul>
               {environmentalReasons.slice(0, 3).map((reason) => <li key={reason}>{reason}</li>)}
             </ul>
           )}
-        </div>
+        </details>
       )}
 
       {behaviorEventCount > 0 && (
-        <div className="panel-row panel-row--block">
-          <span className="panel-label">UWB Davranış Uyarısı</span>
+        <details className="risk-details">
+          <summary>UWB davranış uyarıları</summary>
           <div>
             <strong className={criticalBehaviorEventCount > 0 ? 'text-danger' : undefined}>
               {behaviorEventCount} event
             </strong>
             {criticalBehaviorEventCount > 0 && ` · ${criticalBehaviorEventCount} kritik`}
           </div>
-          {behaviorEventTypes.length > 0 && <span>{behaviorEventTypes.join(', ')}</span>}
-          {behaviorWorkerIds.length > 0 && <span>İşçiler: {behaviorWorkerIds.join(', ')}</span>}
-        </div>
+          {behaviorEventTypes.length > 0 && <p>{behaviorEventTypes.join(', ')}</p>}
+          {behaviorWorkerIds.length > 0 && <p>İşçiler: {behaviorWorkerIds.join(', ')}</p>}
+        </details>
       )}
 
-      <div className="panel-row">
-        <span className="panel-label">Gaz/Metan Riski</span>
-        <span className={gasSensor?.status === 'alarm' ? 'text-danger' : undefined}>
-          {gasSensor
-            ? `${formatNumber(measurements.methane_ppm || gasSensor.methane_value, measurements.methane_ppm ? ' ppm' : '%')} (skor ${gasSensor.risk_score})${gasSensor.status === 'alarm' ? ' — ALARM' : ''}`
-            : (envRisk ? `${envRisk.methane_ppm} ppm (skor ${envRisk.gas_risk_score})` : 'Veri yok')}
-        </span>
-      </div>
-
-      <div className="panel-row">
-        <span className="panel-label">Geometri Riski</span>
-        <span>{geoRisk ? `Skor ${geoRisk.structural_risk_score} — ${geoRisk.notes}` : 'Veri yok'}</span>
-      </div>
-
-      <div className="panel-row">
-        <span className="panel-label">İşçi Var mı?</span>
-        <span>{workersHere.length > 0 ? `${workersHere.length} işçi (${workersHere.map((w) => w.worker_id).join(', ')})` : 'Yok'}</span>
-      </div>
-
-      <div className="panel-row panel-row--block">
-        <span className="panel-label">Önerilen Aksiyon</span>
-        <span>{risk.recommended_action || fallbackRecommendedAction(riskLevel, segment?.is_blocked)}</span>
-      </div>
+      <details className="risk-details">
+        <summary>Teknik kırılım</summary>
+        <div className="panel-row">
+          <span className="panel-label">Gaz/Metan</span>
+          <span className={gasSensor?.status === 'alarm' ? 'text-danger' : undefined}>
+            {gasSensor
+              ? `${formatNumber(measurements.methane_ppm || gasSensor.methane_value, measurements.methane_ppm ? ' ppm' : '%')} (skor ${gasSensor.risk_score})${gasSensor.status === 'alarm' ? ' — ALARM' : ''}`
+              : (envRisk ? `${envRisk.methane_ppm} ppm (skor ${envRisk.gas_risk_score})` : 'Veri yok')}
+          </span>
+        </div>
+        <div className="panel-row">
+          <span className="panel-label">Geometri</span>
+          <span>{geoRisk ? `Skor ${geoRisk.structural_risk_score} — ${geoRisk.notes}` : 'Veri yok'}</span>
+        </div>
+        {risk.worker_behavior_anomaly_score > 0 && (
+          <div className="panel-row">
+            <span className="panel-label">Anomali skoru</span>
+            <span>{risk.worker_behavior_anomaly_score}</span>
+          </div>
+        )}
+        {breakdown.scenario_boost !== undefined && breakdown.scenario_boost !== null && (
+          <div className="panel-row">
+            <span className="panel-label">Senaryo artışı</span>
+            <span>+{breakdown.scenario_boost}</span>
+          </div>
+        )}
+      </details>
     </div>
   )
 }
