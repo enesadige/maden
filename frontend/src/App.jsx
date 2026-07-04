@@ -49,6 +49,8 @@ export default function App() {
   const [isTimePlaying, setIsTimePlaying] = useState(false)
   const timeStepDebounceRef = useRef(null)
   const timeStepPlaybackRef = useRef(null)
+  const isStateLoadingRef = useRef(false)
+  const stateLoadIdRef = useRef(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [forceMockMode, setForceMockMode] = useState(false)
@@ -60,6 +62,9 @@ export default function App() {
     let isMounted = true
 
     async function loadState() {
+      const loadId = stateLoadIdRef.current + 1
+      stateLoadIdRef.current = loadId
+      isStateLoadingRef.current = true
       try {
         setLoading(true)
         setError(null)
@@ -160,6 +165,9 @@ export default function App() {
         console.error("Dashboard critical load error:", err)
         if (isMounted) setError(err.message)
       } finally {
+        if (loadId === stateLoadIdRef.current) {
+          isStateLoadingRef.current = false
+        }
         if (isMounted) setLoading(false)
       }
     }
@@ -250,8 +258,10 @@ export default function App() {
 
     clearTimeout(timeStepDebounceRef.current)
     timeStepPlaybackRef.current = setInterval(() => {
+      if (isStateLoadingRef.current) return
       setSelectedTimeStep((current) => {
         const next = current >= maxStep ? minStep : current + 1
+        isStateLoadingRef.current = true
         setCommittedTimeStep(next)
         return next
       })
