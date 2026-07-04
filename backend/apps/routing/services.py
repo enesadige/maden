@@ -83,6 +83,15 @@ def _shortest_path(start_node: str, exit_node: str, adjacency):
     return math.inf, [], []
 
 
+def _invalid_route_edges(route_segments: list[str], adjacency) -> list[dict[str, str]]:
+    invalid_edges: list[dict[str, str]] = []
+    for source, target in zip(route_segments, route_segments[1:]):
+        neighbors = {neighbor for neighbor, _, _ in adjacency.get(source, [])}
+        if target not in neighbors:
+            invalid_edges.append({"source": source, "target": target})
+    return invalid_edges
+
+
 def get_emergency_route(
     start_segment: str,
     exit_node: str = "3",
@@ -157,6 +166,27 @@ def get_emergency_route(
         }
 
     route_segments = [start_segment] + route_segments
+    invalid_edges = _invalid_route_edges(route_segments, adjacency)
+    if invalid_edges:
+        return {
+            "reachable": False,
+            "exit_reachable": False,
+            "trapped": True,
+            "reason": "route_edge_validation_failed",
+            "start_segment": start_segment,
+            "blocked_segment": blocked_segment,
+            "exit_node": exit_node,
+            "exit_segment": selected_exit,
+            "route_segments": [],
+            "route": [],
+            "route_nodes": [],
+            "route_edge_valid": False,
+            "invalid_route_edges": invalid_edges,
+            "alternative_route_available": False,
+            "emergency_status": "INVALID_ROUTE_GRAPH",
+            "message": "Route was rejected because at least one consecutive segment pair is not connected in mine_graph.",
+        }
+
     worker_overlap_segments = [segment_id for segment_id in route_segments if segment_id in worker_segments and segment_id != start_segment]
     return {
         "reachable": True,
@@ -170,6 +200,8 @@ def get_emergency_route(
         "route_segments": route_segments,
         "route": route_segments,
         "route_nodes": route_nodes,
+        "route_edge_valid": True,
+        "invalid_route_edges": [],
         "alternative_route_available": True,
         "emergency_status": "ROUTE_AVAILABLE",
         "message": "Risk-aware route to an exit segment is available.",

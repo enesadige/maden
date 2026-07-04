@@ -425,6 +425,21 @@
   border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
+.demo-route-warning-chip {
+  max-width: 220px;
+  color: #ffe3e3;
+  background: rgba(227, 23, 79, 0.9);
+  border: 1px solid rgba(255, 179, 197, 0.75);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 10px;
+  line-height: 1.25;
+  font-weight: 800;
+  white-space: normal;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.38);
+}
+
 .segment-label {
   font-size: 11px;
   color: #e6e8ee;

@@ -133,8 +133,27 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["start_segment"], expected_worker["current_segment"])
         self.assertEqual(data["route_segments"][0], expected_worker["current_segment"])
         self.assertTrue(data["route_segments"][-1].startswith("S"))
+        self.assertTrue(data["route_edge_valid"])
+        self.assertEqual(data["invalid_route_edges"], [])
         self.assertEqual(data["cost_policy"], "length + geometry*0.15 + environmental*0.45 + worker*0.12 + tracking*0.05 + occupancy penalty")
         self.assertIn("worker_overlap_segments", data)
+
+    def test_emergency_route_segments_follow_graph_edges(self):
+        response = self.client.get("/api/routes/emergency?worker_id=WORKER_05&time_step=33&scenario=show_route")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        graph = self._load_json("haki_lidar/graph/mine_graph.json")
+        graph_edges = {
+            tuple(sorted((edge["source"], edge["target"])))
+            for edge in graph["edges"]
+        }
+        route_segments = data["route_segments"]
+
+        self.assertTrue(data["route_edge_valid"])
+        self.assertGreater(len(route_segments), 1)
+        for source, target in zip(route_segments, route_segments[1:]):
+            self.assertIn(tuple(sorted((source, target))), graph_edges)
 
     def test_emergency_route_endpoint_accepts_scenario_param(self):
         response = self.client.get("/api/routes/emergency?worker_id=WORKER_01&time_step=27&scenario=collapse_s004")

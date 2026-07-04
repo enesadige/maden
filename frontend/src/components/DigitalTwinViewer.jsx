@@ -4,7 +4,7 @@ import { OrbitControls, Line, Html } from '@react-three/drei'
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js'
 import * as THREE from 'three'
 import { getRiskColor, WORKER_COLOR, WORKER_AT_RISK_COLOR, ROUTE_COLOR, RISK_COLORS } from '../utils/riskColors'
-import { buildConnectionLines, buildRoutePoints } from '../utils/geometryUtils'
+import { buildConnectionLines, buildRouteEdges } from '../utils/geometryUtils'
 import { getPointCloudMetadata, isApiMode, apiUrl } from '../services/api'
 
 const UP = new THREE.Vector3(0, 1, 0)
@@ -508,12 +508,31 @@ function ConnectionLines({ segments }) {
 function EmergencyRouteLine({ emergencyRoute, segments }) {
   const routeSegments = emergencyRoute?.route_segments || emergencyRoute?.route
   if (!routeSegments?.length) return null
-  const points = buildRoutePoints(routeSegments, segments)
-  if (points.length < 2) return null
-  const elevated = points.map(p => [p[0], p[1] + 0.4, p[2]])
+  const routeEdges = buildRouteEdges(routeSegments, segments).filter(edge => edge.from && edge.to)
+  if (!routeEdges.length) return null
   const isRouteSafe = Boolean(emergencyRoute.exit_reachable && emergencyRoute.alternative_route_available)
-  if (isRouteSafe) return <Line points={elevated} color={ROUTE_COLOR} lineWidth={4} />
-  return <Line points={elevated} color={RISK_COLORS.critical} lineWidth={3} dashed dashSize={0.6} gapSize={0.4} />
+  return (
+    <group>
+      {routeEdges.map(edge => {
+        const valid = edge.valid && emergencyRoute.route_edge_valid !== false
+        const color = valid && isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical
+        return (
+          <Line
+            key={edge.key}
+            points={[
+              [edge.from[0], edge.from[1] + 0.4, edge.from[2]],
+              [edge.to[0], edge.to[1] + 0.4, edge.to[2]]
+            ]}
+            color={color}
+            lineWidth={valid && isRouteSafe ? 4 : 3}
+            dashed={!valid || !isRouteSafe}
+            dashSize={0.6}
+            gapSize={0.4}
+          />
+        )
+      })}
+    </group>
+  )
 }
 
 // ─── Demo Overlay (shown when PLY loaded + mode = 'demo') ─────────────────────
@@ -531,8 +550,9 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
     () => emergencyRoute?.route_segments || emergencyRoute?.route || [],
     [emergencyRoute]
   )
-  const routePts = useMemo(() => buildRoutePoints(routeIds, segments), [routeIds, segments])
+  const routeEdges = useMemo(() => buildRouteEdges(routeIds, segments), [routeIds, segments])
   const isRouteSafe = Boolean(emergencyRoute?.exit_reachable && emergencyRoute?.alternative_route_available)
+  const hasInvalidRouteEdge = emergencyRoute?.route_edge_valid === false || routeEdges.some(edge => !edge.valid)
 
   return (
     <group>
@@ -610,15 +630,47 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
         )
       })}
 
-      {routePts.length > 1 && (
-        <Line
-          points={routePts.map(p => [p[0], p[1] + 0.08, p[2]])}
-          color={isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
-          lineWidth={5}
-          dashed={!isRouteSafe}
-          dashSize={0.5}
-          gapSize={0.4}
-        />
+      {routeEdges.filter(edge => edge.from && edge.to).map(edge => {
+        const valid = edge.valid && emergencyRoute?.route_edge_valid !== false
+        const mid = [
+          (edge.from[0] + edge.to[0]) / 2,
+          (edge.from[1] + edge.to[1]) / 2 + 1.25,
+          (edge.from[2] + edge.to[2]) / 2
+        ]
+        return (
+          <group key={edge.key}>
+            <Line
+              points={[
+                [edge.from[0], edge.from[1] + 0.08, edge.from[2]],
+                [edge.to[0], edge.to[1] + 0.08, edge.to[2]]
+              ]}
+              color={valid && isRouteSafe ? ROUTE_COLOR : RISK_COLORS.critical}
+              lineWidth={valid && isRouteSafe ? 5 : 3}
+              dashed={!valid || !isRouteSafe}
+              dashSize={0.5}
+              gapSize={0.4}
+            />
+            {!valid && (
+              <Html distanceFactor={18} position={mid}>
+                <div className="demo-route-warning-chip">
+                  Graph bağlantısı yok: {edge.source} → {edge.target}
+                </div>
+              </Html>
+            )}
+          </group>
+        )
+      })}
+
+      {hasInvalidRouteEdge && routeEdges.length > 0 && (
+        <Html distanceFactor={18} position={[
+          routeEdges.find(edge => edge.from)?.from?.[0] || 0,
+          (routeEdges.find(edge => edge.from)?.from?.[1] || 0) + 2.4,
+          routeEdges.find(edge => edge.from)?.from?.[2] || 0
+        ]}>
+          <div className="demo-route-warning-chip">
+            Rota graph doğrulamasından geçmedi.
+          </div>
+        </Html>
       )}
     </group>
   )

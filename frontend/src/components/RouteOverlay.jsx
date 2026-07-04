@@ -120,6 +120,22 @@ export default function RouteOverlay({
         <span>{alternative_route_available ? 'Var' : 'Yok'}</span>
       </div>
 
+      {emergencyRoute.route_edge_valid !== undefined && (
+        <div className="panel-row">
+          <span className="panel-label">Graph Doğrulaması</span>
+          <span className={emergencyRoute.route_edge_valid ? 'text-ok' : 'text-danger'}>
+            {emergencyRoute.route_edge_valid ? 'Geçerli' : 'Geçersiz'}
+          </span>
+        </div>
+      )}
+
+      {emergencyRoute.invalid_route_edges?.length > 0 && (
+        <div className="panel-row panel-row--block">
+          <span className="panel-label">Geçersiz Bağlantılar</span>
+          <span>{emergencyRoute.invalid_route_edges.map((edge) => `${edge.source} → ${edge.target}`).join(', ')}</span>
+        </div>
+      )}
+
       <div className="panel-row panel-row--block">
         <span className="panel-label">Rota Segmentleri</span>
         <span>{routeSegments?.join(' → ') || '-'}</span>

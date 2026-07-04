@@ -37,3 +37,43 @@ export function buildRoutePoints(routeSegmentIds, segments) {
     .map((id) => lookup[id]?.center)
     .filter(Boolean)
 }
+
+function hasGraphConnection(source, target) {
+  if (!source || !target) return false
+  const sourceConnections = source.connected_segments || []
+  const targetConnections = target.connected_segments || []
+  return sourceConnections.includes(target.segment_id) || targetConnections.includes(source.segment_id)
+}
+
+export function buildRouteEdges(routeSegmentIds, segments) {
+  const lookup = buildSegmentLookup(segments)
+  const edges = []
+  for (let index = 0; index < routeSegmentIds.length - 1; index += 1) {
+    const sourceId = routeSegmentIds[index]
+    const targetId = routeSegmentIds[index + 1]
+    const source = lookup[sourceId]
+    const target = lookup[targetId]
+    if (!source?.center || !target?.center) {
+      edges.push({
+        key: `${sourceId}-${targetId}-${index}`,
+        source: sourceId,
+        target: targetId,
+        from: source?.center,
+        to: target?.center,
+        valid: false,
+        missingPoint: true
+      })
+      continue
+    }
+    edges.push({
+      key: `${sourceId}-${targetId}-${index}`,
+      source: sourceId,
+      target: targetId,
+      from: source.center,
+      to: target.center,
+      valid: hasGraphConnection(source, target),
+      missingPoint: false
+    })
+  }
+  return edges
+}
