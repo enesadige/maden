@@ -1077,6 +1077,13 @@
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
 }
 
+.mine-map-worker-tether {
+  stroke: rgba(58, 160, 255, 0.45);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 3;
+  pointer-events: none;
+}
+
 .mine-map-worker-glyph {
   fill: #061018;
   font-size: 8px;

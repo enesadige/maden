@@ -6,14 +6,14 @@ const VIEW_W = 920
 const VIEW_H = 580
 const PAD = 36
 const WORKER_OFFSETS = [
-  [-18, 22],
-  [-2, 24],
-  [14, 22],
-  [-22, 8],
-  [22, 8],
-  [-18, -10],
-  [18, -10],
-  [-4, -22],
+  [0, 0],
+  [-9, 8],
+  [9, 8],
+  [-10, -7],
+  [10, -7],
+  [0, 11],
+  [-14, 1],
+  [14, 1],
 ]
 
 function getCoord(seg, axis) {
@@ -289,15 +289,31 @@ export default function MineMapView({ segments, risks, workers, gasSensors, emer
           const color = atRisk ? WORKER_AT_RISK_COLOR : WORKER_COLOR
           const [ox, oy] = WORKER_OFFSETS[slot % WORKER_OFFSETS.length]
           const layer = Math.floor(slot / WORKER_OFFSETS.length)
-          const wx = pos.x + ox + layer * 8
-          const wy = pos.y + oy + layer * 8
+          const wx = pos.x + ox + layer * 4
+          const wy = pos.y + oy + layer * 4
           const label = shortWorkerLabel(w.worker_id)
+          const reliability = Number(w.position_reliability)
+          const confidence = Number(w.mapping_confidence)
           return (
             <g key={w.worker_id} className={`mine-map-worker${selected ? ' mine-map-worker--selected' : ''}`}>
-              <title>{formatWorkerName(w.worker_id, w.name)} — {w.current_segment} — {w.status || 'safe'}</title>
+              <title>
+                {formatWorkerName(w.worker_id, w.name)} — {w.current_segment} — {w.status || 'safe'}
+                {Number.isFinite(reliability) ? ` — reliability ${Math.round(reliability * 100)}%` : ''}
+                {Number.isFinite(confidence) ? ` — mapping ${Math.round(confidence * 100)}%` : ''}
+                {w.mapping_method ? ` — ${w.mapping_method}` : ''}
+              </title>
+              {(ox !== 0 || oy !== 0 || layer > 0) && (
+                <line
+                  x1={pos.x}
+                  y1={pos.y}
+                  x2={wx}
+                  y2={wy}
+                  className="mine-map-worker-tether"
+                />
+              )}
               {selected && <circle cx={wx} cy={wy} r={15} fill="none" stroke="#ffffff" strokeWidth={2} opacity={0.95} />}
               {atRisk && <circle cx={wx} cy={wy} r={16} fill="none" stroke={RISK_COLORS.critical} strokeWidth={2} opacity={0.85} className="map-pulse" />}
-              <circle cx={wx} cy={wy} r={9} fill={color} stroke="#061018" strokeWidth={2} />
+              <circle cx={wx} cy={wy} r={8} fill={color} stroke="#061018" strokeWidth={2} />
               <text x={wx} y={wy + 3} textAnchor="middle" className="mine-map-worker-glyph">W</text>
               <text x={wx + 12} y={wy - 9} className="mine-map-marker-label">{label}</text>
             </g>
