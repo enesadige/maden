@@ -4,7 +4,7 @@ from typing import Any
 
 from apps.common.ids import normalize_segment_id
 from apps.lidar.services import get_graph, get_segments
-from apps.routing.services import get_emergency_route
+from apps.routing.services import build_route_context, get_emergency_route
 from apps.scenarios.services import get_collapse_result
 from apps.risk.services import get_segment_risks
 from apps.sensors.services import get_environmental_risks, get_gas_sensors, get_gas_time_steps
@@ -265,11 +265,13 @@ def build_scenario_state(scenario_id: str, time_step: int = 0, worker_id: str | 
         scenario_result = _apply_worker_at_risk(workers, risks, worker_id=worker_id)
     elif scenario_id == "show_route":
         route_worker = _select_worker(workers, worker_id)
+        route_context = build_route_context(blocked_segment=None, time_step=time_step)
         route_preview = get_emergency_route(
             start_segment=route_worker.get("current_segment") if route_worker else "S001",
             blocked_segment=None,
             worker_id=route_worker.get("worker_id") if route_worker else None,
             time_step=time_step,
+            route_context=route_context,
         )
         scenario_result = {
             "scenario_id": "show_route",
@@ -374,6 +376,7 @@ def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None)
     collapse = get_collapse_result() if blocked_segment else {}
     scenario_blocked_segment = normalize_segment_id(blocked_segment) if blocked_segment else None
     workers = get_workers_at_time_step(time_step, fallback="none")
+    route_context = build_route_context(blocked_segment=scenario_blocked_segment, time_step=time_step)
 
     worker_records = []
     for worker in workers:
@@ -383,6 +386,7 @@ def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None)
             blocked_segment=scenario_blocked_segment,
             worker_id=worker_id,
             time_step=time_step,
+            route_context=route_context,
         )
         trapped = bool(route.get("trapped"))
         worker_records.append(

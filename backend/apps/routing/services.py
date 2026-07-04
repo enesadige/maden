@@ -61,6 +61,21 @@ def _build_adjacency(blocked_segment: str | None, risks: dict[str, dict[str, Any
     return adjacency, segment_lookup
 
 
+def build_route_context(blocked_segment: str | None = None, time_step: int | None = 0) -> dict[str, Any]:
+    normalized_blocked = normalize_segment_id(blocked_segment) if blocked_segment else None
+    risks = risk_by_segment(time_step)
+    adjacency, segment_lookup = _build_adjacency(normalized_blocked, risks)
+    workers = get_workers(time_step)
+    return {
+        "time_step": time_step,
+        "blocked_segment": normalized_blocked,
+        "risks": risks,
+        "adjacency": adjacency,
+        "segment_lookup": segment_lookup,
+        "workers": workers,
+    }
+
+
 def _shortest_path(start_node: str, exit_node: str, adjacency):
     queue = [(0.0, start_node, [], [start_node])]
     best = {start_node: 0.0}
@@ -98,13 +113,14 @@ def get_emergency_route(
     blocked_segment: str | None = None,
     worker_id: str | None = None,
     time_step: int | None = 0,
+    route_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     start_segment = normalize_segment_id(start_segment)
     blocked_segment = normalize_segment_id(blocked_segment) if blocked_segment else None
-    risks = risk_by_segment(time_step)
-    workers = [item for item in get_workers(time_step) if item.get("worker_id") != worker_id]
-
-    adjacency, segment_lookup = _build_adjacency(blocked_segment, risks)
+    context = route_context or build_route_context(blocked_segment=blocked_segment, time_step=time_step)
+    adjacency = context["adjacency"]
+    segment_lookup = context["segment_lookup"]
+    workers = [item for item in context["workers"] if item.get("worker_id") != worker_id]
     start = segment_lookup.get(start_segment)
     if not start:
         return {

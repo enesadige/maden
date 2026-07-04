@@ -2,8 +2,11 @@ import { normalizeApiPayload } from '../utils/idNormalize'
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000' : '')
 export const USE_API = API_BASE_URL.length > 0
+const DEFAULT_API_TIMEOUT_MS = 6000
+const HEAVY_API_TIMEOUT_MS = 12000
+const MOCK_TIMEOUT_MS = 2000
 
-async function fetchWithTimeout(url, options = {}, timeout = 4000) {
+async function fetchWithTimeout(url, options = {}, timeout = DEFAULT_API_TIMEOUT_MS) {
   const controller = new AbortController()
   const id = setTimeout(() => controller.abort(), timeout)
   try {
@@ -19,7 +22,7 @@ async function fetchWithTimeout(url, options = {}, timeout = 4000) {
   }
 }
 
-async function fetchJson(url, timeout = 4000) {
+async function fetchJson(url, timeout = DEFAULT_API_TIMEOUT_MS) {
   const response = await fetchWithTimeout(url, {}, timeout)
   if (!response.ok) {
     throw new Error(`Request failed: ${url} (${response.status})`)
@@ -35,20 +38,27 @@ function mockUrl(file) {
   return `/mock/${file}`
 }
 
-// In API mode, a failed backend call falls back to the matching mock file
-// instead of crashing the dashboard.
-async function fetchApiOrMock(path, mockFile, forceMock = false) {
+async function fetchApiOrMock(path, mockFile, forceMock = false, options = {}) {
+  const {
+    timeout = DEFAULT_API_TIMEOUT_MS,
+    allowMockFallback = false
+  } = options
+
   if (!USE_API || forceMock) {
-    const data = await fetchJson(mockUrl(mockFile), 2000)
+    const data = await fetchJson(mockUrl(mockFile), MOCK_TIMEOUT_MS)
     return normalizeApiPayload(data)
   }
 
   try {
-    const data = await fetchJson(apiUrl(path), 4000)
+    const data = await fetchJson(apiUrl(path), timeout)
     return normalizeApiPayload(data)
   } catch (err) {
-    console.warn(`API request failed for ${path}, falling back to mock data.`, err)
-    const data = await fetchJson(mockUrl(mockFile), 2000)
+    if (!allowMockFallback) {
+      console.warn(`API request failed for ${path}. Mock fallback is disabled in API mode.`, err)
+      throw err
+    }
+    console.warn(`API request failed for ${path}, falling back to mock data by request.`, err)
+    const data = await fetchJson(mockUrl(mockFile), MOCK_TIMEOUT_MS)
     return normalizeApiPayload(data)
   }
 }
@@ -60,7 +70,7 @@ export function isApiMode() {
 export async function getHealth() {
   if (!USE_API) return { status: 'ok', mode: 'mock' }
   try {
-    return await fetchJson(apiUrl('/api/health'), 2000)
+    return await fetchJson(apiUrl('/api/health'), MOCK_TIMEOUT_MS)
   } catch (err) {
     console.warn('API health check failed, reporting degraded status.', err)
     return { status: 'unreachable', mode: 'api' }
@@ -68,7 +78,7 @@ export async function getHealth() {
 }
 
 export async function getSegments(params = {}) {
-  return fetchApiOrMock('/api/digital-twin/segments', 'segments.json', params.forceMock)
+  return fetchApiOrMock('/api/digital-twin/segments', 'segments.json', params.forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getSegmentMetadata() {
@@ -88,13 +98,13 @@ export async function getWorkers(params = {}) {
 export async function getRiskSegments(params = {}) {
   const { timeStep, forceMock } = params
   const query = timeStep !== undefined && timeStep !== '' ? `?time_step=${timeStep}` : ''
-  return fetchApiOrMock(`/api/risk/segments${query}`, 'risk_segments.json', forceMock)
+  return fetchApiOrMock(`/api/risk/segments${query}`, 'risk_segments.json', forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getEnvironmentalRisk(params = {}) {
   const { timeStep, forceMock } = params
   const query = timeStep !== undefined && timeStep !== '' ? `?time_step=${timeStep}` : ''
-  return fetchApiOrMock(`/api/risk/environmental${query}`, 'environmental_risk.json', forceMock)
+  return fetchApiOrMock(`/api/risk/environmental${query}`, 'environmental_risk.json', forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getGeometryRisk(params = {}) {
@@ -119,7 +129,7 @@ export async function getEmergencyRoute(params = {}) {
   }
 
   try {
-    const data = await fetchJson(apiUrl(`/api/routes/emergency${query}`), 4000)
+    const data = await fetchJson(apiUrl(`/api/routes/emergency${query}`), HEAVY_API_TIMEOUT_MS)
     return normalizeApiPayload(data)
   } catch (err) {
     console.warn('Emergency route API request failed.', err)
@@ -130,8 +140,8 @@ export async function getEmergencyRoute(params = {}) {
 async function getMockEmergencyRoute(params = {}) {
   const { workerId, scenarioId, blockedSegment, timeStep } = params
   const [segments, workers] = await Promise.all([
-    fetchJson(mockUrl('segments.json'), 2000),
-    fetchJson(mockUrl('workers.json'), 2000)
+    fetchJson(mockUrl('segments.json'), MOCK_TIMEOUT_MS),
+    fetchJson(mockUrl('workers.json'), MOCK_TIMEOUT_MS)
   ])
   const selectedWorker = workers.find((worker) => worker.worker_id === workerId) || workers[0]
   const startSegment = selectedWorker?.current_segment || segments[0]?.segment_id
@@ -200,7 +210,7 @@ export async function getWorkerAnomalies(params = {}) {
   const query = args.length > 0 ? `?${args.join('&')}` : ''
 
   try {
-    const data = await fetchJson(apiUrl(`/api/workers/anomalies${query}`), 4000)
+    const data = await fetchJson(apiUrl(`/api/workers/anomalies${query}`), DEFAULT_API_TIMEOUT_MS)
     return normalizeApiPayload(data)
   } catch (err) {
     console.warn('Worker anomaly API request failed.', err)
@@ -214,7 +224,7 @@ export async function getWorkerAnomalySummary(params = {}) {
   }
 
   try {
-    const data = await fetchJson(apiUrl('/api/workers/anomalies/summary'), 4000)
+    const data = await fetchJson(apiUrl('/api/workers/anomalies/summary'), DEFAULT_API_TIMEOUT_MS)
     return normalizeApiPayload(data)
   } catch (err) {
     console.warn('Worker anomaly summary API request failed.', err)
@@ -225,7 +235,7 @@ export async function getWorkerAnomalySummary(params = {}) {
 export async function getGasSensors(params = {}) {
   const { timeStep, forceMock } = params
   const query = timeStep !== undefined && timeStep !== '' ? `?time_step=${timeStep}` : ''
-  return fetchApiOrMock(`/api/gas-sensors${query}`, 'gas_sensors.json', forceMock)
+  return fetchApiOrMock(`/api/gas-sensors${query}`, 'gas_sensors.json', forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getSystemStatus() {
@@ -239,7 +249,7 @@ export async function getPointCloudMetadata(params = {}) {
 export async function getSimulationState(params = {}) {
   const { timeStep, forceMock } = params
   const query = timeStep !== undefined && timeStep !== '' ? `?time_step=${timeStep}` : ''
-  return fetchApiOrMock(`/api/simulation/state${query}`, 'segments.json', forceMock)
+  return fetchApiOrMock(`/api/simulation/state${query}`, 'segments.json', forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getSimulationScenario(params = {}) {
@@ -249,13 +259,13 @@ export async function getSimulationScenario(params = {}) {
   if (timeStep !== undefined) args.push(`time_step=${encodeURIComponent(timeStep)}`)
   if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
   const query = args.length > 0 ? `?${args.join('&')}` : ''
-  return fetchApiOrMock(`/api/simulation/scenario${query}`, 'segments.json', forceMock)
+  return fetchApiOrMock(`/api/simulation/scenario${query}`, 'segments.json', forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getTrappedState(params = {}) {
   const timeStep = params.timeStep !== undefined ? params.timeStep : ''
   const query = timeStep !== '' ? `?time_step=${timeStep}` : ''
-  return fetchApiOrMock(`/api/simulation/trapped${query}`, 'system_status.json')
+  return fetchApiOrMock(`/api/simulation/trapped${query}`, 'system_status.json', params.forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }
 
 export async function getIntegrationStatus(params = {}) {
@@ -265,5 +275,5 @@ export async function getIntegrationStatus(params = {}) {
   if (scenarioId) args.push(`scenario_id=${encodeURIComponent(scenarioId)}`)
   if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
   const query = args.length > 0 ? `?${args.join('&')}` : ''
-  return fetchApiOrMock(`/api/integration/status${query}`, 'system_status.json')
+  return fetchApiOrMock(`/api/integration/status${query}`, 'system_status.json', params.forceMock, { timeout: HEAVY_API_TIMEOUT_MS })
 }

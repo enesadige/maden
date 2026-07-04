@@ -109,11 +109,7 @@ export default function App() {
             anomalySummary = anomalySummaryPayload
           } catch (apiErr) {
             console.warn("Backend API request failed.", apiErr)
-            if (baseDataRef.current) {
-              throw apiErr
-            }
-            console.warn("No API data is loaded yet. Falling back to local Mock Mode for initial render.")
-            useMock = true
+            throw apiErr
           }
         }
 
@@ -191,6 +187,11 @@ export default function App() {
     let isMounted = true
 
     async function loadMinerRoute() {
+      if (viewMode !== 'miner') {
+        if (isMounted) setMinerRouteData(null)
+        return
+      }
+
       if (!selectedWorkerId) {
         if (isMounted) setMinerRouteData(null)
         return
@@ -214,7 +215,7 @@ export default function App() {
 
     loadMinerRoute()
     return () => { isMounted = false }
-  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
+  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive, viewMode])
 
   // 2. Fetch emergency route when scenario, timeStep, or selectedWorkerId changes
   useEffect(() => {
