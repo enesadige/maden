@@ -945,6 +945,12 @@
   stroke-width: 2.5;
 }
 
+.miner-route-node--off-route {
+  stroke: #ff5630;
+  stroke-width: 3;
+  stroke-dasharray: 4 3;
+}
+
 .miner-route-node-label {
   fill: #f6f8fb;
   font-size: 11px;
@@ -977,6 +983,14 @@
   font-size: 0.82rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   background: rgba(6, 8, 11, 0.5);
+}
+
+.miner-route-warning {
+  padding: 8px 12px 10px;
+  color: #ffd68a;
+  font-size: 0.78rem;
+  border-top: 1px solid rgba(245, 166, 35, 0.18);
+  background: rgba(245, 166, 35, 0.08);
 }
 
 .miner-route-text-summary {

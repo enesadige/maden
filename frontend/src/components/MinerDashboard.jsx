@@ -5,36 +5,85 @@ const ROUTE_MAP_W = 420
 const ROUTE_MAP_H = 210
 const ROUTE_MAP_PAD = 28
 
-function buildActionMessage({ riskLevel, isBlocked, emergencyRoute, isAffectedWorker }) {
+const EMERGENCY_SCENARIOS = new Set(['collapse', 'collapse_s004', 'methane_spike', 'worker_at_risk'])
+
+function isHighRiskLevel(riskLevel) {
+  return riskLevel === 'critical' || riskLevel === 'high'
+}
+
+function isGasSensorAlarm(sensor) {
+  const status = String(sensor.status || '').toLowerCase()
+  const riskLevel = String(sensor.risk_level || '').toLowerCase()
+  return status === 'alarm' || status === 'critical' || status === 'high' || riskLevel === 'critical' || riskLevel === 'high'
+}
+
+function workerStatusLabel(status) {
+  if (status === 'trapped') return 'Mahsur'
+  if (status === 'at_risk') return 'Riskte'
+  return 'Güvende'
+}
+
+function workerStatusRiskLevel(status) {
+  if (status === 'trapped') return 'critical'
+  if (status === 'at_risk') return 'high'
+  return 'low'
+}
+
+function hasDirectSegmentHazard(risk, isBlocked, hasGasAlarm) {
+  if (isBlocked || hasGasAlarm) return true
+  if (!isHighRiskLevel(risk?.risk_level)) return false
+
+  const environmental = Number(risk?.environmental_risk || 0)
+  const geometry = Number(risk?.geometry_risk || 0)
+  const routeBlockage = Number(risk?.route_blockage_risk || 0)
+  return environmental >= 60 || geometry >= 60 || routeBlockage > 0
+}
+
+function isEmergencyRoute(route) {
+  if (!route) return false
+  if (route.trapped === true) return true
+  if (route.blocked_segment) return true
+  return EMERGENCY_SCENARIOS.has(route.scenario_id)
+}
+
+function buildActionMessage({ risk, isBlocked, emergencyRoute, isAffectedWorker, hasGasAlarm, workerStatus }) {
   if (isBlocked) {
     return 'Bulunduğun segment kapalı. Yerinde kal, kurtarma talimatı bekle.'
   }
 
-  if (isAffectedWorker && emergencyRoute) {
+  if (workerStatus === 'trapped') {
+    return 'Mahsur görünüyorsun. Bulunduğun yerde kal, kurtarma talimatı bekle.'
+  }
+
+  if (hasGasAlarm) {
+    return 'Yakınındaki gaz sensörü riskli. Talimatları takip et ve güvenli rotaya hazırlan.'
+  }
+
+  if (workerStatus === 'at_risk') {
+    return 'Sistem seni riskte işaretledi. Paneldeki rotayı takip et veya talimat bekle.'
+  }
+
+  if (isAffectedWorker && emergencyRoute && isEmergencyRoute(emergencyRoute)) {
     if (emergencyRoute.trapped === true) {
       return 'Çıkışa güvenli rota yok. Bulunduğun yerde kal, kurtarma talimatı bekle.'
     }
-    // Show evacuation route only in non-normal emergency scenarios
-    const scenarioId = emergencyRoute.scenario_id
-    if (scenarioId && scenarioId !== 'normal') {
-      const routeSegments = emergencyRoute.route_segments || emergencyRoute.route
-      if (routeSegments?.length) {
-        return `Tahliye rotasını takip et. Haritadaki sarı rota ${routeSegments[routeSegments.length - 1]} çıkışına götürür.`
-      }
+    const routeSegments = emergencyRoute.route_segments || emergencyRoute.route
+    if (routeSegments?.length) {
+      return `Tahliye rotasını takip et. Haritadaki sarı rota ${routeSegments[routeSegments.length - 1]} çıkışına götürür.`
     }
   }
 
-  if (riskLevel === 'critical' || riskLevel === 'high') {
-    return 'Bulunduğun bölgede risk yüksek. Mümkünse güvenli segmente geç.'
+  if (hasDirectSegmentHazard(risk, isBlocked, hasGasAlarm)) {
+    return 'Bulunduğun segmentte çevresel/yapısal risk yüksek. Güvenli segmente geçmeye hazırlan.'
   }
 
   return 'Durum normal. Standart rota geçerli.'
 }
 
-function buildAlarmState({ isBlocked, riskLevel, isAffectedWorker, emergencyRoute, hasGasAlarm }) {
+function buildAlarmState({ isBlocked, risk, isAffectedWorker, emergencyRoute, hasGasAlarm, workerStatus }) {
   const isTrapped = isAffectedWorker && emergencyRoute?.trapped === true
 
-  if (isBlocked || isTrapped) {
+  if (isBlocked || isTrapped || workerStatus === 'trapped') {
     return {
       level: 'critical',
       title: isBlocked ? 'BÖLGEN KAPALI' : 'MAHSUR KALDIN — ALTERNATİF ROTA YOK',
@@ -50,11 +99,19 @@ function buildAlarmState({ isBlocked, riskLevel, isAffectedWorker, emergencyRout
     }
   }
 
-  if (riskLevel === 'critical' || riskLevel === 'high') {
+  if (workerStatus === 'at_risk') {
     return {
       level: 'warning',
-      title: 'YÜKSEK RİSK BÖLGESİ',
-      subtitle: 'Dikkatli ol, durumu takip et.'
+      title: 'İŞÇİ RİSKTE',
+      subtitle: 'Bu uyarı işçi durumundan geliyor; segment tehlikesi ayrıca aşağıda gösterilir.'
+    }
+  }
+
+  if (hasDirectSegmentHazard(risk, isBlocked, hasGasAlarm)) {
+    return {
+      level: 'warning',
+      title: 'SEGMENT RİSKİ YÜKSEK',
+      subtitle: 'Çevresel veya yapısal risk yükseldi; risk kırılımını takip et.'
     }
   }
 
@@ -162,10 +219,13 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
   const routeSet = new Set(route)
   const allEdges = buildMiniMapEdges(segments, positionMap)
   const currentIndex = route.indexOf(currentSegment)
-  const currentPoint = positions.find((point) => point.segmentId === currentSegment) || positions[0]
+  const routeStartPoint = positions[0]
+  const standaloneCurrentPoint = positionMap.get(currentSegment)
+  const currentPoint = positions.find((point) => point.segmentId === currentSegment) || standaloneCurrentPoint || routeStartPoint
   const exitPoint = positions.find((point) => point.segmentId === exitSegment) || positions[positions.length - 1]
   const completedPoints = currentIndex > 0 ? positions.slice(0, currentIndex + 1) : []
   const remainingPoints = currentIndex >= 0 ? positions.slice(currentIndex) : positions
+  const currentOffRoute = currentSegment && currentIndex < 0 && standaloneCurrentPoint
 
   return (
     <div className="miner-route-visual">
@@ -243,6 +303,20 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
           )
         })}
 
+        {currentOffRoute && (
+          <g>
+            <circle
+              cx={standaloneCurrentPoint.x}
+              cy={standaloneCurrentPoint.y}
+              r={9}
+              className="miner-route-node miner-route-node--current miner-route-node--off-route"
+            />
+            <text x={standaloneCurrentPoint.x} y={standaloneCurrentPoint.y - 13} textAnchor="middle" className="miner-route-node-label">
+              Sen
+            </text>
+          </g>
+        )}
+
         {currentPoint && (
           <text x={currentPoint.x} y={Math.min(currentPoint.y + 24, ROUTE_MAP_H - 8)} textAnchor="middle" className="miner-route-current-segment">
             {currentSegment}
@@ -253,8 +327,11 @@ function DynamicRouteMap({ route, segments, currentSegment, blockedSegment, exit
       <div className="miner-route-summary">
         <span><strong>Sen:</strong> {currentSegment}</span>
         <span><strong>Çıkış:</strong> {exitPoint.segmentId}</span>
-        <span><strong>Kalan:</strong> {currentIndex >= 0 ? Math.max(route.length - currentIndex - 1, 0) : route.length - 1} segment</span>
+        <span><strong>Kalan:</strong> {currentIndex >= 0 ? Math.max(route.length - currentIndex - 1, 0) : 'rota dışı'}{currentIndex >= 0 ? ' segment' : ''}</span>
       </div>
+      {currentOffRoute && (
+        <div className="miner-route-warning">Mevcut konum bu rota üzerinde değil; rota yeniden hesaplanmalı veya güncel time step kontrol edilmeli.</div>
+      )}
     </div>
   )
 }
@@ -281,27 +358,35 @@ export default function MinerDashboard({
   const segment = segments.find((s) => s.segment_id === selectedWorker.current_segment)
   const risk = risks.find((r) => r.segment_id === selectedWorker.current_segment)
   const nearbySensors = gasSensors.filter((s) => s.segment_id === selectedWorker.current_segment)
-  const hasGasAlarm = nearbySensors.some((s) => s.status === 'alarm')
+  const hasGasAlarm = nearbySensors.some(isGasSensorAlarm)
   const blockedSegments = segments.filter((s) => s.is_blocked).map((s) => s.segment_id)
-  const routeBelongsToSelectedWorker = !emergencyRoute?.worker_id || emergencyRoute.worker_id === selectedWorker.worker_id
+  const routeBelongsToSelectedWorker = emergencyRoute?.worker_id
+    ? emergencyRoute.worker_id === selectedWorker.worker_id
+    : Boolean(emergencyRoute?.affected_workers?.includes(selectedWorker.worker_id))
   const activeRoute = routeBelongsToSelectedWorker ? emergencyRoute : null
   const isAffectedWorker = Boolean(activeRoute?.affected_workers?.includes(selectedWorker.worker_id))
   const isTrapped = activeRoute?.trapped === true && isAffectedWorker
   const riskColor = getRiskColor(risk?.risk_level, segment?.is_blocked)
+  const workerStatus = isTrapped ? 'trapped' : selectedWorker.status
+  const workerReliability = Number(selectedWorker.position_reliability)
+  const routeIsEmergency = isEmergencyRoute(activeRoute)
 
   const actionMessage = buildActionMessage({
-    riskLevel: risk?.risk_level,
+    risk,
     isBlocked: segment?.is_blocked,
     emergencyRoute: activeRoute,
-    isAffectedWorker
+    isAffectedWorker,
+    hasGasAlarm,
+    workerStatus
   })
 
   const alarmState = buildAlarmState({
     isBlocked: segment?.is_blocked,
-    riskLevel: risk?.risk_level,
+    risk,
     isAffectedWorker,
     emergencyRoute: activeRoute,
-    hasGasAlarm
+    hasGasAlarm,
+    workerStatus
   })
 
   const emergencyRouteSegments = activeRoute?.route_segments || activeRoute?.route
@@ -339,7 +424,24 @@ export default function MinerDashboard({
         </div>
 
         <div className="miner-card-row">
-          <span className="panel-label">Durum</span>
+          <span className="panel-label">İşçi Durumu</span>
+          <span
+            className="risk-badge"
+            style={{ backgroundColor: getRiskColor(workerStatusRiskLevel(workerStatus)) }}
+          >
+            {workerStatusLabel(workerStatus)}
+          </span>
+        </div>
+
+        <div className="miner-card-row">
+          <span className="panel-label">Konum Güvenilirliği</span>
+          <span className={workerReliability < 0.5 ? 'text-danger' : 'text-ok'}>
+            {Number.isFinite(workerReliability) ? `${Math.round(workerReliability * 100)}%` : 'Bilinmiyor'}
+          </span>
+        </div>
+
+        <div className="miner-card-row">
+          <span className="panel-label">Segment Riski</span>
           <span
             className="risk-badge"
             style={{ backgroundColor: riskColor }}
@@ -347,6 +449,13 @@ export default function MinerDashboard({
             {segment?.is_blocked ? 'Kapalı Bölge' : getRiskLabel(risk?.risk_level)}
           </span>
         </div>
+
+        {risk?.active_reasons?.length > 0 && (
+          <div className="miner-card-row miner-card-row--block">
+            <span className="panel-label">Segment Risk Nedeni</span>
+            <span>{risk.active_reasons.slice(0, 3).join(' · ')}</span>
+          </div>
+        )}
 
         {hasGasAlarm && (
           <p className="panel-warning">Uyarı: Yakınındaki gaz sensöründe metan alarmı var.</p>
@@ -360,7 +469,7 @@ export default function MinerDashboard({
         )}
 
         <div className="miner-card-row miner-card-row--block">
-          <span className="panel-label">Çıkış Rotası</span>
+          <span className="panel-label">{routeIsEmergency ? 'Acil Çıkış Rotası' : 'Standart Çıkış Rotası'}</span>
           {activeRoute ? (
             <span className={activeRoute.trapped ? 'text-danger' : 'text-ok'}>
               {activeRoute.trapped
@@ -388,7 +497,7 @@ export default function MinerDashboard({
               <span>Başlangıç: <strong>{routeStart}</strong></span>
               <span>Mevcut konum: <strong>{selectedWorker.current_segment}</strong></span>
               <span>Çıkış: <strong>{routeExit}</strong></span>
-              <span>Kalan mesafe: <strong>{remainingRouteCount} segment</strong></span>
+              <span>Kalan mesafe: <strong>{currentRouteIndex >= 0 ? `${remainingRouteCount} segment` : 'rota dışında'}</strong></span>
             </div>
             <details className="miner-route-details">
               <summary>Tüm segmentleri göster</summary>

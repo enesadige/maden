@@ -45,7 +45,9 @@ export default function App() {
   const [selectedWorkerId, setSelectedWorkerId] = useState(null)
   const [selectedTimeStep, setSelectedTimeStep] = useState(0)
   const [committedTimeStep, setCommittedTimeStep] = useState(0)
+  const [isTimePlaying, setIsTimePlaying] = useState(false)
   const timeStepDebounceRef = useRef(null)
+  const timeStepPlaybackRef = useRef(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [forceMockMode, setForceMockMode] = useState(false)
@@ -227,6 +229,35 @@ export default function App() {
     return () => { isMounted = false }
   }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
 
+  useEffect(() => {
+    if (!isTimePlaying) {
+      clearInterval(timeStepPlaybackRef.current)
+      timeStepPlaybackRef.current = null
+      return
+    }
+
+    const minStep = baseData?.availableTimeSteps?.min ?? 0
+    const maxStep = baseData?.availableTimeSteps?.max ?? 30
+    if (maxStep <= minStep) {
+      setIsTimePlaying(false)
+      return
+    }
+
+    clearTimeout(timeStepDebounceRef.current)
+    timeStepPlaybackRef.current = setInterval(() => {
+      setSelectedTimeStep((current) => {
+        const next = current >= maxStep ? minStep : current + 1
+        setCommittedTimeStep(next)
+        return next
+      })
+    }, 900)
+
+    return () => {
+      clearInterval(timeStepPlaybackRef.current)
+      timeStepPlaybackRef.current = null
+    }
+  }, [isTimePlaying, baseData?.availableTimeSteps?.min, baseData?.availableTimeSteps?.max])
+
   const derived = useMemo(() => {
     if (!baseData) return null
     if (apiModeActive) {
@@ -251,6 +282,11 @@ export default function App() {
     setSelectedTimeStep(value)
     clearTimeout(timeStepDebounceRef.current)
     timeStepDebounceRef.current = setTimeout(() => setCommittedTimeStep(value), 300)
+  }
+
+  function handleToggleTimePlayback() {
+    clearTimeout(timeStepDebounceRef.current)
+    setIsTimePlaying((playing) => !playing)
   }
 
   function handleScenarioChange(scenarioId) {
@@ -328,6 +364,8 @@ export default function App() {
           activeScenarioLabel={activeScenarioLabel}
           selectedTimeStep={selectedTimeStep}
           onTimeStepChange={handleTimeStepChange}
+          isTimePlaying={isTimePlaying}
+          onToggleTimePlayback={handleToggleTimePlayback}
           availableTimeSteps={baseData?.availableTimeSteps}
           selectedWorkerId={selectedWorkerId}
           onSelectWorker={setSelectedWorkerId}

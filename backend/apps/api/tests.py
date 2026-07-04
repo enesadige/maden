@@ -299,6 +299,17 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["scenario"]["label"], "Methane Spike")
         self.assertTrue(any(sensor.get("status") == "alarm" for sensor in data["gas_sensors"]))
 
+    def test_methane_scenario_targets_same_sensor_segment_and_risk(self):
+        response = self.client.get("/api/simulation/scenario?scenario_id=methane_spike&time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        scenario = response.json()["scenario"]
+        self.assertEqual(scenario["affected_segment"], scenario["gas_sensor"]["segment_id"])
+        self.assertEqual(scenario["affected_segment"], scenario["segment"]["segment_id"])
+        self.assertEqual(scenario["affected_segment"], scenario["risk"]["segment_id"])
+        self.assertEqual(scenario["gas_sensor"]["status"], "alarm")
+        self.assertEqual(scenario["risk"]["risk_level"], "critical")
+
     def test_simulation_scenario_worker_at_risk_accepts_selected_worker(self):
         selected_worker_id = "WORKER_05"
         response = self.client.get(f"/api/simulation/scenario?scenario_id=worker_at_risk&time_step=27&worker_id={selected_worker_id}")
@@ -334,6 +345,15 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertEqual(data["counts"]["workers"], len(expected_workers))
         self.assertEqual(data["counts"]["gas_sensors"], 3)
         self.assertTrue(all(item["time_step"] == 89 for item in data["gas_sensors"]))
+
+    def test_normal_simulation_state_has_no_implicit_blockage(self):
+        response = self.client.get("/api/simulation/state?time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIsNone(data["trapped"]["blocked_segment"])
+        self.assertEqual(data["trapped"]["summary"]["trapped_count"], 0)
+        self.assertTrue(all(not worker["trapped"] for worker in data["trapped"]["workers"]))
 
     def test_simulation_trapped_endpoint_returns_worker_list(self):
         time_step = 27

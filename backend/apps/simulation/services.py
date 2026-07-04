@@ -115,27 +115,27 @@ def _enrich_segments(
     return enriched
 
 
+def _sensor_risk_score(sensor: dict[str, Any]) -> float:
+    return float(sensor.get("risk_score", sensor.get("environmental_risk", sensor.get("methane_risk_score", 0.0))) or 0.0)
+
+
+def _is_gas_alarm(sensor: dict[str, Any]) -> bool:
+    status = str(sensor.get("status") or "").lower()
+    risk_level = str(sensor.get("risk_level") or "").lower()
+    return status in {"alarm", "critical", "high"} or risk_level in {"critical", "high"}
+
+
 def _apply_methane_spike(segments: list[dict[str, Any]], risks: list[dict[str, Any]], gas_sensors: list[dict[str, Any]]) -> dict[str, Any]:
     segments_by_id = {item["segment_id"]: item for item in segments}
     risks_by_id = {item["segment_id"]: item for item in risks}
 
-    target_segment_id = None
-    for sensor in gas_sensors:
-        if str(sensor.get("status") or "").lower() == "alarm":
-            target_segment_id = normalize_segment_id(sensor.get("segment_id"))
-            break
-    if not target_segment_id:
-        target_segment_id = "S004"
+    mutated_sensor = next((sensor for sensor in gas_sensors if _is_gas_alarm(sensor)), None)
+    if not mutated_sensor and gas_sensors:
+        mutated_sensor = max(gas_sensors, key=_sensor_risk_score)
 
+    target_segment_id = normalize_segment_id(mutated_sensor.get("segment_id")) if mutated_sensor else "S004"
     mutated_segment = segments_by_id.get(target_segment_id)
     mutated_risk = risks_by_id.get(target_segment_id)
-    mutated_sensor = next(
-        (sensor for sensor in gas_sensors if normalize_segment_id(sensor.get("segment_id")) == target_segment_id),
-        None,
-    )
-    if not mutated_sensor and gas_sensors:
-        mutated_sensor = gas_sensors[0]
-        target_segment_id = normalize_segment_id(mutated_sensor.get("segment_id")) or target_segment_id
 
     if mutated_segment:
         mutated_segment["status"] = "gas_alert"
@@ -371,8 +371,8 @@ def get_integration_status(time_step: int = 0, scenario_id: str | None = None, w
 
 
 def get_trapped_analysis(time_step: int = 0, blocked_segment: str | None = None) -> dict[str, Any]:
-    collapse = get_collapse_result()
-    scenario_blocked_segment = normalize_segment_id(blocked_segment or collapse.get("blocked_segment"))
+    collapse = get_collapse_result() if blocked_segment else {}
+    scenario_blocked_segment = normalize_segment_id(blocked_segment) if blocked_segment else None
     workers = get_workers_at_time_step(time_step, fallback="none")
 
     worker_records = []

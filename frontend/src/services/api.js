@@ -1,6 +1,6 @@
 import { normalizeApiPayload } from '../utils/idNormalize'
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:8000' : '')
 export const USE_API = API_BASE_URL.length > 0
 
 async function fetchWithTimeout(url, options = {}, timeout = 4000) {

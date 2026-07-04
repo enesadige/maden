@@ -29,6 +29,8 @@ export default function AdminDashboard({
   // Time Step & Worker Selection Props
   selectedTimeStep,
   onTimeStepChange,
+  isTimePlaying,
+  onToggleTimePlayback,
   availableTimeSteps,
   selectedWorkerId,
   onSelectWorker,
@@ -141,6 +143,17 @@ export default function AdminDashboard({
             <span style={{ fontSize: '12px', fontWeight: '600', color: '#a0aec0', whiteSpace: 'nowrap' }}>
               Zaman Adımı: <strong>{selectedTimeStep}</strong>
             </span>
+            <button
+              type="button"
+              className={`scenario-button${isTimePlaying ? ' scenario-button--active' : ''}`}
+              onClick={onToggleTimePlayback}
+              disabled={maxStep <= minStep}
+              title={isTimePlaying ? 'Zaman akışını durdur' : 'Zaman akışını başlat'}
+              aria-label={isTimePlaying ? 'Zaman akışını durdur' : 'Zaman akışını başlat'}
+              style={{ padding: '4px 10px', fontSize: '11px', minWidth: '48px', margin: 0 }}
+            >
+              {isTimePlaying ? '⏸' : '▶'}
+            </button>
             <input
               type="range"
               min={minStep}
@@ -156,8 +169,9 @@ export default function AdminDashboard({
                 onClick={() => onTimeStepChange(Math.max(minStep, selectedTimeStep - 1))}
                 disabled={selectedTimeStep <= minStep}
                 style={{ padding: '4px 10px', fontSize: '11px', minWidth: 'unset', margin: 0 }}
+                title="Bir zaman adımı geri"
               >
-                ◀
+                ‹
               </button>
               <button
                 type="button"
@@ -165,8 +179,9 @@ export default function AdminDashboard({
                 onClick={() => onTimeStepChange(Math.min(maxStep, selectedTimeStep + 1))}
                 disabled={selectedTimeStep >= maxStep}
                 style={{ padding: '4px 10px', fontSize: '11px', minWidth: 'unset', margin: 0 }}
+                title="Bir zaman adımı ileri"
               >
-                ▶
+                ›
               </button>
             </div>
           </div>
