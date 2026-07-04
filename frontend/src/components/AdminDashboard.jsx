@@ -35,7 +35,8 @@ export default function AdminDashboard({
   selectedWorkerId,
   onSelectWorker,
   viewTab,
-  onViewTabChange
+  onViewTabChange,
+  apiModeActive
 }) {
   const activeViewTab = viewTab || 'map'
   const [has3dOpened, setHas3dOpened] = useState(activeViewTab === '3d')
@@ -263,6 +264,7 @@ export default function AdminDashboard({
           segmentCount={segments.length}
           workerCount={workers.length}
           criticalCount={criticalCount}
+          apiModeActive={apiModeActive}
         />
         <p className="demo-note">
           Demo verisi: Gerçek LiDAR ve backend çıktıları geldiğinde bu katman API üzerinden beslenecektir.

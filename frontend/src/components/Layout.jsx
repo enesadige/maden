@@ -1,6 +1,6 @@
 import { isApiMode } from '../services/api'
 
-export default function Layout({ viewMode, onChangeViewMode, activeScenarioLabel, children }) {
+export default function Layout({ viewMode, onChangeViewMode, activeScenarioLabel, apiModeActive = isApiMode(), children }) {
   return (
     <div className="layout">
       <header className="layout-header">
@@ -10,8 +10,8 @@ export default function Layout({ viewMode, onChangeViewMode, activeScenarioLabel
         </div>
 
         <div className="layout-header-meta">
-          <span className={`status-pill ${isApiMode() ? 'status-pill--api' : 'status-pill--mock'}`}>
-            {isApiMode() ? 'API Mode' : 'Mock Mode'}
+          <span className={`status-pill ${apiModeActive ? 'status-pill--api' : 'status-pill--mock'}`}>
+            {apiModeActive ? 'API Mode' : 'Mock Mode'}
           </span>
           <span className="status-item">Senaryo: <strong>{activeScenarioLabel}</strong></span>
 

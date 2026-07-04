@@ -48,8 +48,16 @@ export default function RouteOverlay({
 
   const routeSegments = route_segments || route
 
+  const statusText = String(emergency_status || '').toLowerCase()
   const isTrapped = emergencyRoute?.trapped === true
-  const isNormalRoute = !isTrapped && exit_reachable !== false
+    || exit_reachable === false
+    || statusText.includes('trapped')
+    || statusText.includes('mahsur')
+    || statusText.includes('no_route')
+    || statusText.includes('invalid')
+  const hasRoute = Array.isArray(routeSegments) && routeSegments.length > 1
+  const hasSafeRoute = !isTrapped && exit_reachable === true && alternative_route_available !== false && hasRoute
+  const isStandardRoute = hasSafeRoute && !blocked_segment
 
   return (
     <div className="panel panel--emergency">
@@ -79,17 +87,21 @@ export default function RouteOverlay({
         <div className="route-alert-banner route-alert-banner--danger">
           Alternatif rota yok — işçi mahsur kalabilir.
         </div>
-      ) : isNormalRoute ? (
+      ) : isStandardRoute ? (
         <div className="route-alert-banner route-alert-banner--ok" style={{ background: '#1c2d24', border: '1px solid #2f855a', color: '#48bb78' }}>
           Aktif acil durum yok. Standart rota geçerli.
         </div>
-      ) : (
+      ) : hasSafeRoute ? (
         <div className="route-alert-banner route-alert-banner--ok">
           Güvenli acil çıkış rotası mevcut.
         </div>
+      ) : (
+        <div className="route-alert-banner route-alert-banner--danger">
+          Rota durumu doğrulanamadı.
+        </div>
       )}
 
-      {!isNormalRoute && (
+      {blocked_segment && (
         <div className="panel-row">
           <span className="panel-label">Kapalı Segment</span>
           <span>{blocked_segment || '—'}</span>

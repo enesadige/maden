@@ -114,7 +114,78 @@ export async function getEmergencyRoute(params = {}) {
   if (blockedSegment) args.push(`blocked_segment=${blockedSegment}`)
   
   const query = args.length > 0 ? `?${args.join('&')}` : ''
-  return fetchApiOrMock(`/api/routes/emergency${query}`, 'emergency_route.json', forceMock)
+  if (!USE_API || forceMock) {
+    return getMockEmergencyRoute(params)
+  }
+
+  try {
+    const data = await fetchJson(apiUrl(`/api/routes/emergency${query}`), 4000)
+    return normalizeApiPayload(data)
+  } catch (err) {
+    console.warn('Emergency route API request failed, falling back to scenario-aware mock route.', err)
+    return getMockEmergencyRoute(params)
+  }
+}
+
+async function getMockEmergencyRoute(params = {}) {
+  const { workerId, scenarioId, blockedSegment, timeStep } = params
+  const [segments, workers] = await Promise.all([
+    fetchJson(mockUrl('segments.json'), 2000),
+    fetchJson(mockUrl('workers.json'), 2000)
+  ])
+  const selectedWorker = workers.find((worker) => worker.worker_id === workerId) || workers[0]
+  const startSegment = selectedWorker?.current_segment || segments[0]?.segment_id
+  const collapseScenario = scenarioId === 'collapse' || scenarioId === 'collapse_s004'
+  const activeBlockedSegment = blockedSegment || (collapseScenario ? 'S004' : null)
+  const segmentLookup = new Map(segments.map((segment) => [segment.segment_id, segment]))
+  const exitSegment = segments.find((segment) => segment.is_exit)?.segment_id || 'S001'
+
+  function findRoute() {
+    if (!startSegment || !segmentLookup.has(startSegment)) return []
+    if (activeBlockedSegment && startSegment === activeBlockedSegment) return []
+
+    const queue = [[startSegment, [startSegment]]]
+    const seen = new Set([startSegment])
+    while (queue.length > 0) {
+      const [current, path] = queue.shift()
+      if (current === exitSegment) return path
+      const currentSegment = segmentLookup.get(current)
+      for (const next of currentSegment?.connected_segments || []) {
+        if (seen.has(next)) continue
+        if (activeBlockedSegment && next === activeBlockedSegment) continue
+        if (!segmentLookup.has(next)) continue
+        seen.add(next)
+        queue.push([next, [...path, next]])
+      }
+    }
+    return []
+  }
+
+  const routeSegments = findRoute()
+  const reachable = routeSegments.length > 1
+  const trapped = !reachable
+  return normalizeApiPayload({
+    scenario_id: scenarioId || 'show_route',
+    event_type: collapseScenario ? 'collapse' : 'route_preview',
+    worker_id: selectedWorker?.worker_id || workerId || null,
+    affected_workers: selectedWorker?.worker_id ? [selectedWorker.worker_id] : [],
+    start_segment: startSegment,
+    blocked_segment: activeBlockedSegment,
+    exit_segment: reachable ? routeSegments[routeSegments.length - 1] : exitSegment,
+    reachable,
+    exit_reachable: reachable,
+    trapped,
+    route: routeSegments,
+    route_segments: routeSegments,
+    alternative_route_available: reachable,
+    route_edge_valid: reachable,
+    invalid_route_edges: [],
+    emergency_status: reachable ? 'ROUTE_AVAILABLE' : 'NO_ROUTE_TO_EXIT',
+    message: reachable
+      ? 'Mock route uses connected segment graph to reach the exit.'
+      : 'Mock route could not find a connected exit path after blockage constraints.',
+    time_step: timeStep ?? 0
+  })
 }
 
 export async function getWorkerAnomalies(params = {}) {

@@ -4,10 +4,14 @@
   "blocked_segment": "S004",
   "affected_workers": ["W001"],
   "exit_segment": "S001",
+  "reachable": false,
+  "trapped": true,
   "exit_reachable": false,
-  "route": ["S004", "S003", "S002", "S001"],
-  "route_segments": ["S004", "S003", "S002", "S001"],
+  "route": [],
+  "route_segments": [],
+  "route_edge_valid": false,
+  "invalid_route_edges": [],
   "alternative_route_available": false,
-  "emergency_status": "KRİTİK_İŞÇİ_MAHSUR",
+  "emergency_status": "NO_ROUTE_TO_EXIT",
   "message": "İşçi W001 kapalı segmentin içinde veya ötesinde. Mock grafikte alternatif rota bulunmuyor."
 }

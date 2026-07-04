@@ -105,6 +105,7 @@ export default function App() {
           } catch (apiErr) {
             console.warn("Backend API request failed. Switching to local Mock Mode for this session.", apiErr)
             useMock = true
+            if (!forceMockMode) setForceMockMode(true)
           }
         }
 
@@ -374,6 +375,7 @@ export default function App() {
       viewMode={viewMode}
       onChangeViewMode={setViewMode}
       activeScenarioLabel={activeScenarioLabel}
+      apiModeActive={apiModeActive}
     >
       {viewMode === 'admin' ? (
         <AdminDashboard
@@ -401,6 +403,7 @@ export default function App() {
           onSelectWorker={setSelectedWorkerId}
           viewTab={adminViewTab}
           onViewTabChange={setAdminViewTab}
+          apiModeActive={apiModeActive}
         />
       ) : (
         <MinerDashboard
