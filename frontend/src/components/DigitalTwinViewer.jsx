@@ -576,19 +576,19 @@ function DemoOverlayLayer({ segments, risks, workers, gasSensors, emergencyRoute
   return (
     <group>
       {connLines.map(line => (
-        <Line key={line.key} points={[line.from, line.to]} color={LIDAR_SEGMENT_EDGE_COLOR} lineWidth={0.85} />
+        <Line key={line.key} points={[line.from, line.to]} color="#1a2030" lineWidth={0.6} />
       ))}
 
       {segments.map(seg => {
         const risk = riskBySegment[seg.segment_id]
         const isSelected = selectedSegmentId === seg.segment_id
         const isRouteSegment = routeIds.includes(seg.segment_id)
-        const color = isSelected ? LIDAR_SEGMENT_NODE_SELECTED : LIDAR_SEGMENT_NODE_COLOR
+        const color = getRiskColor(risk?.risk_level, seg.is_blocked)
         return (
           <group key={seg.segment_id} position={seg.center}>
             <mesh onClick={e => { e.stopPropagation(); onSelect(seg.segment_id) }}>
               <sphereGeometry args={[isSelected ? 0.42 : isRouteSegment ? 0.28 : 0.18, 16, 16]} />
-              <meshBasicMaterial color={color} transparent opacity={isSelected || isRouteSegment || seg.is_blocked ? 0.98 : 0.82} />
+              <meshBasicMaterial color={color} transparent opacity={isSelected || isRouteSegment || seg.is_blocked ? 0.95 : 0.7} />
             </mesh>
             {seg.is_blocked && <><BlockedMark /><DebrisField /></>}
             {isSelected && (
