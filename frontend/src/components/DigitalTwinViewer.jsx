@@ -22,6 +22,13 @@ const AXIS_KEYS = ['x', 'y', 'z']
 const LIDAR_SEGMENT_NODE_COLOR = '#2f80ff'
 const LIDAR_SEGMENT_NODE_SELECTED = '#75b7ff'
 const LIDAR_SEGMENT_EDGE_COLOR = '#1b5ec9'
+const DEFAULT_OVERLAY_ALIGNMENT = {
+  scaleX: 1.16,
+  scaleZ: 1.16,
+  offsetX: 0,
+  offsetY: -0.75,
+  offsetZ: 7.5
+}
 const WORKER_OVERLAY_OFFSETS = [
   [-1.8, 0, 2.2],
   [0, 0, 2.5],
@@ -58,7 +65,7 @@ function largestAxes(size, count = 2) {
   return [0, 1, 2].sort((a, b) => size[b] - size[a]).slice(0, count)
 }
 
-function createPlyOverlayTransform(segments, plyBounds) {
+function createPlyOverlayTransform(segments, plyBounds, alignment = DEFAULT_OVERLAY_ALIGNMENT) {
   if (!plyBounds?.min || !plyBounds?.max || !segments?.length) return null
   const centers = segments.map(segment => segment.center).filter(Boolean)
   if (!centers.length) return null
@@ -74,19 +81,31 @@ function createPlyOverlayTransform(segments, plyBounds) {
   const targetPaddingZ = targetSize[2] * 0.06
   const targetY = targetMax[1] + Math.max(targetSize[1] * 0.035, 0.45)
   const verticalRange = Math.max(targetSize[1] * 0.08, 0.8)
+  const overlayScaleX = alignment.scaleX ?? DEFAULT_OVERLAY_ALIGNMENT.scaleX
+  const overlayScaleZ = alignment.scaleZ ?? DEFAULT_OVERLAY_ALIGNMENT.scaleZ
+  const overlayXOffset = alignment.offsetX ?? DEFAULT_OVERLAY_ALIGNMENT.offsetX
+  const overlayYOffset = alignment.offsetY ?? DEFAULT_OVERLAY_ALIGNMENT.offsetY
+  const overlayZOffset = alignment.offsetZ ?? DEFAULT_OVERLAY_ALIGNMENT.offsetZ
 
   function mapAxis(value, sourceAxis, targetAxis, padding = 0) {
     const normalized = (value - source.min[sourceAxis]) / source.size[sourceAxis]
     return targetMin[targetAxis] + padding + normalized * Math.max(targetSize[targetAxis] - padding * 2, 0.0001)
   }
 
+  function mapAxisFlipped(value, sourceAxis, targetAxis, padding = 0) {
+    const normalized = 1 - ((value - source.min[sourceAxis]) / source.size[sourceAxis])
+    return targetMin[targetAxis] + padding + normalized * Math.max(targetSize[targetAxis] - padding * 2, 0.0001)
+  }
+
   return (point, extraY = 0) => {
     const arr = pointToArray(point)
     const verticalOffset = ((arr[sourceVerticalAxis] - source.center[sourceVerticalAxis]) / source.size[sourceVerticalAxis]) * verticalRange
+    const x = mapAxis(arr[sourceAxisA], sourceAxisA, 0, targetPaddingX)
+    const z = mapAxisFlipped(arr[sourceAxisB], sourceAxisB, 2, targetPaddingZ)
     return [
-      mapAxis(arr[sourceAxisA], sourceAxisA, 0, targetPaddingX),
-      targetY + verticalOffset + extraY,
-      mapAxis(arr[sourceAxisB], sourceAxisB, 2, targetPaddingZ)
+      plyBounds.center.x + (x - plyBounds.center.x) * overlayScaleX + overlayXOffset,
+      targetY + verticalOffset + extraY + overlayYOffset,
+      plyBounds.center.z + (z - plyBounds.center.z) * overlayScaleZ + overlayZOffset
     ]
   }
 }
@@ -696,6 +715,7 @@ export default function DigitalTwinViewer({
   const [plyBounds, setPlyBounds] = useState(null)
   const [cameraAction, setCameraAction] = useState(null)
   const [overlayMode, setOverlayMode] = useState('demo')
+  const [overlayAlignment, setOverlayAlignment] = useState(DEFAULT_OVERLAY_ALIGNMENT)
   const [plyFailReason, setPlyFailReason] = useState('')
 
   useEffect(() => {
@@ -730,8 +750,8 @@ export default function DigitalTwinViewer({
   const showFullOverlays = !isRealPlyLoaded
   const showDemoOverlay = isRealPlyLoaded && overlayMode === 'demo'
   const plyOverlayTransform = useMemo(
-    () => createPlyOverlayTransform(segments, plyBounds),
-    [segments, plyBounds]
+    () => createPlyOverlayTransform(segments, plyBounds, overlayAlignment),
+    [segments, plyBounds, overlayAlignment]
   )
   const plyOverlaySegments = useMemo(
     () => transformSegmentsForPly(segments, plyOverlayTransform),
@@ -755,6 +775,29 @@ export default function DigitalTwinViewer({
     statusText = `Gerçek LiDAR point cloud yüklendi: ${file}`
   } else if (plyStatus === 'not_found') {
     statusText = `LiDAR modeli yüklenemedi — ${plyFailReason || 'PLY dosyası bulunamadı'}.`
+  }
+
+  function nudgeOverlay(patch) {
+    setOverlayAlignment((current) => ({
+      ...current,
+      ...patch
+    }))
+  }
+
+  function moveOverlay(deltaX, deltaZ) {
+    setOverlayAlignment((current) => ({
+      ...current,
+      offsetX: Number((current.offsetX + deltaX).toFixed(2)),
+      offsetZ: Number((current.offsetZ + deltaZ).toFixed(2))
+    }))
+  }
+
+  function scaleOverlay(delta) {
+    setOverlayAlignment((current) => ({
+      ...current,
+      scaleX: Number(Math.max(0.7, Math.min(1.5, current.scaleX + delta)).toFixed(2)),
+      scaleZ: Number(Math.max(0.7, Math.min(1.5, current.scaleZ + delta)).toFixed(2))
+    }))
   }
 
   return (
@@ -799,6 +842,26 @@ export default function DigitalTwinViewer({
             >
               Demo
             </button>
+          </div>
+        )}
+
+        {showDemoOverlay && (
+          <div className="overlay-align-panel">
+            <span className="overlay-toggle-label">Overlay Hizala:</span>
+            <div className="overlay-align-row">
+              <button onClick={() => scaleOverlay(-0.03)} title="Mavi ağı küçült">Ölçek −</button>
+              <button onClick={() => scaleOverlay(0.03)} title="Mavi ağı büyüt">Ölçek +</button>
+              <button onClick={() => setOverlayAlignment(DEFAULT_OVERLAY_ALIGNMENT)} title="Varsayılan hizalamaya dön">Reset</button>
+            </div>
+            <div className="overlay-align-row">
+              <button onClick={() => moveOverlay(0, -1)} title="Yukarı kaydır">↑</button>
+              <button onClick={() => moveOverlay(-1, 0)} title="Sola kaydır">←</button>
+              <button onClick={() => moveOverlay(1, 0)} title="Sağa kaydır">→</button>
+              <button onClick={() => moveOverlay(0, 1)} title="Aşağı kaydır">↓</button>
+            </div>
+            <div className="overlay-align-readout">
+              S {overlayAlignment.scaleX.toFixed(2)} · X {overlayAlignment.offsetX.toFixed(1)} · Z {overlayAlignment.offsetZ.toFixed(1)}
+            </div>
           </div>
         )}
       </div>
