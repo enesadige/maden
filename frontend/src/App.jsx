@@ -43,6 +43,7 @@ export default function App() {
   const [viewMode, setViewMode] = useState('admin')
   const [adminViewTab, setAdminViewTab] = useState('map')
   const [selectedWorkerId, setSelectedWorkerId] = useState(null)
+  const [scenarioTargetWorkerId, setScenarioTargetWorkerId] = useState(null)
   const [selectedTimeStep, setSelectedTimeStep] = useState(0)
   const [committedTimeStep, setCommittedTimeStep] = useState(0)
   const [isTimePlaying, setIsTimePlaying] = useState(false)
@@ -71,11 +72,14 @@ export default function App() {
         let anomalySummary = null
         let useMock = !apiModeActive
         const requestTimeStep = committedTimeStep
+        const scenarioWorkerId = selectedScenario === 'worker_at_risk'
+          ? (scenarioTargetWorkerId || selectedWorkerId)
+          : selectedWorkerId
 
         if (apiModeActive) {
           try {
             const [statePayload, list, env, geo, anomalies, anomalySummaryPayload] = await Promise.all([
-              getSimulationScenario({ scenarioId: selectedScenario, timeStep: requestTimeStep, workerId: selectedWorkerId }),
+              getSimulationScenario({ scenarioId: selectedScenario, timeStep: requestTimeStep, workerId: scenarioWorkerId }),
               getScenarios(),
               getEnvironmentalRisk({ timeStep: requestTimeStep }),
               getGeometryRisk(),
@@ -139,6 +143,7 @@ export default function App() {
           workers: scenarioState.workers || [],
           gasSensors: scenarioState.gas_sensors || scenarioState.gasSensors || [],
           trapped: scenarioState.trapped || { summary: { trapped_count: 0, safe_count: 0 }, workers: [] },
+          scenario: scenarioState.scenario || null,
           availableTimeSteps: scenarioState.available_time_steps || { min: 0, max: 30 }
         }
         setBaseData(mappedData)
@@ -161,7 +166,7 @@ export default function App() {
 
     loadState()
     return () => { isMounted = false }
-  }, [selectedScenario, committedTimeStep, selectedWorkerId, apiModeActive])
+  }, [selectedScenario, committedTimeStep, selectedWorkerId, scenarioTargetWorkerId, apiModeActive])
 
   // 3. Keep a worker-specific exit route for the miner view even when admin map route overlay is hidden.
   useEffect(() => {
@@ -292,6 +297,11 @@ export default function App() {
   function handleScenarioChange(scenarioId) {
     setSelectedScenario(scenarioId)
     setEmergencyRouteData(null)
+    if (scenarioId === 'worker_at_risk') {
+      setScenarioTargetWorkerId(selectedWorkerId || baseData?.workers?.[0]?.worker_id || null)
+    } else {
+      setScenarioTargetWorkerId(null)
+    }
     const cfg = SCENARIO_CONFIG[scenarioId]
     if (cfg?.timeStep !== undefined) {
       const ts = cfg.timeStep
@@ -381,6 +391,9 @@ export default function App() {
           risks={derived.risks}
           gasSensors={derived.gasSensors}
           emergencyRoute={minerRouteData || derived.emergencyRoute}
+          selectedScenario={selectedScenario}
+          activeScenarioLabel={activeScenarioLabel}
+          scenario={baseData?.scenario}
         />
       )}
     </Layout>

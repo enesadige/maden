@@ -171,8 +171,6 @@ export async function getSimulationState(params = {}) {
   return fetchApiOrMock(`/api/simulation/state${query}`, 'segments.json', forceMock)
 }
 
-const _simCache = new Map()
-
 export async function getSimulationScenario(params = {}) {
   const { scenarioId, timeStep, workerId, forceMock } = params
   const args = []
@@ -180,11 +178,7 @@ export async function getSimulationScenario(params = {}) {
   if (timeStep !== undefined) args.push(`time_step=${encodeURIComponent(timeStep)}`)
   if (workerId) args.push(`worker_id=${encodeURIComponent(workerId)}`)
   const query = args.length > 0 ? `?${args.join('&')}` : ''
-  const cacheKey = `${scenarioId}_${timeStep}_${workerId || 'none'}`
-  if (!forceMock && _simCache.has(cacheKey)) return _simCache.get(cacheKey)
-  const result = await fetchApiOrMock(`/api/simulation/scenario${query}`, 'segments.json', forceMock)
-  if (!forceMock) _simCache.set(cacheKey, result)
-  return result
+  return fetchApiOrMock(`/api/simulation/scenario${query}`, 'segments.json', forceMock)
 }
 
 export async function getTrappedState(params = {}) {

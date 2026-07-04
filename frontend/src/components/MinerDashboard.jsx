@@ -343,7 +343,10 @@ export default function MinerDashboard({
   segments,
   risks,
   gasSensors,
-  emergencyRoute
+  emergencyRoute,
+  selectedScenario,
+  activeScenarioLabel,
+  scenario
 }) {
   const selectedWorker = workers.find((w) => w.worker_id === selectedWorkerId) || workers[0]
 
@@ -396,6 +399,10 @@ export default function MinerDashboard({
   const remainingRouteCount = currentRouteIndex >= 0 && emergencyRouteSegments
     ? Math.max(emergencyRouteSegments.length - currentRouteIndex - 1, 0)
     : emergencyRouteSegments?.length ? emergencyRouteSegments.length - 1 : 0
+  const globalScenarioActive = selectedScenario && selectedScenario !== 'normal'
+  const localHazard = alarmState.level !== 'safe'
+  const affectedSegment = scenario?.affected_segment || scenario?.blocked_segment || scenario?.segment_id
+  const scenarioTargetWorker = scenario?.worker_id
 
   return (
     <div className="miner-view">
@@ -416,6 +423,14 @@ export default function MinerDashboard({
         <div className="miner-alarm-title">{alarmState.title}</div>
         <div className="miner-alarm-subtitle">{alarmState.subtitle}</div>
       </div>
+
+      {globalScenarioActive && !localHazard && (
+        <div className="miner-scenario-note">
+          <strong>{activeScenarioLabel}</strong> senaryosu aktif; seçili madenci şu anda doğrudan etkilenen segmentte değil.
+          {affectedSegment && <span> Etkilenen segment: <strong>{affectedSegment}</strong>.</span>}
+          {scenarioTargetWorker && <span> Senaryo hedef işçisi: <strong>{formatWorkerName(scenarioTargetWorker)}</strong>.</span>}
+        </div>
+      )}
 
       <div className="miner-card">
         <div className="miner-card-row">
