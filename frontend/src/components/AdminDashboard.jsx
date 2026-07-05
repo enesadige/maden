@@ -266,9 +266,6 @@ export default function AdminDashboard({
           criticalCount={criticalCount}
           apiModeActive={apiModeActive}
         />
-        <p className="demo-note">
-          Demo verisi: Gerçek LiDAR ve backend çıktıları geldiğinde bu katman API üzerinden beslenecektir.
-        </p>
       </footer>
     </>
   )

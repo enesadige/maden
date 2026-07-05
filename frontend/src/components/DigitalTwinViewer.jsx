@@ -784,13 +784,6 @@ export default function DigitalTwinViewer({
         {statusText}
       </div>
 
-      {/* Demo overlay warning strip */}
-      {isRealPlyLoaded && overlayMode === 'demo' && (
-        <div className="overlay-demo-warning">
-          Demo overlay: segment, işçi, sensör ve rota LiDAR üstüne yaklaşık hizalanmıştır.
-        </div>
-      )}
-
       {/* Controls: camera buttons + overlay toggle */}
       <div className="viewer-controls-panel">
         <div className="viewer-camera-buttons">
@@ -819,16 +812,6 @@ export default function DigitalTwinViewer({
         )}
 
       </div>
-
-      {/* Bottom info: PLY/Map relation or off-mode note */}
-      {isRealPlyLoaded && (
-        <div className="ply-info-note">
-          {overlayMode === 'off'
-            ? '3B overlay kapalı — risk/worker/gaz detayları için Harita Görünümü\'nü kullanın.'
-            : 'PLY üstünde segment ağı, işçi, gaz sensörü, göçük ve acil rota katmanları yaklaşık hizalama ile gösteriliyor.'
-          }
-        </div>
-      )}
 
       {/* Three.js Canvas */}
       <Canvas camera={{ fov: 45, position: [0, 120, 200], near: 0.1, far: 2000 }}>
