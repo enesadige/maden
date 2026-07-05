@@ -1,0 +1,840 @@
+{
+  "model_name": "robust_mad_gas_anomaly_v1",
+  "model_version": "2026-07-05",
+  "record_count": 270,
+  "feature_count": 19,
+  "features": {
+    "methane_value": {
+      "path": "methane_value",
+      "median": 0.2,
+      "mad": 0.050741,
+      "min": 0.0,
+      "max": 0.4,
+      "higher_is_risky": true
+    },
+    "methane_risk_score": {
+      "path": "methane_risk_score",
+      "median": 17.887,
+      "mad": 15.0,
+      "min": 0.0,
+      "max": 100.0,
+      "higher_is_risky": true
+    },
+    "anomaly_score": {
+      "path": "anomaly_score",
+      "median": 0.072169,
+      "mad": 0.072169,
+      "min": 0.0,
+      "max": 1.0,
+      "higher_is_risky": true
+    },
+    "environmental_risk": {
+      "path": "environmental_risk",
+      "median": 17.887,
+      "mad": 15.0,
+      "min": 0.0,
+      "max": 100.0,
+      "higher_is_risky": true
+    },
+    "weighted_multi_sensor_risk": {
+      "path": "weighted_multi_sensor_risk",
+      "median": 9.9065,
+      "mad": 9.3785,
+      "min": 0.0,
+      "max": 87.351,
+      "higher_is_risky": true
+    },
+    "methane_ppm": {
+      "path": "measurements.methane_ppm",
+      "median": 1115.2055,
+      "mad": 739.789,
+      "min": 210.282,
+      "max": 5581.764,
+      "higher_is_risky": true
+    },
+    "co_ppm": {
+      "path": "measurements.co_ppm",
+      "median": 15.5745,
+      "mad": 9.08,
+      "min": 1.518,
+      "max": 79.522,
+      "higher_is_risky": true
+    },
+    "oxygen_percent": {
+      "path": "measurements.oxygen_percent",
+      "median": 20.3285,
+      "mad": 0.4925,
+      "min": 17.286,
+      "max": 20.98,
+      "higher_is_risky": false
+    },
+    "temperature_c": {
+      "path": "measurements.temperature_c",
+      "median": 25.377,
+      "mad": 1.6345,
+      "min": 22.727,
+      "max": 37.025,
+      "higher_is_risky": true
+    },
+    "humidity_percent": {
+      "path": "measurements.humidity_percent",
+      "median": 60.3185,
+      "mad": 5.1655,
+      "min": 51.522,
+      "max": 80.846,
+      "higher_is_risky": true
+    },
+    "pressure_hpa": {
+      "path": "measurements.pressure_hpa",
+      "median": 1011.2395,
+      "mad": 1.5775,
+      "min": 1006.04,
+      "max": 1014.198,
+      "higher_is_risky": null
+    },
+    "component_methane_risk": {
+      "path": "component_scores.methane_risk",
+      "median": 17.887,
+      "mad": 15.0,
+      "min": 0.0,
+      "max": 100.0,
+      "higher_is_risky": true
+    },
+    "component_co_risk": {
+      "path": "component_scores.co_risk",
+      "median": 7.9635,
+      "mad": 7.9635,
+      "min": 0.0,
+      "max": 99.317,
+      "higher_is_risky": true
+    },
+    "component_oxygen_risk": {
+      "path": "component_scores.oxygen_risk",
+      "median": 6.86,
+      "mad": 6.86,
+      "min": 0.0,
+      "max": 100.0,
+      "higher_is_risky": true
+    },
+    "component_temperature_risk": {
+      "path": "component_scores.temperature_risk",
+      "median": 0.0,
+      "mad": 6.682,
+      "min": 0.0,
+      "max": 64.464,
+      "higher_is_risky": true
+    },
+    "component_humidity_risk": {
+      "path": "component_scores.humidity_risk",
+      "median": 0.0,
+      "mad": 0.291593,
+      "min": 0.0,
+      "max": 29.23,
+      "higher_is_risky": true
+    },
+    "component_pressure_risk": {
+      "path": "component_scores.pressure_risk",
+      "median": 0.0,
+      "mad": 1.715378,
+      "min": 0.0,
+      "max": 18.5,
+      "higher_is_risky": true
+    },
+    "sensor_reliability_score": {
+      "path": "sensor_reliability_score",
+      "median": 1.0,
+      "mad": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "higher_is_risky": false
+    },
+    "confidence": {
+      "path": "confidence",
+      "median": 1.0,
+      "mad": 0.002963,
+      "min": 0.9,
+      "max": 1.0,
+      "higher_is_risky": false
+    }
+  },
+  "level_counts": {
+    "critical": 25,
+    "high": 38,
+    "low": 164,
+    "medium": 43
+  },
+  "top_anomaly_records": [
+    {
+      "sensor_id": "GAS_SENSOR_01",
+      "segment_id": "S006",
+      "time_step": 3,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "rolling anomaly_score normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "weighted_multi_sensor_risk normal baseline üstünde",
+        "co_ppm normal baseline üstünde",
+        "rolling anomaly_score çok yüksek",
+        "CO sinyali normal üstü risk gösteriyor"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 72.32,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 6.436,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 62.756,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 4.641,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "weighted_multi_sensor_risk",
+          "value": 51.392,
+          "median": 9.9065,
+          "mad": 9.3785,
+          "robust_z_score": 2.984,
+          "reason": "weighted_multi_sensor_risk normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 55.0,
+      "environmental_risk": 55.0,
+      "weighted_multi_sensor_risk": 51.392,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_03",
+      "segment_id": "S035",
+      "time_step": 4,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "rolling anomaly_score normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "rolling anomaly_score çok yüksek",
+        "sensor confidence düşük veya doğrulama gerektiriyor"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 52.32,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 4.47,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 47.353,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 3.336,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "temperature_c",
+          "value": 30.946,
+          "median": 25.377,
+          "mad": 1.6345,
+          "robust_z_score": 2.298,
+          "reason": "temperature_c normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 40.0,
+      "environmental_risk": 40.0,
+      "weighted_multi_sensor_risk": 38.039,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_02",
+      "segment_id": "S034",
+      "time_step": 29,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "rolling anomaly_score normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "rolling anomaly_score çok yüksek",
+        "sensor confidence düşük veya doğrulama gerektiriyor"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 48.52,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 4.096,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 53.459,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 3.853,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "co_ppm",
+          "value": 47.421,
+          "median": 15.5745,
+          "mad": 9.08,
+          "robust_z_score": 2.366,
+          "reason": "co_ppm normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 40.0,
+      "environmental_risk": 40.0,
+      "weighted_multi_sensor_risk": 38.473,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_01",
+      "segment_id": "S006",
+      "time_step": 33,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "rolling anomaly_score normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "co_ppm normal baseline üstünde",
+        "weighted_multi_sensor_risk normal baseline üstünde",
+        "rolling anomaly_score çok yüksek",
+        "CO sinyali normal üstü risk gösteriyor"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 68.04,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 6.015,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 66.27,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 4.938,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "co_ppm",
+          "value": 56.389,
+          "median": 15.5745,
+          "mad": 9.08,
+          "robust_z_score": 3.032,
+          "reason": "co_ppm normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 55.0,
+      "environmental_risk": 55.0,
+      "weighted_multi_sensor_risk": 52.002,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_03",
+      "segment_id": "S035",
+      "time_step": 46,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "component oxygen_risk normal baseline üstünde",
+        "rolling anomaly_score normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "component pressure_risk normal baseline üstünde",
+        "component temperature_risk normal baseline üstünde",
+        "methane_risk_score yüksek seviyede",
+        "environmental_risk yüksek seviyede"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 98.4,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 9.001,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 85.591,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 6.575,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_pressure_risk",
+          "value": 15.962,
+          "median": 0.0,
+          "mad": 1.715378,
+          "robust_z_score": 6.276,
+          "reason": "component pressure_risk normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 78.71,
+      "environmental_risk": 78.71,
+      "weighted_multi_sensor_risk": 73.73,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_01",
+      "segment_id": "S006",
+      "time_step": 72,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "confidence normal baseline altında",
+        "rolling anomaly_score normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "weighted_multi_sensor_risk normal baseline üstünde",
+        "co_ppm normal baseline üstünde",
+        "rolling anomaly_score çok yüksek",
+        "CO sinyali normal üstü risk gösteriyor"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 73.08,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 6.511,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 61.371,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 4.524,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "weighted_multi_sensor_risk",
+          "value": 51.284,
+          "median": 9.9065,
+          "mad": 9.3785,
+          "robust_z_score": 2.976,
+          "reason": "weighted_multi_sensor_risk normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 55.0,
+      "environmental_risk": 55.0,
+      "weighted_multi_sensor_risk": 51.284,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_02",
+      "segment_id": "S034",
+      "time_step": 86,
+      "gas_ai_anomaly_score": 100.0,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "component humidity_risk normal baseline üstünde",
+        "confidence normal baseline altında",
+        "component oxygen_risk normal baseline üstünde",
+        "rolling anomaly_score normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "component pressure_risk normal baseline üstünde",
+        "methane_risk_score kritik seviyede",
+        "environmental_risk kritik seviyede"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 100.0,
+      "top_anomaly_features": [
+        {
+          "feature": "component_humidity_risk",
+          "value": 15.19,
+          "median": 0.0,
+          "mad": 0.291593,
+          "robust_z_score": 35.137,
+          "reason": "component humidity_risk normal baseline üstünde"
+        },
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 100.0,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 9.158,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 1.0,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.672,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 99.317,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 7.738,
+          "reason": "component co_risk normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 100.0,
+      "environmental_risk": 100.0,
+      "weighted_multi_sensor_risk": 87.32,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_03",
+      "segment_id": "S035",
+      "time_step": 72,
+      "gas_ai_anomaly_score": 99.543,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "component humidity_risk normal baseline üstünde",
+        "confidence normal baseline altında",
+        "component oxygen_risk normal baseline üstünde",
+        "rolling anomaly_score normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "component pressure_risk normal baseline üstünde",
+        "methane_risk_score kritik seviyede",
+        "environmental_risk kritik seviyede"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 98.694,
+      "top_anomaly_features": [
+        {
+          "feature": "component_humidity_risk",
+          "value": 29.23,
+          "median": 0.0,
+          "mad": 0.291593,
+          "robust_z_score": 67.614,
+          "reason": "component humidity_risk normal baseline üstünde"
+        },
+        {
+          "feature": "confidence",
+          "value": 0.9,
+          "median": 1.0,
+          "mad": 0.002963,
+          "robust_z_score": 22.764,
+          "reason": "confidence normal baseline altında"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 100.0,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 9.158,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 0.967349,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 8.366,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 95.203,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 7.389,
+          "reason": "component co_risk normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 98.694,
+      "environmental_risk": 98.694,
+      "weighted_multi_sensor_risk": 87.351,
+      "confidence": 0.9
+    },
+    {
+      "sensor_id": "GAS_SENSOR_02",
+      "segment_id": "S034",
+      "time_step": 39,
+      "gas_ai_anomaly_score": 93.493,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "component humidity_risk normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "weighted_multi_sensor_risk normal baseline üstünde",
+        "rolling anomaly_score normal baseline üstünde",
+        "component temperature_risk normal baseline üstünde",
+        "methane_risk_score kritik seviyede",
+        "environmental_risk kritik seviyede"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 81.409,
+      "top_anomaly_features": [
+        {
+          "feature": "component_humidity_risk",
+          "value": 11.03,
+          "median": 0.0,
+          "mad": 0.291593,
+          "robust_z_score": 25.514,
+          "reason": "component humidity_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 96.76,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 8.839,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 69.084,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 5.177,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "weighted_multi_sensor_risk",
+          "value": 70.533,
+          "median": 9.9065,
+          "mad": 9.3785,
+          "robust_z_score": 4.36,
+          "reason": "weighted_multi_sensor_risk normal baseline üstünde"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 0.535218,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 4.328,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 81.409,
+      "environmental_risk": 81.409,
+      "weighted_multi_sensor_risk": 70.533,
+      "confidence": 1.0
+    },
+    {
+      "sensor_id": "GAS_SENSOR_02",
+      "segment_id": "S034",
+      "time_step": 40,
+      "gas_ai_anomaly_score": 93.493,
+      "gas_ai_anomaly_level": "critical",
+      "gas_ai_reasons": [
+        "component humidity_risk normal baseline üstünde",
+        "component oxygen_risk normal baseline üstünde",
+        "component co_risk normal baseline üstünde",
+        "weighted_multi_sensor_risk normal baseline üstünde",
+        "rolling anomaly_score normal baseline üstünde",
+        "component temperature_risk normal baseline üstünde",
+        "methane_risk_score kritik seviyede",
+        "environmental_risk kritik seviyede"
+      ],
+      "model_name": "robust_mad_gas_anomaly_v1",
+      "model_version": "2026-07-05",
+      "robust_anomaly_score": 100.0,
+      "risk_context_score": 81.409,
+      "top_anomaly_features": [
+        {
+          "feature": "component_humidity_risk",
+          "value": 10.49,
+          "median": 0.0,
+          "mad": 0.291593,
+          "robust_z_score": 24.265,
+          "reason": "component humidity_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_oxygen_risk",
+          "value": 95.76,
+          "median": 6.86,
+          "mad": 6.86,
+          "robust_z_score": 8.741,
+          "reason": "component oxygen_risk normal baseline üstünde"
+        },
+        {
+          "feature": "component_co_risk",
+          "value": 69.43,
+          "median": 7.9635,
+          "mad": 7.9635,
+          "robust_z_score": 5.206,
+          "reason": "component co_risk normal baseline üstünde"
+        },
+        {
+          "feature": "weighted_multi_sensor_risk",
+          "value": 70.631,
+          "median": 9.9065,
+          "mad": 9.3785,
+          "robust_z_score": 4.367,
+          "reason": "weighted_multi_sensor_risk normal baseline üstünde"
+        },
+        {
+          "feature": "anomaly_score",
+          "value": 0.535218,
+          "median": 0.072169,
+          "mad": 0.072169,
+          "robust_z_score": 4.328,
+          "reason": "rolling anomaly_score normal baseline üstünde"
+        }
+      ],
+      "methane_risk_score": 81.409,
+      "environmental_risk": 81.409,
+      "weighted_multi_sensor_risk": 70.631,
+      "confidence": 1.0
+    }
+  ],
+  "validation": {
+    "ok": true,
+    "error_count": 0,
+    "errors": [],
+    "record_count": 270
+  }
+}
