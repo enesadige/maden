@@ -257,6 +257,8 @@ def get_segment_risks(
             "risk_breakdown": breakdown,
             "geometry_risk": geometry_risk,
             "lidar_geometry_risk": geometry_risk,
+            "geometry_metrics": geo.get("metrics", {}),
+            "geometry_components": geo.get("components", {}),
             "environmental_risk": environmental_risk,
             "methane_risk_score": environmental_risk,
             "weighted_multi_sensor_risk": env.get("weighted_multi_sensor_risk"),

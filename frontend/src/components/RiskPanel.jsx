@@ -65,6 +65,11 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
   const weightedMultiSensorRisk = risk.weighted_multi_sensor_risk || gasSensor?.weighted_multi_sensor_risk || envRisk?.weighted_multi_sensor_risk
   const aiInsights = risk.ai_insights || breakdown.ai_insights
   const aiReasons = Array.isArray(aiInsights?.reasons) ? aiInsights.reasons : []
+  const aiSubModels = [
+    ['Geometri', aiInsights?.geometry_model],
+    ['Worker', aiInsights?.worker_behavior_model],
+    ['Çevre', aiInsights?.environmental_signal]
+  ].filter(([, model]) => model)
 
   return (
     <div className="panel">
@@ -112,6 +117,16 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
             <strong>{formatNumber(aiInsights.ai_anomaly_score)}</strong>
             <span>{aiInsights.ai_anomaly_level}</span>
           </div>
+          {aiSubModels.length > 0 && (
+            <div className="risk-ai-model-grid">
+              {aiSubModels.map(([label, model]) => (
+                <span key={label}>
+                  {label}
+                  <strong>{formatNumber(model.score)}</strong>
+                </span>
+              ))}
+            </div>
+          )}
           <p>{aiReasons.slice(0, 2).join(' · ')}</p>
         </div>
       )}

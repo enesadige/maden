@@ -593,6 +593,29 @@
   line-height: 1.35;
 }
 
+.risk-ai-model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.risk-ai-model-grid span {
+  display: grid;
+  gap: 2px;
+  border: 1px solid rgba(117, 183, 255, 0.16);
+  background: rgba(5, 12, 22, 0.32);
+  border-radius: 6px;
+  padding: 6px 7px;
+  color: #8ea3c0;
+  font-size: 0.69rem;
+  text-transform: none;
+}
+
+.risk-ai-model-grid strong {
+  font-size: 0.82rem;
+  color: #d9ecff;
+}
+
 .risk-metric-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -236,10 +236,15 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertIn("ai_anomaly_score", sample)
         self.assertIn("ai_anomaly_level", sample)
         self.assertIn("ai_insights", sample)
-        self.assertEqual(sample["ai_insights"]["model_type"], "robust_unsupervised_segment_anomaly")
-        self.assertEqual(sample["ai_insights"]["method"], "median_mad_robust_zscore")
+        self.assertEqual(sample["ai_insights"]["model_type"], "explainable_hybrid_ai_anomaly_fusion")
         self.assertFalse(sample["ai_insights"]["black_box"])
+        self.assertIn("geometry_model", sample["ai_insights"])
+        self.assertIn("worker_behavior_model", sample["ai_insights"])
+        self.assertIn("environmental_signal", sample["ai_insights"])
+        self.assertIn("distribution_model", sample["ai_insights"])
         self.assertIn("ai_insights", sample["risk_breakdown"])
+        self.assertIn("geometry_ai", sample["risk_breakdown"])
+        self.assertIn("worker_behavior_ai", sample["risk_breakdown"])
 
     def test_gas_sensors_endpoint_returns_recep_records(self):
         response = self.client.get("/api/gas-sensors?time_step=0")
