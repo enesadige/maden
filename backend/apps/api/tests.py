@@ -226,6 +226,21 @@ class ApiSmokeTests(SimpleTestCase):
         self.assertIn(first_event["event_type"], segment["behavior_anomaly_event_types"])
         self.assertIn("behavior_anomaly", segment["risk_breakdown"])
 
+    def test_risk_endpoint_includes_ai_ml_anomaly_insights(self):
+        response = self.client.get("/api/risk/segments?time_step=27")
+
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(len(data), 143)
+        sample = data[0]
+        self.assertIn("ai_anomaly_score", sample)
+        self.assertIn("ai_anomaly_level", sample)
+        self.assertIn("ai_insights", sample)
+        self.assertEqual(sample["ai_insights"]["model_type"], "robust_unsupervised_segment_anomaly")
+        self.assertEqual(sample["ai_insights"]["method"], "median_mad_robust_zscore")
+        self.assertFalse(sample["ai_insights"]["black_box"])
+        self.assertIn("ai_insights", sample["risk_breakdown"])
+
     def test_gas_sensors_endpoint_returns_recep_records(self):
         response = self.client.get("/api/gas-sensors?time_step=0")
 

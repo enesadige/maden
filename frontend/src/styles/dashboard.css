@@ -558,6 +558,41 @@
   line-height: 1.45;
 }
 
+.risk-ai-card {
+  margin-top: 10px;
+  border: 1px solid rgba(117, 183, 255, 0.22);
+  background: rgba(47, 128, 255, 0.07);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 5px;
+}
+
+.risk-ai-card > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.risk-ai-card strong {
+  color: #d9ecff;
+  font-size: 1.05rem;
+}
+
+.risk-ai-card span:last-child {
+  color: #75b7ff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.risk-ai-card p {
+  margin: 0;
+  color: #aab7cc;
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
 .risk-metric-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

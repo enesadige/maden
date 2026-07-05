@@ -7,6 +7,7 @@ from apps.common.json_store import filter_time_step, load_json
 from apps.lidar.services import get_geometry_risks, get_segments
 from apps.sensors.services import get_environmental_risks
 from apps.workers.services import get_worker_anomalies, get_workers
+from apps.risk.ml_insights import annotate_segment_ai_insights
 
 
 RISK_WEIGHTS = {
@@ -284,7 +285,7 @@ def get_segment_risks(
             "fusion_policy": "0.40*geometry + 0.35*environment + 0.20*worker + 0.05*tracking",
         }
         risks.append(risk)
-    return risks
+    return annotate_segment_ai_insights(risks)
 
 
 def risk_by_segment(time_step: int | None = 0) -> dict[str, dict[str, Any]]:

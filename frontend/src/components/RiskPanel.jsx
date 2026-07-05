@@ -63,6 +63,8 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
   const activeReasons = Array.isArray(risk.active_reasons) ? risk.active_reasons : []
   const recommendedAction = risk.recommended_action || fallbackRecommendedAction(riskLevel, segment?.is_blocked)
   const weightedMultiSensorRisk = risk.weighted_multi_sensor_risk || gasSensor?.weighted_multi_sensor_risk || envRisk?.weighted_multi_sensor_risk
+  const aiInsights = risk.ai_insights || breakdown.ai_insights
+  const aiReasons = Array.isArray(aiInsights?.reasons) ? aiInsights.reasons : []
 
   return (
     <div className="panel">
@@ -102,6 +104,17 @@ export default function RiskPanel({ segments, risks, workers, gasSensors, enviro
         <span className="panel-label">Önerilen aksiyon</span>
         <strong>{recommendedAction}</strong>
       </div>
+
+      {aiInsights && (
+        <div className="risk-ai-card">
+          <div>
+            <span className="panel-label">AI/ML anomalilik</span>
+            <strong>{formatNumber(aiInsights.ai_anomaly_score)}</strong>
+            <span>{aiInsights.ai_anomaly_level}</span>
+          </div>
+          <p>{aiReasons.slice(0, 2).join(' · ')}</p>
+        </div>
+      )}
 
       <div className="risk-metric-grid">
         <div className="risk-metric">
