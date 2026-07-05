@@ -52,7 +52,7 @@ GEOMETRY_MODEL_FEATURES = {
 }
 
 GEOMETRY_FEATURE_LABELS = {
-    "geometry_risk": "Haki geometri riski yüksek",
+    "geometry_risk": "geometri risk skoru yüksek",
     "narrow_passage_risk": "dar geçit riski yüksek",
     "exit_distance_risk": "çıkışa uzaklık riski yüksek",
     "single_connection_risk": "tek bağlantılı segment riski",
